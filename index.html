@@ -1,143 +1,177 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سريع | SAREE3 - صيانة الولي الفاخرة</title>
+    <title>تطبيق سريع | صيانة الأجهزة الكهربائية</title>
     <style>
         :root {
             --gold: #ffcc00;
-            --gold-dark: #b8860b;
             --green: #28a745;
-            --dark-bg: #0f0f0f;
-            --card-bg: #1a1a1a;
+            --dark: #0a0a0a;
+            --card: #161616;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--dark-bg);
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--dark);
             color: white;
-            margin: 0; padding: 10px;
+            margin: 0; padding: 0;
             display: flex; justify-content: center;
         }
-        .container {
-            max-width: 480px; width: 100%;
-            background: var(--card-bg); border-radius: 30px;
-            padding: 25px; border: 1px solid #333;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            position: relative; overflow: hidden;
+        /* الهيدر مع صورة المهندس */
+        .hero {
+            width: 100%; height: 220px;
+            background: linear-gradient(rgba(0,0,0,0.5), var(--dark)), 
+                        url('https://images.unsplash.com/photo-1621905252507-b3522240758c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; border-bottom: 2px solid var(--gold);
         }
-        .container::before {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
-            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
-        }
-        .logo-area { margin-bottom: 20px; text-align: center; }
-        .logo-text { font-size: 32px; font-weight: 900; color: var(--gold); letter-spacing: 2px; margin: 0; }
-        .sub-text { font-size: 14px; color: #aaa; margin-top: 5px; }
+        .hero h1 { font-size: 35px; color: var(--gold); margin: 0; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
+        .hero p { font-size: 16px; color: #eee; margin-top: 5px; }
 
-        label { display: block; text-align: right; margin: 15px 5px 8px; color: var(--gold); font-size: 14px; font-weight: bold; }
+        .app-container {
+            max-width: 450px; width: 95%; margin-top: -40px;
+            background: var(--card); border-radius: 30px;
+            padding: 25px; box-shadow: 0 20px 50px rgba(0,0,0,1);
+            border: 1px solid #333; box-sizing: border-box;
+        }
+
+        label { display: block; text-align: right; margin: 20px 5px 10px; color: var(--gold); font-weight: bold; font-size: 14px; }
         
         select, textarea {
             width: 100%; padding: 15px; border-radius: 15px; border: 1px solid #333;
-            background: #252525; color: white; font-size: 16px; outline: none; transition: 0.3s;
+            background: #222; color: white; font-size: 16px; outline: none; transition: 0.3s;
+            appearance: none; cursor: pointer;
         }
-        select:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(255, 204, 0, 0.1); }
+        select:focus { border-color: var(--gold); }
 
-        .payment-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 10px; }
-        .pay-card {
-            background: #252525; border: 2px solid transparent; border-radius: 18px;
-            padding: 12px; cursor: pointer; transition: 0.4s; text-align: center; font-size: 14px;
+        /* خيارات الدفع */
+        .payment-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .pay-item {
+            background: #222; border: 2px solid transparent; border-radius: 20px;
+            padding: 15px 5px; cursor: pointer; transition: 0.3s; text-align: center;
         }
-        .pay-card.active { border-color: var(--gold); background: #333; box-shadow: 0 5px 15px rgba(255, 204, 0, 0.2); }
-        .pay-card span { font-size: 22px; display: block; margin-bottom: 5px; }
+        .pay-item.active { border-color: var(--gold); background: #333; transform: scale(1.05); }
+        .pay-item i { font-size: 24px; display: block; margin-bottom: 5px; }
 
-        .btn-send {
-            width: 100%; padding: 18px; background: linear-gradient(135deg, #28a745, #1e7e34);
-            color: white; border: none; border-radius: 15px; font-size: 18px; font-weight: bold;
-            margin-top: 25px; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+        /* نافذة بنكك الخاصة */
+        #bank-info {
+            display: none; background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+            border: 1px solid var(--gold); border-radius: 15px; padding: 15px;
+            margin-top: 15px; text-align: center; animation: slideIn 0.5s;
+        }
+        .acc-number { font-size: 22px; font-weight: bold; color: var(--gold); display: block; margin: 5px 0; }
+
+        .btn-order {
+            width: 100%; padding: 20px; background: var(--green); color: white;
+            border: none; border-radius: 20px; font-size: 20px; font-weight: 900;
+            margin-top: 30px; cursor: pointer; box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
         }
 
-        /* نافذة الشكر */
-        #thanks-msg {
-            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: #1a1a1a; border: 2px solid var(--gold); padding: 30px;
-            border-radius: 20px; z-index: 1000; text-align: center; width: 85%;
-            box-shadow: 0 0 100px rgba(0,0,0,0.9);
+        #thanks-screen {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 999; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
         }
 
-        .footer { margin-top: 30px; font-size: 11px; color: #555; text-align: center; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="logo-area">
-        <h1 class="logo-text">سريع | SAREE3</h1>
-        <div class="sub-text">بإدارة نظام BRAZILI الإحترافي 💎</div>
+<div style="width: 100%;">
+    <div class="hero">
+        <h1>سريع | SAREE3</h1>
+        <p>لصيانة جميع الأجهزة الكهربائية</p>
     </div>
 
-    <label>📍 الحي السكني (الولي):</label>
-    <select id="loc">
-        <option>حي المسجد العتيق</option>
-        <option>حي الرحمه</option>
-        <option>حي فريق قدام</option>
-        <option>حي نادي الشعله</option>
-        <option>حي نادي اتحاد الولي</option>
-    </select>
+    <center>
+    <div class="app-container">
+        <label>📍 موقع العطل (أحياء الولي):</label>
+        <select id="location">
+            <option value="" disabled selected>-- اختر الحي السكني --</option>
+            <option>حي المسجد العتيق</option>
+            <option>حي الرحمه</option>
+            <option>حي فريق قدام</option>
+            <option>حي نادي الشعله</option>
+            <option>حي نادي اتحاد الولي</option>
+        </select>
 
-    <label>🛠️ نوع الجهاز:</label>
-    <select id="device">
-        <option>مكيف (سبليت/شباك)</option>
-        <option>ثلاجة / ديب فريزر</option>
-        <option>غسالة (أوتوماتيك/عادية)</option>
-        <option>شاشة / ريسيفر</option>
-        <option>أخرى</option>
-    </select>
+        <label>🛠️ نوع الجهاز:</label>
+        <select id="device">
+            <option value="" disabled selected>-- اختر نوع الجهاز --</option>
+            <option>مكيف سبليت / شباك</option>
+            <option>ثلاجة / مبرد</option>
+            <option>غسالة ملابس</option>
+            <option>شاشة / تلفاز</option>
+            <option>مراوح / أدوات مطبخ</option>
+        </select>
 
-    <label>📝 وصف المشكلة:</label>
-    <textarea id="desc" rows="2" placeholder="اشرح لنا العطل باختصار لخدمتك بشكل أفضل..."></textarea>
+        <label>💬 تفاصيل إضافية:</label>
+        <textarea id="note" rows="2" placeholder="مثلاً: صوت عالٍ في الموتور..."></textarea>
 
-    <label>💰 طريقة الدفع المفضلة:</label>
-    <div class="payment-grid">
-        <div class="pay-card active" onclick="selectPay(this, 'نقداً')"><span>💵</span>نقداً</div>
-        <div class="pay-card" onclick="selectPay(this, 'بنكك')"><span>🏦</span>بنكك</div>
-        <div class="pay-card" onclick="selectPay(this, 'أوكاش')"><span>📱</span>أوكاش</div>
+        <label>💳 اختر وسيلة الدفع:</label>
+        <div class="payment-options">
+            <div class="pay-item active" onclick="setPay(this, 'نقداً')">💵<br>نقداً</div>
+            <div class="pay-item" id="bank-btn" onclick="setPay(this, 'بنكك')">🏦<br>بنكك</div>
+            <div class="pay-item" onclick="setPay(this, 'أوكاش')">📱<br>أوكاش</div>
+        </div>
+
+        <div id="bank-info">
+            <span style="font-size: 12px; color: #aaa;">رقم الحساب البنكي (بنك الخرطوم):</span>
+            <span class="acc-number">4063324</span>
+            <small style="color: var(--green);">تأكد من إرسال الإشعار عبر الواتساب</small>
+        </div>
+
+        <button class="btn-order" onclick="processOrder()">اطلب الآن ✅</button>
+
+        <div style="margin-top: 30px; font-size: 10px; color: #444;">
+            نظام BRAZILI التقني لإدارة الخدمات © 2026
+        </div>
     </div>
-
-    <button class="btn-send" onclick="sendOrder()">إرسال الطلب الآن ✅</button>
-
-    <div class="footer">
-        جميع الحقوق محفوظة لنظام BRAZILI © 2026<br>
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=https://meda28810-cpu.github.io/saree3/&color=ffcc00&bgcolor=1a1a1a" style="margin-top:15px; border-radius: 10px;">
-    </div>
+    </center>
 </div>
 
-<div id="thanks-msg">
-    <h2 style="color:var(--gold)">تم استلام طلبك! 😊</h2>
-    <p>شكراً لثقتك في "سريع". سيتم تحويلك الآن إلى الواتساب لتأكيد الموعد مع الفني.</p>
-    <p style="font-size: 12px; color: #aaa;">نحن فخورون بخدمة أهالي الولي.</p>
+<div id="thanks-screen">
+    <h1 style="color: var(--gold);">شكراً لثقتكم! 😊</h1>
+    <p style="padding: 20px;">تم تجهيز طلبك بعناية.. سيتم تحويلك الآن لتأكيد الموعد عبر الواتساب.</p>
+    <div style="width: 50px; height: 50px; border: 5px solid var(--gold); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
 </div>
+
+<style> @keyframes spin { to { transform: rotate(360deg); } } </style>
 
 <script>
-    let selectedPayment = "نقداً";
-    function selectPay(element, method) {
-        document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('active'));
-        element.classList.add('active');
-        selectedPayment = method;
+    let payMethod = "نقداً";
+
+    function setPay(el, method) {
+        document.querySelectorAll('.pay-item').forEach(item => item.classList.remove('active'));
+        el.classList.add('active');
+        payMethod = method;
+        
+        // إظهار حساب البنك فقط عند اختيار بنكك
+        document.getElementById('bank-info').style.display = (method === 'بنكك') ? 'block' : 'none';
     }
 
-    function sendOrder() {
-        const loc = document.getElementById('loc').value;
+    function processOrder() {
+        const loc = document.getElementById('location').value;
         const dev = document.getElementById('device').value;
-        const desc = document.getElementById('desc').value;
-        const phone = "249112002802"; // رقمك تم تعديله هنا ✅
+        const note = document.getElementById('note').value;
+        const phone = "249112002802";
 
-        const message = `*طلب صيانة جديد (سريع - الولي)*%0A📍 الحي: ${loc}%0A🛠️ الجهاز: ${dev}%0A📝 العطل: ${desc}%0A💰 الدفع: ${selectedPayment}%0A------------------%0A_شكراً لاختياركم نظام BRAZILI_`;
-        
-        document.getElementById('thanks-msg').style.display = 'block';
+        if(!loc || !dev) {
+            alert("يرجى اختيار الحي ونوع الجهاز أولاً");
+            return;
+        }
+
+        document.getElementById('thanks-screen').style.display = 'flex';
+
+        const msg = `*طلب صيانة (سريع - الولي)*%0A----------------%0A📍 الحي: ${loc}%0A🛠️ الجهاز: ${dev}%0A📝 ملاحظات: ${note}%0A💰 الدفع: ${payMethod}%0A----------------%0A_بإدارة نظام BRAZILI_`;
 
         setTimeout(() => {
-            window.location.href = `https://wa.me/${phone}?text=${message}`;
-        }, 2500);
+            window.location.href = `https://wa.me/${phone}?text=${msg}`;
+        }, 3000);
     }
 </script>
 
