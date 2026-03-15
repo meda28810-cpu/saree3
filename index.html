@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سريع - الولي والحلاوين | تطوير BRAZILI</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #d21034; 
+            --secondary: #007229; 
+            --dark: #121212;
+            --gold: #ffcc00;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.98);
+            --bankak-red: #d21034;
+            --okash-zayni: #005a2e;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0; padding: 0;
+            background-color: #f0f2f5;
+            color: var(--dark);
+        }
+
+        header {
+            background: var(--dark);
+            padding: 15px 8%;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 4px solid var(--secondary);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(0,0,0,0.85), rgba(0,114,41,0.5)), 
+                        url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80');
+            background-size: cover; height: 280px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: var(--white); text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .main-card {
+            max-width: 600px; margin: -60px auto 40px;
+            background: var(--glass); padding: 35px;
+            border-radius: 30px; box-shadow: 0 20px 45px rgba(0,0,0,0.2);
+            border: 1px solid #ddd;
+        }
+
+        .form-label { display: block; margin-bottom: 10px; font-weight: 700; color: #444; }
+        
+        .form-input {
+            width: 100%; padding: 16px; margin-bottom: 25px;
+            border: 2px solid #e0e0e0; border-radius: 15px;
+            font-size: 18px; font-family: 'Cairo'; box-sizing: border-box;
+            outline: none; transition: 0.3s;
+        }
+
+        .form-input:focus { border-color: var(--secondary); }
+
+        .phone-container {
+            display: flex; direction: ltr; gap: 8px; margin-bottom: 25px;
+        }
+        .country-prefix {
+            background: #eee; padding: 16px; border-radius: 15px;
+            font-weight: bold; border: 2px solid #e0e0e0;
+            display: flex; align-items: center; gap: 8px; color: #333;
+        }
+
+        .payment-option-wrapper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 30px; }
+        .payment-radio { display: none; }
+        .payment-label {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 15px; border: 3px solid #e0e0e0; border-radius: 18px;
+            cursor: pointer; transition: 0.3s; background: white;
+        }
+        .payment-logo { width: 50px; height: 50px; margin-bottom: 10px; border-radius: 10px; display: flex; justify-content: center; align-items: center; }
+        .bankak-bg { background-color: var(--bankak-red); }
+        .okash-bg { background-color: var(--okash-zayni); }
+
+        .payment-radio:checked + .payment-label {
+            border-color: var(--secondary); background: #e8f5e9; transform: scale(1.05);
+        }
+
+        .btn-primary { 
+            background: var(--primary); color: white; border: none;
+            padding: 18px; border-radius: 50px; width: 100%;
+            font-weight: 900; font-size: 18px; cursor: pointer;
+            transition: 0.3s; box-shadow: 0 4px 15px rgba(210, 16, 52, 0.3);
+        }
+
+        footer { background: var(--dark); color: white; text-align: center; padding: 40px; margin-top: 50px; }
+        .brazili-signature { color: var(--gold); font-weight: 900; letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div style="color: var(--gold); font-weight: 900; font-size: 22px;">سريع | SAREE3</div>
+        <div style="color: white; font-size: 12px;"><i class="fas fa-check-circle"></i> نظام BRAZILI</div>
+    </header>
+
+    <section class="hero">
+        <h2 style="margin-bottom: 10px;">خدمة صيانة الولي والحلاوين</h2>
+        <p style="margin-top: 0;">سرعة . جودة . أمان</p>
+    </section>
+
+    <div class="main-card">
+        <form id="saree3Form">
+            <label class="form-label">المنطقة / الحي السكني:</label>
+            <select class="form-input" id="district" required>
+                <option value="">-- حدد المنطقة --</option>
+                <optgroup label="قرية الولي">
+                    <option>الولي - حي أنصار السنة</option>
+                    <option>الولي - حي الرحمة</option>
+                    <option>الولي - حي النادي الكبير</option>
+                    <option>الولي - حي المسجد العتيق</option>
+                    <option>الولي - حي نادي الشعلة</option>
+                </optgroup>
+                <optgroup label="منطقة الحلاوين والقرى المجاورة">
+                    <option>قرية القوز</option>
+                    <option>قرية أم حمد</option>
+                    <option>قرية بحر العلوم</option>
+                    <option>قرية شكيرة</option>
+                </optgroup>
+            </select>
+
+            <label class="form-label">الجهاز المعطل:</label>
+            <select class="form-input" id="device" required>
+                <option value="">-- اختر الجهاز --</option>
+                <option>مكيف</option>
+                <option>ثلاجة</option>
+                <option>غسالة</option>
+                <option>شاشة</option>
+                <option>مبرد مياه</option>
+                <option>موتور مياه</option>
+            </select>
+
+            <label class="form-label">طريقة الدفع المتوفرة:</label>
+            <div class="payment-option-wrapper">
+                <input type="radio" name="payment" id="pay_cash" value="كاش" class="payment-radio" required>
+                <label for="pay_cash" class="payment-label">
+                    <div class="payment-logo"><i class="fas fa-money-bill-wave" style="color: #27ae60; font-size: 30px;"></i></div>
+                    <span style="font-size: 12px; font-weight: bold;">نقداً</span>
+                </label>
+                
+                <input type="radio" name="payment" id="pay_bankak" value="تطبيق بنكك" class="payment-radio">
+                <label for="pay_bankak" class="payment-label">
+                    <div class="payment-logo bankak-bg">
+                        <span style="color:white; font-size:10px; font-weight:900;">Bankak</span>
+                    </div>
+                    <span style="font-size: 12px; font-weight: bold;">بنكك</span>
+                </label>
+                
+                <input type="radio" name="payment" id="pay_okash" value="تطبيق أوكاش" class="payment-radio">
+                <label for="pay_okash" class="payment-label">
+                    <div class="payment-logo okash-bg">
+                        <span style="color:white; font-size:10px; font-weight:900;">O-Cash</span>
+                    </div>
+                    <span style="font-size: 12px; font-weight: bold;">أوكاش</span>
+                </label>
+            </div>
+
+            <label class="form-label">رقم هاتف العميل للتواصل:</label>
+            <div class="phone-container">
+                <input type="tel" id="phone" class="form-input" value="01" maxlength="10" required style="margin-bottom:0">
+                <div class="country-prefix">
+                    <span>+249</span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary" id="submitBtn">إرسال الطلب عبر واتساب</button>
+        </form>
+    </div>
+
+    <footer>
+        <div class="brazili-signature">DEVELOPED BY BRAZILI</div>
+        <p>قرى الحلاوين &copy; 2026</p>
+    </footer>
+
+    <script>
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function() {
+            if (!this.value.startsWith('01')) {
+                this.value = '01';
+            }
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        document.getElementById('saree3Form').onsubmit = function(e) {
+            e.preventDefault();
+            
+            const district = document.getElementById('district').value;
+            const device = document.getElementById('device').value;
+            const payment = document.querySelector('input[name="payment"]:checked').value;
+            const phone = document.getElementById('phone').value;
+            
+            const recipientNumber = "249112002802"; 
+
+            const message = `*طلب صيانة جديد (منصة سريع)*%0A%0A` +
+                            `📍 *المنطقة:* ${district}%0A` +
+                            `🛠️ *الجهاز:* ${device}%0A` +
+                            `💳 *طريقة الدفع:* ${payment}%0A` +
+                            `📞 *رقم العميل:* ${phone}%0A%0A` +
+                            `_تم الإرسال بواسطة نظام BRAZILI_`;
+
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "جاري التحويل...";
+            
+            setTimeout(() => {
+                window.open(`https://wa.me/${recipientNumber}?text=${message}`, '_blank');
+                btn.innerText = "إرسال الطلب عبر واتساب";
+            }, 500);
+        }
+    </script>
+</body>
+</html>
