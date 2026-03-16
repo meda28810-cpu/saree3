@@ -1,16 +1,37 @@
-{
-  "name": "SAREE3 | BRAZILI QQ",
-  "short_name": "SAREE3",
-  "description": "نظام الولي للخدمات الذكية",
-  "start_url": "index.html",
-  "display": "standalone",
-  "background_color": "#0d1117",
-  "theme_color": "#ffcc00",
-  "icons": [
-    {
-      "src": "https://cdn-icons-png.flaticon.com/512/3259/3259364.png",
-      "sizes": "512x512",
-      "type": "image/png"
+function register() {
+    const name = document.getElementById('reg-name').value;
+    const phone = document.getElementById('reg-phone').value;
+    const pass = document.getElementById('reg-pass').value;
+
+    if(!name || !phone || !pass) return alert("يرجى ملء جميع البيانات أولاً!");
+
+    // 1. توجيه العميل لطلب كود منك عبر الواتساب أولاً
+    const askForCode = confirm("أهلاً بك! لضمان الأمان، يجب الحصول على كود تفعيل من الإدارة.\n\nهل تريد مراسلة BRAZILI QQ الآن للحصول على كودك؟");
+    
+    if(askForCode) {
+        // فتح الواتساب برسالة جاهزة
+        window.open(`https://wa.me/249112002802?text=أريد كود تفعيل لتطبيق سريع%0Aالاسم: ${name}%0Aالرقم: ${phone}`, '_blank');
+        
+        // بعد العودة، نطلب منه إدخال الكود الذي أعطيته له أنت
+        setTimeout(() => {
+            const userCode = prompt("أدخل كود التفعيل الذي استلمته من الإدارة:");
+            
+            if (!userCode) return;
+
+            // --- الشرط السري الخاص بك ---
+            // لكي يقبل التطبيق الكود، يجب أن ينتهي بـ "11" (كلمة السر الخاصة بك)
+            // مثال: إذا أرسلت له 4455، يجب أن يدخل 445511
+            if(userCode.endsWith("11") && userCode.length >= 4) {
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                if(users.find(u => u.phone === phone)) return alert("هذا الرقم مسجل مسبقاً!");
+
+                users.push({ name, phone, pass });
+                localStorage.setItem('users', JSON.stringify(users));
+                alert("تم التحقق بنجاح ✅ أهلاً بك في عائلة سريع.");
+                show('login-page');
+            } else {
+                alert("عذراً! كود التفعيل الذي أدخلته غير صحيح أو غير مفعل من الإدارة.");
+            }
+        }, 1000);
     }
-  ]
 }
