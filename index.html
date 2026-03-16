@@ -3,86 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سريع | SAREE3 - صيانة الولي والحلاوين</title>
+    <title>تطبيق سريع | صيانة الولي</title>
     <style>
-        :root {
-            --primary: #d4a017; 
-            --secondary: #2d5a27; 
-            --bg: #121212;
-            --input-bg: #1e1e1e;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: white;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 450px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 25px;
-            border-radius: 24px;
-            border: 1px solid var(--primary);
-            backdrop-filter: blur(15px);
-            text-align: center;
-        }
-        h1 { color: var(--primary); margin-bottom: 5px; }
-        .subtitle { color: #888; font-size: 0.9em; margin-bottom: 25px; }
+        :root { --gold: #ffcc00; --green: #28a745; --dark: #0a0a0a; --card: #161616; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--dark); color: white; margin: 0; padding: 0; }
         
-        label { display: block; text-align: right; margin-bottom: 8px; color: var(--primary); font-size: 14px; }
-        
-        select, textarea {
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid #333;
-            background: var(--input-bg);
-            color: white;
-            font-size: 16px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
+        .hero {
+            width: 100%; height: 250px;
+            background: linear-gradient(rgba(0,0,0,0.6), var(--dark)), 
+                        url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
         }
 
-        button {
-            width: 100%;
-            padding: 16px;
-            background: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 18px;
-            transition: 0.3s;
+        .app-container {
+            max-width: 450px; margin: -50px auto 30px; width: 90%;
+            background: var(--card); border-radius: 25px; padding: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 1px solid #333;
         }
-        button:hover { background: #3e7d37; }
-        .footer { margin-top: 25px; font-size: 11px; color: #555; }
+
+        label { display: block; text-align: right; margin: 15px 5px 8px; color: var(--gold); font-weight: bold; font-size: 14px; }
+        select, textarea {
+            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #333;
+            background: #222; color: white; font-size: 16px; outline: none; transition: 0.3s;
+        }
+        select:focus { border-color: var(--gold); }
+
+        .payment-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .pay-card {
+            background: #222; border: 2px solid transparent; border-radius: 15px;
+            padding: 12px; cursor: pointer; text-align: center; transition: 0.3s;
+        }
+        .pay-card.active { border-color: var(--gold); background: #333; transform: scale(1.05); }
+
+        /* صندوق بنكك */
+        #bank-card {
+            display: none; background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+            border: 1px solid var(--gold); border-radius: 15px; padding: 15px;
+            margin-top: 15px; text-align: center; animation: fadeIn 0.5s;
+        }
+        .acc-num { font-size: 24px; font-weight: bold; color: var(--gold); letter-spacing: 2px; }
+
+        .btn-main {
+            width: 100%; padding: 18px; background: var(--green); color: white;
+            border: none; border-radius: 15px; font-size: 18px; font-weight: bold;
+            margin-top: 25px; cursor: pointer; transition: 0.3s;
+        }
+        .btn-location {
+            width: 100%; padding: 10px; background: #444; color: white;
+            border: none; border-radius: 10px; margin-top: 10px; font-size: 13px; cursor: pointer;
+        }
+
+        #thanks-popup {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 1000; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>سريع | SAREE3</h1>
-    <p class="subtitle">خدمات الصيانة المنزلية - الولي والحلاوين</p>
+<div class="hero">
+    <h1 style="color: var(--gold); font-size: 38px; margin: 0;">سريع | SAREE3</h1>
+    <p>صيانة جميع الأجهزة الكهربائية بالولي</p>
+</div>
 
-    <label>📍 المنطقة:</label>
-    <select id="location">
-        <option>الولي</option>
-        <option>الحلاوين</option>
-        <option>القوز</option>
-        <option>أم حمد</option>
-        <option>بحر العلوم</option>
-        <option>شكيرة</option>
+<div class="app-container">
+    <label>📍 الحي السكني:</label>
+    <select id="loc">
+        <option value="" disabled selected>-- اختر الحي --</option>
+        <option>حي المسجد العتيق</option>
+        <option>حي الرحمه</option>
+        <option>حي فريق قدام</option>
+        <option>حي نادي الشعله</option>
+        <option>حي نادي اتحاد الولي</option>
     </select>
 
     <label>🛠️ نوع الجهاز:</label>
     <select id="device">
+        <option value="" disabled selected>-- اختر الجهاز --</option>
         <option>مكيف</option>
         <option>ثلاجة</option>
         <option>غسالة</option>
@@ -90,75 +90,69 @@
         <option>أخرى</option>
     </select>
 
-    <label>💳 طريقة الدفع:</label>
-    <select id="payment">
-        <option value="تطبيق بنكك">تطبيق بنكك (Bankak)</option>
-        <option value="كاش">كاش</option>
-        <option value="أوكاش">أوكاش</option>
-    </select>
+    <label>📝 وصف المشكلة:</label>
+    <textarea id="desc" rows="2" placeholder="ما هي المشكلة التي تواجهها؟"></textarea>
 
-    <button onclick="sendOrder()">إرسال الطلب عبر واتساب ✅</button>
-    
-    <div class="footer">تطوير بواسطة BRAZILI © 2026</div>
+    <label>💳 طريقة الدفع:</label>
+    <div class="payment-grid">
+        <div class="pay-card active" onclick="setPayment(this, 'نقداً')">💵<br>نقداً</div>
+        <div class="pay-card" onclick="setPayment(this, 'بنكك')">🏦<br>بنكك</div>
+        <div class="pay-card" onclick="setPayment(this, 'أوكاش')">📱<br>أوكاش</div>
+    </div>
+
+    <div id="bank-card">
+        <span style="font-size: 12px; color: #aaa;">حساب بنك الخرطوم:</span><br>
+        <span class="acc-num" id="accNum">4063324</span><br>
+        <button onclick="copyAcc()" style="background:var(--gold); border:none; padding:5px 10px; border-radius:5px; font-size:11px; cursor:pointer;">نسخ الرقم</button>
+    </div>
+
+    <button class="btn-location" onclick="window.open('https://www.google.com/maps', '_blank')">📍 تحديد موقعي على الخريطة</button>
+
+    <button class="btn-main" onclick="sendOrder()">إرسال الطلب عبر واتساب ✅</button>
+
+    <div style="text-align: center; margin-top: 20px; font-size: 11px; color: #555;">
+        تطوير نظام BRAZILI الإحترافي © 2026
+    </div>
+</div>
+
+<div id="thanks-popup">
+    <h1 style="color: var(--gold);">شكراً لثقتكم! 😊</h1>
+    <p style="padding: 20px;">تم استلام طلبك.. سيتم تحويلك الآن للواتساب لتأكيد الموعد.</p>
 </div>
 
 <script>
-    function sendOrder() {
-        const loc = document.getElementById('location').value;
-        const dev = document.getElementById('device').value;
-        const pay = document.getElementById('payment').value;
-        const phone = "249123456789"; // ضع رقم استقبال الطلبات هنا
+    let currentPayment = "نقداً";
 
-        let bankInfo = "";
-        if (pay === "تطبيق بنكك") {
-            bankInfo = `%0A🏦 *بيانات الحساب البنكي:*%0A- الاسم: أحمد الفكي عوض الكريم%0A- رقم الحساب: 4063324%0A`;
-        }
-
-        const message = `*طلب صيانة جديد (منصة سريع)*%0A` +
-                        `--------------------%0A` +
-                        `📍 *المنطقة:* ${loc}%0A` +
-                        `🛠️ *الجهاز:* ${dev}%0A` +
-                        `💰 *الدفع:* ${pay}${bankInfo}%0A` +
-                        `--------------------%0A` +
-                        `_تم الإرسال عبر نظام BRAZILI_`;
-        
-        window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
-    }
-</script>
-
-</body>
-</html>
-
-
-    function setPay(el, method) {
-        document.querySelectorAll('.pay-item').forEach(item => item.classList.remove('active'));
+    function setPayment(el, method) {
+        document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('active'));
         el.classList.add('active');
-        payMethod = method;
-        
-        // إظهار حساب البنك فقط عند اختيار بنكك
-        document.getElementById('bank-info').style.display = (method === 'بنكك') ? 'block' : 'none';
+        currentPayment = method;
+        document.getElementById('bank-card').style.display = (method === 'بنكك') ? 'block' : 'none';
     }
 
-    function processOrder() {
-        const loc = document.getElementById('location').value;
-        const dev = document.getElementById('device').value;
-        const note = document.getElementById('note').value;
-        const phone = "249112002802";
+    function copyAcc() {
+        navigator.clipboard.writeText("4063324");
+        alert("تم نسخ رقم الحساب");
+    }
 
-        if(!loc || !dev) {
-            alert("يرجى اختيار الحي ونوع الجهاز أولاً");
-            return;
-        }
+    function sendOrder() {
+        const l = document.getElementById('loc').value;
+        const d = document.getElementById('device').value;
+        const s = document.getElementById('desc').value;
+        const p = "249112002802";
 
-        document.getElementById('thanks-screen').style.display = 'flex';
+        if(!l || !d) { alert("يرجى اختيار الحي والجهاز أولاً!"); return; }
 
-        const msg = `*طلب صيانة (سريع - الولي)*%0A----------------%0A📍 الحي: ${loc}%0A🛠️ الجهاز: ${dev}%0A📝 ملاحظات: ${note}%0A💰 الدفع: ${payMethod}%0A----------------%0A_بإدارة نظام BRAZILI_`;
+        document.getElementById('thanks-popup').style.display = 'flex';
+
+        const msg = `*طلب صيانة (سريع - الولي)*%0A📍 الحي: ${l}%0A🛠️ الجهاز: ${d}%0A📝 العطل: ${s}%0A💰 الدفع: ${currentPayment}%0A------------------%0A_نظام BRAZILI_`;
 
         setTimeout(() => {
-            window.location.href = `https://wa.me/${phone}?text=${msg}`;
-        }, 3000);
+            window.location.href = `https://wa.me/${p}?text=${msg}`;
+        }, 2500);
     }
 </script>
 
 </body>
 </html>
+
