@@ -8,70 +8,122 @@
     <meta name="theme-color" content="#ffcc00">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #e63946; --gold: #ffcc00; --dark: #0d1117; --card: #161b22; --blue: #007bff; --green: #28a745; }
-        body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 10px; }
-        .page { display: none; animation: fadeIn 0.4s ease-out; padding-top: 10px; }
-        .container { max-width: 420px; margin: auto; background: var(--card); padding: 25px; border-radius: 25px; border: 1px solid #30363d; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
-        h1 { color: var(--gold); font-size: 45px; margin-bottom: 5px; font-weight: 900; }
-        .menu-card { background: var(--card); border: 1px solid #30363d; border-radius: 20px; padding: 20px; margin-bottom: 15px; cursor: pointer; transition: 0.3s; }
-        .menu-card:active { transform: scale(0.95); }
+        :root { --gold: #ffcc00; --dark: #0d1117; --card: #161b22; --blue: #007bff; --green: #28a745; }
+        body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 15px; }
+        .page { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .container { max-width: 500px; margin: auto; background: var(--card); padding: 30px; border-radius: 30px; border: 1px solid #30363d; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
         
-        /* تصميم قائمة السائقين */
-        .driver-section { margin-top: 20px; text-align: right; }
-        .driver-card { 
-            background: #1c2128; padding: 15px; border-radius: 15px; 
-            margin-bottom: 12px; display: flex; justify-content: space-between; 
-            align-items: center; border: 1px solid #333; border-right: 4px solid var(--blue);
+        /* تكبير العناوين */
+        h1 { color: var(--gold); font-size: 55px; margin-bottom: 10px; font-weight: 900; }
+        
+        /* تكبير الكروت في الواجهة */
+        .menu-card { 
+            background: var(--card); border: 2px solid #30363d; border-radius: 25px; 
+            padding: 35px 20px; margin-bottom: 25px; cursor: pointer; transition: 0.2s;
         }
-        .driver-info h4 { margin: 0; color: white; font-size: 16px; }
-        .driver-info p { margin: 0; color: #8b949e; font-size: 12px; }
-        .call-btn { 
-            background: var(--green); color: white; padding: 10px 20px; 
-            border-radius: 12px; text-decoration: none; font-weight: bold; 
-            font-size: 14px; box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+        .menu-card h3 { font-size: 28px; margin: 15px 0 0; }
+        .menu-card:active { transform: scale(0.95); background: #1c2128; }
+
+        /* تكبير حقول الإدخال والقوائم */
+        select { 
+            width: 100%; padding: 20px; margin: 15px 0; border-radius: 15px; 
+            border: 2px solid #444; background: #0d1117; color: white; 
+            font-size: 20px; font-weight: bold; outline: none; appearance: none;
         }
 
-        .btn { width: 100%; padding: 16px; border-radius: 15px; border: none; font-weight: 900; font-size: 16px; cursor: pointer; margin-top: 20px; }
-        .btn-gold { background: var(--gold); color: black; }
-        .btn-red { background: var(--red); color: white; }
-        .admin-item { background: #1c2128; padding: 15px; margin: 8px 0; border-radius: 12px; display: flex; justify-content: space-between; border-right: 5px solid var(--red); }
+        /* تكبير الأزرار */
+        .btn { 
+            width: 100%; padding: 22px; border-radius: 20px; border: none; 
+            font-weight: 900; font-size: 22px; cursor: pointer; margin-top: 25px; 
+        }
+        .btn-gold { background: var(--gold); color: black; box-shadow: 0 5px 15px rgba(255, 204, 0, 0.3); }
+        .btn-blue { background: var(--blue); color: white; box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3); }
+
+        /* تنسيق قائمة السائقين بحجم أكبر */
+        .driver-section { text-align: right; margin-top: 20px; }
+        .driver-card { 
+            background: #1c2128; padding: 20px; border-radius: 20px; 
+            margin-bottom: 15px; display: flex; justify-content: space-between; 
+            align-items: center; border: 2px solid #333;
+        }
+        .driver-info h4 { margin: 0; font-size: 20px; }
+        .driver-info p { margin: 5px 0 0; color: #8b949e; font-size: 14px; }
+        .call-btn { 
+            background: var(--green); color: white; padding: 15px 25px; 
+            border-radius: 15px; text-decoration: none; font-weight: 900; font-size: 18px; 
+        }
+
+        .back-btn { background:none; color:var(--gold); border:none; font-size: 20px; font-weight:bold; float:right; padding: 10px; cursor:pointer; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .back-btn { background:none; color:white; border:none; cursor:pointer; font-weight:bold; float:right; padding: 10px; }
-        h3.section-title { color: var(--gold); font-size: 18px; border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 20px; }
     </style>
 </head>
 <body>
 
     <div id="home" class="page" style="display: block;">
         <h1>SAREE3</h1>
-        <p style="color: #8b949e; margin-bottom: 25px;">نظام الولي للخدمات الذكية</p>
-        <div class="menu-card" onclick="show('m-page')" style="border-bottom: 4px solid var(--gold);">🛠️ <h3>خدمة الصيانة</h3></div>
-        <div class="menu-card" onclick="show('b-page')" style="border-bottom: 4px solid var(--red);">🩸 <h3>بنك الدم</h3></div>
-        <div class="menu-card" onclick="show('trip-page')" style="border-bottom: 4px solid var(--blue);">🚕 <h3>مشوار</h3></div>
-        <p style="font-size: 10px; color: #333; letter-spacing: 2px;">BY BRAZILI QQ</p>
+        <p style="color: #8b949e; font-size: 18px; margin-bottom: 40px;">نظام الولي للخدمات الذكية</p>
+        
+        <div class="menu-card" onclick="show('m-page')" style="border-bottom: 6px solid var(--gold);">
+            <span style="font-size: 50px;">🛠️</span>
+            <h3>خدمة الصيانة</h3>
+        </div>
+
+        <div class="menu-card" onclick="show('trip-page')" style="border-bottom: 6px solid var(--blue);">
+            <span style="font-size: 50px;">🚕</span>
+            <h3>مشوار</h3>
+        </div>
+        
+        <p style="font-size: 12px; color: #444; letter-spacing: 3px; margin-top: 30px;">DESIGNED BY BRAZILI QQ</p>
+    </div>
+
+    <div id="m-page" class="page">
+        <div class="container">
+            <button class="back-btn" onclick="show('home')">🔙 رجوع</button>
+            <div style="clear:both;"></div>
+            <h2 style="color: var(--gold); font-size: 32px;">طلب صيانة</h2>
+            
+            <p style="text-align:right; margin-bottom:0; color:#8b949e;">اختر الحي:</p>
+            <select id="m-loc">
+                <option>حي المسجد العتيق</option>
+                <option>حي الرحمه</option>
+                <option>حي فريق قدام</option>
+                <option>حي نادي الشعله</option>
+                <option>حي نادي اتحاد الولي</option>
+            </select>
+
+            <p style="text-align:right; margin-bottom:0; color:#8b949e;">اختر الجهاز:</p>
+            <select id="m-dev">
+                <option>مكيف</option>
+                <option>ثلاجة</option>
+                <option>غسالة</option>
+                <option>شاشة</option>
+            </select>
+
+            <button class="btn btn-gold" onclick="sendM()">إرسال واتساب ✅</button>
+        </div>
     </div>
 
     <div id="trip-page" class="page">
         <div class="container">
             <button class="back-btn" onclick="show('home')">🔙 رجوع</button>
             <div style="clear:both;"></div>
-            <h2 style="color: var(--blue);">دليل المشاوير</h2>
+            <h2 style="color: var(--blue); font-size: 32px;">دليل المشاوير</h2>
 
             <div class="driver-section">
-                <h3 class="section-title">📍 مشاوير داخلية</h3>
+                <h3 style="color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px;">📍 مشاوير داخلية</h3>
                 <div class="driver-card">
                     <div class="driver-info">
                         <h4>عمر عبد الله</h4>
-                        <p>مركبة: ركشة</p>
+                        <p>ركشة</p>
                     </div>
                     <a href="tel:0121606445" class="call-btn">📞 اتصال</a>
                 </div>
 
-                <h3 class="section-title">🏙️ سفر الحصاحيصا</h3>
+                <h3 style="color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 30px;">🏙️ سفر الحصاحيصا</h3>
                 <div class="driver-card">
                     <div class="driver-info">
-                        <h4>عبد الجليل يوسف بابكر</h4>
-                        <p>مركبة: ACCENT</p>
+                        <h4>عبد الجليل يوسف</h4>
+                        <p>عربة ACCENT</p>
                     </div>
                     <a href="tel:0117655646" class="call-btn">📞 اتصال</a>
                 </div>
@@ -79,7 +131,7 @@
                 <div class="driver-card">
                     <div class="driver-info">
                         <h4>جابر عبد الجليل</h4>
-                        <p>مركبة: حافلة</p>
+                        <p>حافلة</p>
                     </div>
                     <a href="tel:0127879864" class="call-btn">📞 اتصال</a>
                 </div>
@@ -87,95 +139,24 @@
         </div>
     </div>
 
-    <div id="m-page" class="page">
-        <div class="container">
-            <button class="back-btn" onclick="show('home')">🔙 رجوع</button>
-            <div style="clear:both;"></div>
-            <h2 style="color: var(--gold);">طلب صيانة</h2>
-            <select id="m-loc">
-                <option>حي المسجد العتيق</option><option>حي الرحمه</option>
-                <option>حي فريق قدام</option><option>حي نادي الشعله</option><option>حي نادي اتحاد الولي</option>
-            </select>
-            <select id="m-dev"><option>مكيف</option><option>ثلاجة</option><option>غسالة</option><option>شاشة</option></select>
-            <button class="btn btn-gold" onclick="sendM()">إرسال واتساب ✅</button>
-        </div>
-    </div>
-
-    <div id="b-page" class="page">
-        <div class="container">
-            <button class="back-btn" onclick="show('home')">🔙 رجوع</button>
-            <div style="clear:both;"></div>
-            <h2 id="b-title" style="color: var(--red);">نظام المتبرعين</h2>
-            <input type="text" id="b-name" placeholder="اكتب الاسم (أو كود المطور)" oninput="checkAuth(this.value)" dir="auto">
-            <div id="user-ui">
-                <div class="blood-grid">
-                    <div class="b-card" onclick="selB(this, 'A+')">A+</div><div class="b-card" onclick="selB(this, 'B+')">B+</div>
-                    <div class="b-card" onclick="selB(this, 'O+')">O+</div><div class="b-card" onclick="selB(this, 'AB+')">AB+</div>
-                    <div class="b-card" onclick="selB(this, 'A-')">A-</div><div class="b-card" onclick="selB(this, 'B-')">B-</div>
-                    <div class="b-card" onclick="selB(this, 'O-')">O-</div><div class="b-card" onclick="selB(this, 'AB-')">AB-</div>
-                </div>
-                <button class="btn btn-red" onclick="saveB()">تسجيل متبرع 🩸</button>
-            </div>
-            <div id="admin-ui" style="display:none;">
-                <h3 style="color: var(--gold);">لوحة التحكم 👑</h3>
-                <div id="listDisplay"></div>
-                <button class="btn btn-red" style="background:#238636;" onclick="downloadDB()">📥 تنزيل الكشف (.txt)</button>
-                <button class="btn" style="background:#333;" onclick="location.reload()">خروج</button>
-            </div>
-        </div>
-    </div>
-
 <script>
-    let bType = "";
-    let db = JSON.parse(localStorage.getItem('blood_db')) || [];
-
     function show(id) {
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById(id).style.display = 'block';
+        window.scrollTo(0,0);
     }
 
     function sendM() {
         const loc = document.getElementById('m-loc').value;
         const dev = document.getElementById('m-dev').value;
-        window.location.href = `https://wa.me/249112002802?text=*طلب صيانة*%0A📍 الحي: ${loc}%0A🛠️ الجهاز: ${dev}`;
+        const phone = "249112002802";
+        window.location.href = `https://wa.me/${phone}?text=*طلب صيانة*%0A📍 الحي: ${loc}%0A🛠️ الجهاز: ${dev}`;
     }
 
-    function selB(el, t) {
-        document.querySelectorAll('.b-card').forEach(c => c.classList.remove('active'));
-        el.classList.add('active'); bType = t;
+    // لتشغيل الـ Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
     }
-
-    function saveB() {
-        let n = document.getElementById('b-name').value;
-        if(!n || !bType) return alert("أكمل البيانات!");
-        db.push({name:n, type:bType});
-        localStorage.setItem('blood_db', JSON.stringify(db));
-        alert("تم الحفظ ✅");
-        location.reload();
-    }
-
-    function checkAuth(v) {
-        if(v === "BRAZILI11") {
-            document.getElementById('user-ui').style.display = 'none';
-            document.getElementById('admin-ui').style.display = 'block';
-            document.getElementById('listDisplay').innerHTML = db.map(i => `
-                <div class="admin-item"><span>${i.name}</span><b>${i.type}</b></div>
-            `).join('');
-        }
-    }
-
-    function downloadDB() {
-        if (db.length === 0) return alert("لا توجد بيانات!");
-        let content = "--- كشف متبرعين SAREE3 ---\n\n";
-        db.forEach((item, i) => content += `${i+1}. ${item.name} [${item.type}]\n`);
-        const blob = new Blob([content], { type: 'text/plain' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = `متبرعين_${new Date().toLocaleDateString()}.txt`;
-        a.click();
-    }
-
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 </script>
 </body>
 </html>
