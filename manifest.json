@@ -1,22 +1,20 @@
 {
   "name": "سريع لصيانة الأجهزة",
-  "short_name": "سريع | BR",
-  "start_url": "index.html",
+  "short_name": "سريع",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0a0a0a",
   "theme_color": "#ffcc00",
   "icons": [
     {
-      "src": "https://i.ibb.co/vz4488D/br-saree3-logo-192.png",
+      "src": "https://api.qrserver.com/v1/create-qr-code/?size=192x192&data=BR",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "https://i.ibb.co/Vvz488D/br-saree3-logo-512.png",
+      "src": "https://api.qrserver.com/v1/create-qr-code/?size=512x512&data=BR",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }
