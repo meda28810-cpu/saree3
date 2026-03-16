@@ -3,163 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
     <title>SAREE3 | BRAZILI QQ</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffcc00">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&display=swap" rel="stylesheet">
+    
     <style>
         :root { --gold: #ffcc00; --dark: #0d1117; --card: #161b22; --blue: #007bff; --green: #28a745; }
-        body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 10px; overflow-x: hidden; }
-        .page { display: none; animation: fadeIn 0.3s ease-in-out; padding-bottom: 20px; }
-        .container { max-width: 450px; margin: auto; background: var(--card); padding: 20px; border-radius: 25px; border: 1px solid #30363d; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 10px; }
+        .page { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .container { max-width: 450px; margin: auto; background: var(--card); padding: 25px; border-radius: 25px; border: 1px solid #30363d; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
         
-        h1 { color: var(--gold); font-size: 38px; margin: 10px 0; font-weight: 800; }
-        h2 { font-size: 22px; margin-bottom: 15px; }
+        h1 { color: var(--gold); font-size: 35px; margin: 10px 0; font-weight: 800; }
+        h2 { font-size: 20px; margin-bottom: 15px; color: #eee; }
 
-        /* تصغير عناصر الإدخال لتناسب الشاشة */
         input, select, textarea { 
-            width: 100%; padding: 12px; margin: 8px 0; border-radius: 12px; 
+            width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; 
             border: 1px solid #444; background: #0d1117; color: white; 
-            font-size: 15px; outline: none; box-sizing: border-box; font-family: 'Cairo';
+            font-size: 16px; outline: none; box-sizing: border-box; font-family: 'Cairo';
         }
-        textarea { height: 80px; }
 
-        .btn { width: 100%; padding: 15px; border-radius: 15px; border: none; font-weight: 800; font-size: 18px; cursor: pointer; margin-top: 10px; }
+        .btn { width: 100%; padding: 18px; border-radius: 15px; border: none; font-weight: 800; font-size: 18px; cursor: pointer; margin-top: 10px; transition: 0.2s; }
         .btn-gold { background: var(--gold); color: black; }
-        .btn-outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); font-size: 14px; padding: 10px; border-radius: 12px; width: 100%; cursor: pointer; margin-top: 10px; }
+        .btn-gold:active { transform: scale(0.96); }
+        
+        .btn-outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); font-size: 14px; padding: 10px; border-radius: 12px; width: 100%; cursor: pointer; margin-top: 15px; }
 
-        .menu-card { background: var(--card); border: 1px solid #30363d; border-radius: 20px; padding: 20px; margin-bottom: 15px; cursor: pointer; transition: 0.2s; }
-        .menu-card:active { transform: scale(0.98); }
-        .menu-card h3 { font-size: 20px; margin: 10px 0 0 0; }
-
-        /* تنسيق بطاقات السائقين المصغر */
-        .driver-list { max-height: 400px; overflow-y: auto; padding: 5px; }
+        .menu-card { background: var(--card); border: 1px solid #30363d; border-radius: 20px; padding: 25px; margin-bottom: 15px; cursor: pointer; }
+        
         .driver-card { 
-            background: #1c2128; padding: 12px; border-radius: 15px; 
-            margin-bottom: 10px; display: flex; justify-content: space-between; 
-            align-items: center; border: 1px solid #333; border-right: 4px solid var(--blue);
+            background: #1c2128; padding: 15px; border-radius: 18px; 
+            margin-bottom: 12px; border: 1px solid #333; border-right: 5px solid var(--blue);
+            text-align: right;
         }
-        .driver-info h4 { margin: 0; font-size: 16px; color: #fff; }
-        .driver-info p { margin: 0; font-size: 12px; color: #8b949e; }
         
         .call-btn { 
-            background: var(--green); color: white; padding: 8px 15px; 
-            border-radius: 10px; cursor: pointer; font-weight: 800; font-size: 14px; border: none;
+            background: var(--green); color: white; padding: 12px 20px; 
+            border-radius: 12px; cursor: pointer; font-weight: 800; font-size: 15px; border: none; margin-top: 8px; width: 100%;
         }
 
-        .back-btn { background:none; color:var(--gold); border:none; font-size: 16px; font-weight:bold; float:right; cursor:pointer; }
-        label { display: block; text-align: right; color: #8b949e; font-size: 13px; margin: 5px 5px 0 0; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        #verify-section { display: none; background: rgba(255, 204, 0, 0.05); padding: 15px; border-radius: 15px; border: 1px dashed var(--gold); margin-top: 15px; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body onload="checkLoginStatus()">
 
-    <div id="login-page" class="page" style="display: block;">
-        <div class="container" style="margin-top: 30px;">
+    <div id="login-page" class="page">
+        <div class="container" style="margin-top: 40px;">
             <h1>SAREE3</h1>
-            <h2 style="color: var(--gold);">تسجيل الدخول</h2>
+            <h2>تسجيل الدخول</h2>
             <input type="text" id="login-phone" placeholder="رقم الهاتف">
             <input type="password" id="login-pass" placeholder="كلمة السر">
             <button class="btn btn-gold" onclick="login()">دخول ✅</button>
-            <button class="btn-outline" onclick="show('register-page')">إنشاء حساب جديد</button>
+            <button class="btn-outline" onclick="show('register-page')">مستخدم جديد؟ أنشئ حساب</button>
         </div>
     </div>
 
     <div id="register-page" class="page">
-        <div class="container" style="margin-top: 30px;">
+        <div class="container">
             <h2 style="color: var(--gold);">عضوية جديدة</h2>
-            <input type="text" id="reg-name" placeholder="الاسم الكامل">
-            <input type="tel" id="reg-phone" placeholder="رقم الهاتف">
-            <input type="password" id="reg-pass" placeholder="كلمة سر جديدة">
-            <button class="btn btn-gold" onclick="register()">طلب كود التفعيل ✨</button>
-            <button class="btn-outline" onclick="show('login-page')">رجوع لتسجيل الدخول</button>
+            <div id="reg-form">
+                <input type="text" id="reg-name" placeholder="الاسم الكامل">
+                <input type="tel" id="reg-phone" placeholder="رقم الهاتف">
+                <input type="password" id="reg-pass" placeholder="كلمة سر جديدة">
+                <button class="btn btn-gold" onclick="startActivation()">طلب كود التفعيل (واتساب) 💬</button>
+            </div>
+
+            <div id="verify-section">
+                <p style="color: var(--gold); font-size: 13px;">عُد إلى هنا وأدخل الكود فور استلامه من المطور:</p>
+                <input type="number" id="v-code" placeholder="أدخل كود التفعيل">
+                <button class="btn btn-gold" onclick="completeRegistration()">تأكيد ودخول ✅</button>
+            </div>
+            <button class="btn-outline" onclick="show('login-page')">رجوع</button>
         </div>
     </div>
 
     <div id="home" class="page">
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 5px 15px;">
-             <button class="btn-outline" style="width: auto; margin:0; padding: 5px 15px;" onclick="logout()">خروج ⬅️</button>
-             <h1 style="font-size: 28px; margin: 0;">SAREE3</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 15px;">
+             <button onclick="logout()" style="background:none; color:#ff4444; border:none; font-weight:bold; cursor:pointer;">خروج ⬅️</button>
+             <h1 style="font-size: 24px; margin: 0;">SAREE3</h1>
         </div>
-        <p id="welcome-msg" style="color: var(--gold); font-weight: bold; margin: 15px 0; font-size: 14px;"></p>
+        <p id="welcome-msg" style="color: var(--gold); font-weight: bold; margin-bottom: 20px;"></p>
         
-        <div class="menu-card" onclick="show('m-page')" style="border-bottom: 4px solid var(--gold);">
-            <span style="font-size: 35px;">🛠️</span><h3>خدمة الصيانة</h3>
-        </div>
-
-        <div class="menu-card" onclick="show('trip-page')" style="border-bottom: 4px solid var(--blue);">
-            <span style="font-size: 40px;">🚕</span><h3>مشوار</h3>
-        </div>
+        <div class="menu-card" onclick="show('m-page')">🛠️ <h3>خدمات الصيانة</h3></div>
+        <div class="menu-card" onclick="show('trip-page')">🚕 <h3>مشوار</h3></div>
         
-        <p style="font-size: 9px; color: #444; letter-spacing: 2px; margin-top: 20px;">DESIGNED BY BRAZILI QQ</p>
+        <p style="font-size: 10px; color: #444; margin-top: 30px;">DEVELOPED BY BRAZILI QQ</p>
     </div>
 
     <div id="m-page" class="page">
         <div class="container">
-            <button class="back-btn" onclick="show('home')">🔙 رجوع</button>
-            <div style="clear:both;"></div>
+            <button onclick="show('home')" style="float:right; color:var(--gold); background:none; border:none; font-size:20px;">🔙</button>
             <h2 style="color: var(--gold);">طلب صيانة</h2>
-            
-            <label>اختر الحي:</label>
             <select id="m-loc">
-                <option>حي المسجد العتيق</option>
-                <option>حي الرحمه</option>
-                <option>حي فريق قدام</option>
-                <option>حي نادي الشعله</option>
+                <option>حي المسجد العتيق</option><option>حي الرحمه</option>
+                <option>حي فريق قدام</option><option>حي نادي الشعله</option>
                 <option>حي نادي اتحاد الولي</option>
-                <option>حي الولي شرق</option>
-                <option>حي الولي غرب</option>
             </select>
-
-            <label>نوع الجهاز:</label>
             <select id="m-dev">
-                <option>مكيف (نسمة/ال جي)</option>
-                <option>ثلاجة</option>
-                <option>غسالة</option>
-                <option>شاشة / تلفزيون</option>
-                <option>فرن كهربائي</option>
-                <option>ميكروويف</option>
-                <option>مروحة</option>
-                <option>مبرد مياه</option>
+                <option>مكيف</option><option>ثلاجة</option><option>غسالة</option>
+                <option>شاشة</option><option>فرن/ميكروويف</option>
             </select>
-
-            <label>وصف العطل:</label>
-            <textarea id="m-problem" placeholder="اكتب وصفاً بسيطاً للمشكلة..."></textarea>
-            
-            <button class="btn btn-gold" onclick="sendM()">إرسال الطلب للمطور ✅</button>
+            <textarea id="m-problem" placeholder="صف العطل..."></textarea>
+            <button class="btn btn-gold" onclick="sendM()">إرسال الطلب ✅</button>
         </div>
     </div>
 
     <div id="trip-page" class="page">
         <div class="container">
-            <button class="back-btn" onclick="show('home')">🔙 رجوع</button>
-            <div style="clear:both;"></div>
-            <h2 style="color: var(--blue);">دليل المشاوير</h2>
+            <button onclick="show('home')" style="float:right; color:var(--gold); background:none; border:none; font-size:20px;">🔙</button>
+            <h2 style="color: var(--blue);">دليل السائقين</h2>
             
-            <div class="driver-list" style="text-align: right;">
-                <h3 style="color: var(--gold); font-size: 16px; border-bottom: 1px solid #333; padding-bottom: 5px;">📍 مشاوير داخلية (ركشة)</h3>
-                
-                <div class="driver-card">
-                    <div class="driver-info"><h4>عمر عبد الله</h4><p>ركشة داخلية</p></div>
-                    <button class="call-btn" onclick="realCall('عمر عبد الله', '249121606445')">طلب واتصال</button>
-                </div>
+            <div class="driver-card">
+                <h4>عمر عبد الله</h4>
+                <p>ركشة داخلية</p>
+                <button class="call-btn" onclick="directCall('249121606445')">اتصال مباشر 📞</button>
+            </div>
 
-                <h3 style="color: var(--gold); font-size: 16px; border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 20px;">🏙️ سفر (الحصاحيصا/مدني)</h3>
-                
-                <div class="driver-card">
-                    <div class="driver-info"><h4>عبد الجليل يوسف</h4><p>عربة ACCENT</p></div>
-                    <button class="call-btn" onclick="realCall('عبد الجليل يوسف', '249117655646')">طلب واتصال</button>
-                </div>
-                
-                <div class="driver-card">
-                    <div class="driver-info"><h4>جابر عبد الجليل</h4><p>حافلة ركاب</p></div>
-                    <button class="call-btn" onclick="realCall('جابر عبد الجليل', '249127879864')">طلب واتصال</button>
-                </div>
+            <div class="driver-card">
+                <h4>عبد الجليل يوسف</h4>
+                <p>عربة (سفر)</p>
+                <button class="call-btn" onclick="directCall('249117655646')">اتصال مباشر 📞</button>
+            </div>
 
-                <div class="driver-card">
-                    <div class="driver-info"><h4>السائق القادم</h4><p>خدمة سفر</p></div>
-                    <button class="call-btn" onclick="alert('سيتم إضافة المزيد قريباً!')">قريباً</button>
-                </div>
+            <div class="driver-card">
+                <h4>جابر عبد الجليل</h4>
+                <p>حافلة ركاب</p>
+                <button class="call-btn" onclick="directCall('249127879864')">اتصال مباشر 📞</button>
             </div>
         </div>
     </div>
@@ -170,16 +145,16 @@
     function show(id) {
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById(id).style.display = 'block';
-        window.scrollTo(0,0);
     }
 
+    // الدخول يعتمد على الجلسة فقط (سيطلب دخولاً جديداً عند إغلاق التطبيق)
     function login() {
         const phone = document.getElementById('login-phone').value;
         const pass = document.getElementById('login-pass').value;
 
         if(phone === "BRAZILI") {
             sessionStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('currentUser', JSON.stringify({ name: "مطور النظام 👑", phone: "DEV" }));
+            localStorage.setItem('currentUser', JSON.stringify({ name: "المطور 👑", phone: "DEV" }));
             checkLoginStatus(); return;
         }
 
@@ -191,30 +166,7 @@
             localStorage.setItem('currentUser', JSON.stringify(user));
             checkLoginStatus();
         } else {
-            alert("بيانات الدخول خاطئة!");
-        }
-    }
-
-    function register() {
-        const name = document.getElementById('reg-name').value;
-        const phone = document.getElementById('reg-phone').value;
-        const pass = document.getElementById('reg-pass').value;
-
-        if(!name || !phone || !pass) return alert("أكمل البيانات!");
-
-        if(confirm("أهلاً بك.. سيتم تحويلك الآن لتأكيد الهوية عبر المطور BRAZILI QQ والحصول على كود التفعيل.\n\nمتابعة؟")) {
-            window.open(`https://wa.me/${MY_PHONE}?text=طلب تفعيل%0Aالاسم: ${name}%0Aالرقم: ${phone}`, '_blank');
-            
-            setTimeout(() => {
-                const code = prompt("أدخل كود التفعيل المستلم:");
-                if(code && code.endsWith("11")) {
-                    const users = JSON.parse(localStorage.getItem('users') || '[]');
-                    users.push({ name, phone, pass });
-                    localStorage.setItem('users', JSON.stringify(users));
-                    alert("تم بنجاح! سجل دخولك الآن");
-                    show('login-page');
-                } else { alert("الكود خطأ!"); }
-            }, 2000);
+            alert("خطأ في بيانات الدخول!");
         }
     }
 
@@ -222,9 +174,11 @@
         const loggedIn = sessionStorage.getItem('isLoggedIn');
         const user = JSON.parse(localStorage.getItem('currentUser'));
         if(loggedIn === 'true' && user) {
-            document.getElementById('welcome-msg').innerText = "مرحباً بك يا " + user.name;
+            document.getElementById('welcome-msg').innerText = "مرحباً: " + user.name;
             show('home');
-        } else { show('login-page'); }
+        } else {
+            show('login-page');
+        }
     }
 
     function logout() {
@@ -232,25 +186,45 @@
         location.reload();
     }
 
-    function realCall(driverName, driverPhone) {
-        const user = JSON.parse(localStorage.getItem('currentUser'));
-        const myMsg = `📢 تنبيه: العميل ${user.name} يتصل بالسائق ${driverName}`;
-        const driverMsg = `👋 طلب مشوار: العميل ${user.name} يحتاجك وسيتصل بك الآن عبر تطبيق سريع.`;
+    // التفعيل مع خانة كود ثابتة
+    function startActivation() {
+        const name = document.getElementById('reg-name').value;
+        const phone = document.getElementById('reg-phone').value;
+        const pass = document.getElementById('reg-pass').value;
 
-        window.open(`https://wa.me/${MY_PHONE}?text=${myMsg}`, '_blank');
-        setTimeout(() => { window.open(`https://wa.me/${driverPhone}?text=${driverMsg}`, '_blank'); }, 1000);
-        setTimeout(() => { window.location.href = `tel:${driverPhone}`; }, 2500);
+        if(!name || !phone || !pass) return alert("أكمل البيانات!");
+
+        localStorage.setItem('tempUser', JSON.stringify({ name, phone, pass }));
+        document.getElementById('reg-form').style.display = 'none';
+        document.getElementById('verify-section').style.display = 'block';
+
+        const msg = `طلب تفعيل%0Aالاسم: ${name}%0Aالرقم: ${phone}`;
+        window.open(`https://wa.me/${MY_PHONE}?text=${msg}`, '_blank');
     }
 
+    function completeRegistration() {
+        const code = document.getElementById('v-code').value;
+        const tempUser = JSON.parse(localStorage.getItem('tempUser'));
+
+        if(code && code.endsWith("11")) {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            users.push(tempUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.removeItem('tempUser');
+            alert("تم التفعيل! سجل دخولك الآن");
+            location.reload();
+        } else { alert("الكود خطأ!"); }
+    }
+
+    // مكالمة مباشرة فقط كما طلبت
+    function directCall(phone) {
+        window.location.href = `tel:${phone}`;
+    }
+
+    // إرسال طلب الصيانة لك
     function sendM() {
         const user = JSON.parse(localStorage.getItem('currentUser'));
-        const loc = document.getElementById('m-loc').value;
-        const dev = document.getElementById('m-dev').value;
-        const prob = document.getElementById('m-problem').value;
-
-        if(!prob) return alert("يرجى وصف المشكلة!");
-
-        const msg = `*طلب صيانة جديد*%0A👤 العميل: ${user.name}%0A📍 الحي: ${loc}%0A🛠️ الجهاز: ${dev}%0A⚠️ المشكلة: ${prob}`;
+        const msg = `*طلب صيانة*%0Aالعميل: ${user.name}%0Aالحي: ${document.getElementById('m-loc').value}%0Aالجهاز: ${document.getElementById('m-dev').value}%0Aالعطل: ${document.getElementById('m-problem').value}`;
         window.location.href = `https://wa.me/${MY_PHONE}?text=${msg}`;
     }
 </script>
