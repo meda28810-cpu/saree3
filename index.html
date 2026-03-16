@@ -1,149 +1,134 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق سريع | صيانة الأجهزة الكهربائية</title>
+    <title>سريع | SAREE3 - صيانة الولي والحلاوين</title>
     <style>
         :root {
-            --gold: #ffcc00;
-            --green: #28a745;
-            --dark: #0a0a0a;
-            --card: #161616;
+            --primary: #d4a017; 
+            --secondary: #2d5a27; 
+            --bg: #121212;
+            --input-bg: #1e1e1e;
         }
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: var(--dark);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
             color: white;
-            margin: 0; padding: 0;
-            display: flex; justify-content: center;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
-        /* الهيدر مع صورة المهندس */
-        .hero {
-            width: 100%; height: 220px;
-            background: linear-gradient(rgba(0,0,0,0.5), var(--dark)), 
-                        url('https://images.unsplash.com/photo-1621905252507-b3522240758c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
-            background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; border-bottom: 2px solid var(--gold);
+        .container {
+            max-width: 450px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px;
+            border-radius: 24px;
+            border: 1px solid var(--primary);
+            backdrop-filter: blur(15px);
+            text-align: center;
         }
-        .hero h1 { font-size: 35px; color: var(--gold); margin: 0; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
-        .hero p { font-size: 16px; color: #eee; margin-top: 5px; }
-
-        .app-container {
-            max-width: 450px; width: 95%; margin-top: -40px;
-            background: var(--card); border-radius: 30px;
-            padding: 25px; box-shadow: 0 20px 50px rgba(0,0,0,1);
-            border: 1px solid #333; box-sizing: border-box;
-        }
-
-        label { display: block; text-align: right; margin: 20px 5px 10px; color: var(--gold); font-weight: bold; font-size: 14px; }
+        h1 { color: var(--primary); margin-bottom: 5px; }
+        .subtitle { color: #888; font-size: 0.9em; margin-bottom: 25px; }
+        
+        label { display: block; text-align: right; margin-bottom: 8px; color: var(--primary); font-size: 14px; }
         
         select, textarea {
-            width: 100%; padding: 15px; border-radius: 15px; border: 1px solid #333;
-            background: #222; color: white; font-size: 16px; outline: none; transition: 0.3s;
-            appearance: none; cursor: pointer;
-        }
-        select:focus { border-color: var(--gold); }
-
-        /* خيارات الدفع */
-        .payment-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .pay-item {
-            background: #222; border: 2px solid transparent; border-radius: 20px;
-            padding: 15px 5px; cursor: pointer; transition: 0.3s; text-align: center;
-        }
-        .pay-item.active { border-color: var(--gold); background: #333; transform: scale(1.05); }
-        .pay-item i { font-size: 24px; display: block; margin-bottom: 5px; }
-
-        /* نافذة بنكك الخاصة */
-        #bank-info {
-            display: none; background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
-            border: 1px solid var(--gold); border-radius: 15px; padding: 15px;
-            margin-top: 15px; text-align: center; animation: slideIn 0.5s;
-        }
-        .acc-number { font-size: 22px; font-weight: bold; color: var(--gold); display: block; margin: 5px 0; }
-
-        .btn-order {
-            width: 100%; padding: 20px; background: var(--green); color: white;
-            border: none; border-radius: 20px; font-size: 20px; font-weight: 900;
-            margin-top: 30px; cursor: pointer; box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            background: var(--input-bg);
+            color: white;
+            font-size: 16px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
         }
 
-        #thanks-screen {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 999; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
+        button {
+            width: 100%;
+            padding: 16px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
         }
-
-        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        button:hover { background: #3e7d37; }
+        .footer { margin-top: 25px; font-size: 11px; color: #555; }
     </style>
 </head>
 <body>
 
-<div style="width: 100%;">
-    <div class="hero">
-        <h1>سريع | SAREE3</h1>
-        <p>لصيانة جميع الأجهزة الكهربائية</p>
-    </div>
+<div class="container">
+    <h1>سريع | SAREE3</h1>
+    <p class="subtitle">خدمات الصيانة المنزلية - الولي والحلاوين</p>
 
-    <center>
-    <div class="app-container">
-        <label>📍 موقع العطل (أحياء الولي):</label>
-        <select id="location">
-            <option value="" disabled selected>-- اختر الحي السكني --</option>
-            <option>حي المسجد العتيق</option>
-            <option>حي الرحمه</option>
-            <option>حي فريق قدام</option>
-            <option>حي نادي الشعله</option>
-            <option>حي نادي اتحاد الولي</option>
-        </select>
+    <label>📍 المنطقة:</label>
+    <select id="location">
+        <option>الولي</option>
+        <option>الحلاوين</option>
+        <option>القوز</option>
+        <option>أم حمد</option>
+        <option>بحر العلوم</option>
+        <option>شكيرة</option>
+    </select>
 
-        <label>🛠️ نوع الجهاز:</label>
-        <select id="device">
-            <option value="" disabled selected>-- اختر نوع الجهاز --</option>
-            <option>مكيف سبليت / شباك</option>
-            <option>ثلاجة / مبرد</option>
-            <option>غسالة ملابس</option>
-            <option>شاشة / تلفاز</option>
-            <option>مراوح / أدوات مطبخ</option>
-        </select>
+    <label>🛠️ نوع الجهاز:</label>
+    <select id="device">
+        <option>مكيف</option>
+        <option>ثلاجة</option>
+        <option>غسالة</option>
+        <option>شاشة</option>
+        <option>أخرى</option>
+    </select>
 
-        <label>💬 تفاصيل إضافية:</label>
-        <textarea id="note" rows="2" placeholder="مثلاً: صوت عالٍ في الموتور..."></textarea>
+    <label>💳 طريقة الدفع:</label>
+    <select id="payment">
+        <option value="تطبيق بنكك">تطبيق بنكك (Bankak)</option>
+        <option value="كاش">كاش</option>
+        <option value="أوكاش">أوكاش</option>
+    </select>
 
-        <label>💳 اختر وسيلة الدفع:</label>
-        <div class="payment-options">
-            <div class="pay-item active" onclick="setPay(this, 'نقداً')">💵<br>نقداً</div>
-            <div class="pay-item" id="bank-btn" onclick="setPay(this, 'بنكك')">🏦<br>بنكك</div>
-            <div class="pay-item" onclick="setPay(this, 'أوكاش')">📱<br>أوكاش</div>
-        </div>
-
-        <div id="bank-info">
-            <span style="font-size: 12px; color: #aaa;">رقم الحساب البنكي (بنك الخرطوم):</span>
-            <span class="acc-number">4063324</span>
-            <small style="color: var(--green);">تأكد من إرسال الإشعار عبر الواتساب</small>
-        </div>
-
-        <button class="btn-order" onclick="processOrder()">اطلب الآن ✅</button>
-
-        <div style="margin-top: 30px; font-size: 10px; color: #444;">
-            نظام BRAZILI التقني لإدارة الخدمات © 2026
-        </div>
-    </div>
-    </center>
+    <button onclick="sendOrder()">إرسال الطلب عبر واتساب ✅</button>
+    
+    <div class="footer">تطوير بواسطة BRAZILI © 2026</div>
 </div>
-
-<div id="thanks-screen">
-    <h1 style="color: var(--gold);">شكراً لثقتكم! 😊</h1>
-    <p style="padding: 20px;">تم تجهيز طلبك بعناية.. سيتم تحويلك الآن لتأكيد الموعد عبر الواتساب.</p>
-    <div style="width: 50px; height: 50px; border: 5px solid var(--gold); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-</div>
-
-<style> @keyframes spin { to { transform: rotate(360deg); } } </style>
 
 <script>
-    let payMethod = "نقداً";
+    function sendOrder() {
+        const loc = document.getElementById('location').value;
+        const dev = document.getElementById('device').value;
+        const pay = document.getElementById('payment').value;
+        const phone = "249123456789"; // ضع رقم استقبال الطلبات هنا
+
+        let bankInfo = "";
+        if (pay === "تطبيق بنكك") {
+            bankInfo = `%0A🏦 *بيانات الحساب البنكي:*%0A- الاسم: أحمد الفكي عوض الكريم%0A- رقم الحساب: 4063324%0A`;
+        }
+
+        const message = `*طلب صيانة جديد (منصة سريع)*%0A` +
+                        `--------------------%0A` +
+                        `📍 *المنطقة:* ${loc}%0A` +
+                        `🛠️ *الجهاز:* ${dev}%0A` +
+                        `💰 *الدفع:* ${pay}${bankInfo}%0A` +
+                        `--------------------%0A` +
+                        `_تم الإرسال عبر نظام BRAZILI_`;
+        
+        window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+    }
+</script>
+
+</body>
+</html>
+
 
     function setPay(el, method) {
         document.querySelectorAll('.pay-item').forEach(item => item.classList.remove('active'));
