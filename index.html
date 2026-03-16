@@ -13,10 +13,8 @@
         .page { display: none; animation: fadeIn 0.3s ease-in-out; }
         .container { max-width: 500px; margin: auto; background: var(--card); padding: 30px; border-radius: 30px; border: 1px solid #30363d; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
         
-        /* تكبير العناوين */
         h1 { color: var(--gold); font-size: 55px; margin-bottom: 10px; font-weight: 900; }
         
-        /* تكبير الكروت في الواجهة */
         .menu-card { 
             background: var(--card); border: 2px solid #30363d; border-radius: 25px; 
             padding: 35px 20px; margin-bottom: 25px; cursor: pointer; transition: 0.2s;
@@ -24,30 +22,26 @@
         .menu-card h3 { font-size: 28px; margin: 15px 0 0; }
         .menu-card:active { transform: scale(0.95); background: #1c2128; }
 
-        /* تكبير حقول الإدخال والقوائم */
-        select { 
-            width: 100%; padding: 20px; margin: 15px 0; border-radius: 15px; 
+        /* تكبير حقول الإدخال */
+        input, select, textarea { 
+            width: 100%; padding: 20px; margin: 12px 0; border-radius: 15px; 
             border: 2px solid #444; background: #0d1117; color: white; 
-            font-size: 20px; font-weight: bold; outline: none; appearance: none;
+            font-size: 18px; font-weight: bold; outline: none; box-sizing: border-box; font-family: 'Cairo';
         }
+        textarea { height: 120px; resize: none; }
 
-        /* تكبير الأزرار */
         .btn { 
             width: 100%; padding: 22px; border-radius: 20px; border: none; 
-            font-weight: 900; font-size: 22px; cursor: pointer; margin-top: 25px; 
+            font-weight: 900; font-size: 22px; cursor: pointer; margin-top: 20px; 
         }
         .btn-gold { background: var(--gold); color: black; box-shadow: 0 5px 15px rgba(255, 204, 0, 0.3); }
         .btn-blue { background: var(--blue); color: white; box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3); }
 
-        /* تنسيق قائمة السائقين بحجم أكبر */
-        .driver-section { text-align: right; margin-top: 20px; }
         .driver-card { 
             background: #1c2128; padding: 20px; border-radius: 20px; 
             margin-bottom: 15px; display: flex; justify-content: space-between; 
             align-items: center; border: 2px solid #333;
         }
-        .driver-info h4 { margin: 0; font-size: 20px; }
-        .driver-info p { margin: 5px 0 0; color: #8b949e; font-size: 14px; }
         .call-btn { 
             background: var(--green); color: white; padding: 15px 25px; 
             border-radius: 15px; text-decoration: none; font-weight: 900; font-size: 18px; 
@@ -55,6 +49,7 @@
 
         .back-btn { background:none; color:var(--gold); border:none; font-size: 20px; font-weight:bold; float:right; padding: 10px; cursor:pointer; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        label { display: block; text-align: right; color: #8b949e; font-size: 14px; margin-right: 10px; }
     </style>
 </head>
 <body>
@@ -80,9 +75,9 @@
         <div class="container">
             <button class="back-btn" onclick="show('home')">🔙 رجوع</button>
             <div style="clear:both;"></div>
-            <h2 style="color: var(--gold); font-size: 32px;">طلب صيانة</h2>
+            <h2 style="color: var(--gold); font-size: 32px; margin-bottom: 20px;">طلب صيانة</h2>
             
-            <p style="text-align:right; margin-bottom:0; color:#8b949e;">اختر الحي:</p>
+            <label>اختر الحي:</label>
             <select id="m-loc">
                 <option>حي المسجد العتيق</option>
                 <option>حي الرحمه</option>
@@ -91,7 +86,7 @@
                 <option>حي نادي اتحاد الولي</option>
             </select>
 
-            <p style="text-align:right; margin-bottom:0; color:#8b949e;">اختر الجهاز:</p>
+            <label>نوع الجهاز:</label>
             <select id="m-dev">
                 <option>مكيف</option>
                 <option>ثلاجة</option>
@@ -99,7 +94,13 @@
                 <option>شاشة</option>
             </select>
 
-            <button class="btn btn-gold" onclick="sendM()">إرسال واتساب ✅</button>
+            <label>رقم هاتف العميل:</label>
+            <input type="tel" id="m-phone" placeholder="أدخل رقم الهاتف (01...)" dir="ltr">
+
+            <label>وصف المشكلة:</label>
+            <textarea id="m-problem" placeholder="اشرح المشكلة هنا..."></textarea>
+
+            <button class="btn btn-gold" onclick="sendM()">إرسال الطلب عبر واتساب ✅</button>
         </div>
     </div>
 
@@ -109,30 +110,21 @@
             <div style="clear:both;"></div>
             <h2 style="color: var(--blue); font-size: 32px;">دليل المشاوير</h2>
 
-            <div class="driver-section">
+            <div style="text-align: right; margin-top: 20px;">
                 <h3 style="color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px;">📍 مشاوير داخلية</h3>
                 <div class="driver-card">
-                    <div class="driver-info">
-                        <h4>عمر عبد الله</h4>
-                        <p>ركشة</p>
-                    </div>
+                    <div style="text-align: right;"><h4>عمر عبد الله</h4><p>ركشة</p></div>
                     <a href="tel:0121606445" class="call-btn">📞 اتصال</a>
                 </div>
 
                 <h3 style="color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 30px;">🏙️ سفر الحصاحيصا</h3>
                 <div class="driver-card">
-                    <div class="driver-info">
-                        <h4>عبد الجليل يوسف</h4>
-                        <p>عربة ACCENT</p>
-                    </div>
+                    <div style="text-align: right;"><h4>عبد الجليل يوسف</h4><p>عربة ACCENT</p></div>
                     <a href="tel:0117655646" class="call-btn">📞 اتصال</a>
                 </div>
 
                 <div class="driver-card">
-                    <div class="driver-info">
-                        <h4>جابر عبد الجليل</h4>
-                        <p>حافلة</p>
-                    </div>
+                    <div style="text-align: right;"><h4>جابر عبد الجليل</h4><p>حافلة</p></div>
                     <a href="tel:0127879864" class="call-btn">📞 اتصال</a>
                 </div>
             </div>
@@ -149,11 +141,20 @@
     function sendM() {
         const loc = document.getElementById('m-loc').value;
         const dev = document.getElementById('m-dev').value;
-        const phone = "249112002802";
-        window.location.href = `https://wa.me/${phone}?text=*طلب صيانة*%0A📍 الحي: ${loc}%0A🛠️ الجهاز: ${dev}`;
+        const phoneCust = document.getElementById('m-phone').value;
+        const problem = document.getElementById('m-problem').value;
+
+        if(!phoneCust || !problem) {
+            alert("يرجى إدخال رقم الهاتف ووصف المشكلة!");
+            return;
+        }
+
+        const adminPhone = "249112002802";
+        const message = `*طلب صيانة جديد*%0A------------------%0A📍 *الحي:* ${loc}%0A🛠️ *الجهاز:* ${dev}%0A📞 *رقم العميل:* ${phoneCust}%0A⚠️ *المشكلة:* ${problem}`;
+        
+        window.location.href = `https://wa.me/${adminPhone}?text=${message}`;
     }
 
-    // لتشغيل الـ Service Worker
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw.js');
     }
