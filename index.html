@@ -1,34 +1,30 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="htmlTag">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAREE3 | Maintenance</title>
+    <title>SAREE3 | SA</title>
     
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3259/3259364.png">
     
     <style>
         :root { --gold: #ffcc00; --green: #28a745; --blue: #007bff; --dark: #0a0a0a; --card: #161616; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--dark); color: white; margin: 0; padding: 0; transition: 0.3s; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--dark); color: white; margin: 0; padding: 0; overflow-x: hidden; }
         
-        /* زر تبديل اللغة */
-        .lang-switcher {
-            position: absolute; top: 15px; right: 15px;
-            background: #222; border: 1px solid var(--gold); border-radius: 20px;
-            padding: 5px 15px; cursor: pointer; display: flex; align-items: center;
-            font-weight: bold; font-size: 12px; color: var(--gold); z-index: 1000;
+        /* زر تبديل اللغة الاحترافي */
+        .lang-btn {
+            position: fixed; top: 15px; right: 15px; z-index: 9999;
+            background: var(--gold); color: black; border: none;
+            padding: 8px 15px; border-radius: 20px; font-weight: 900;
+            cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        .dev-name {
-            text-align: center; font-weight: 900; font-size: 14px; letter-spacing: 3px;
-            color: var(--gold); padding: 25px 0 5px; text-shadow: 0 0 10px var(--gold);
-        }
+        .dev-name { text-align: center; font-weight: 900; font-size: 14px; letter-spacing: 3px; color: var(--gold); padding: 20px 0 5px; }
 
         .hero {
             width: 100%; height: 160px;
-            background: linear-gradient(rgba(0,0,0,0.7), var(--dark)), 
-                        url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80');
+            background: linear-gradient(rgba(0,0,0,0.7), var(--dark)), url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80');
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
         }
@@ -36,11 +32,10 @@
         .app-container {
             max-width: 450px; margin: -20px auto 30px; width: 90%;
             background: var(--card); border-radius: 25px; padding: 25px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 1px solid #333;
-            box-sizing: border-box;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 1px solid #333; box-sizing: border-box;
         }
 
-        label { display: block; text-align: inherit; margin: 15px 5px 8px; color: var(--gold); font-weight: bold; font-size: 13px; text-transform: uppercase; }
+        label { display: block; margin: 15px 5px 8px; color: var(--gold); font-weight: bold; font-size: 13px; text-transform: uppercase; }
         
         select, textarea {
             width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #333;
@@ -54,17 +49,13 @@
         }
         .pay-card.active { border-color: var(--gold); background: #333; color: var(--gold); }
 
-        #bank-card {
-            display: none; background: #1a1a1a; border: 1px solid var(--gold);
-            border-radius: 15px; padding: 15px; margin-top: 15px; text-align: center;
-        }
+        #bank-card { display: none; background: #1a1a1a; border: 1px solid var(--gold); border-radius: 15px; padding: 15px; margin-top: 15px; text-align: center; }
 
         .buttons-wrapper { display: flex; gap: 12px; margin-top: 30px; }
         .btn-action {
             flex: 1; height: 58px; border-radius: 15px; border: none;
             font-size: 15px; font-weight: 800; color: white; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            text-decoration: none; text-transform: uppercase;
+            display: flex; align-items: center; justify-content: center; text-decoration: none;
         }
         .btn-whatsapp { background: var(--green); }
         .btn-call { background: var(--blue); }
@@ -76,21 +67,21 @@
         }
     </style>
 </head>
-<body dir="rtl" id="bodyTag">
+<body>
 
-<div class="lang-switcher" onclick="toggleLang()" id="langBtn">EN</div>
+<button class="lang-btn" onclick="toggleLanguage()" id="lBtn">EN</button>
 
 <div class="dev-name">DEVELOPED BY BRAZILI</div>
 
 <div class="hero">
-    <h1 style="color: var(--gold); font-size: 38px; margin: 0; letter-spacing: 3px; font-weight: 900;">SAREE3</h1>
-    <p id="hero-sub">صيانة أجهزة الولي الكهربائية</p>
+    <h1 style="color: var(--gold); font-size: 38px; margin: 0; font-weight: 900;">SAREE3</h1>
+    <p id="subTxt">صيانة أجهزة الولي الكهربائية</p>
 </div>
 
 <div class="app-container">
-    <label id="lbl-loc">الحي السكني:</label>
-    <select id="loc">
-        <option value="" disabled selected>-- اختر الحي السكني --</option>
+    <label id="l1">الحي السكني:</label>
+    <select id="loc" dir="rtl">
+        <option value="" disabled selected>-- اختر الحي --</option>
         <option>حي المسجد العتيق</option>
         <option>حي الرحمه</option>
         <option>حي فريق قدام</option>
@@ -98,131 +89,98 @@
         <option>حي نادي اتحاد الولي</option>
     </select>
 
-    <label id="lbl-dev">نوع الجهاز:</label>
-    <select id="device">
-        <option value="" disabled selected>-- اختر نوع الجهاز --</option>
+    <label id="l2">نوع الجهاز:</label>
+    <select id="device" dir="rtl">
+        <option value="" disabled selected>-- اختر الجهاز --</option>
         <option>مكيف</option>
         <option>ثلاجة</option>
         <option>غسالة</option>
         <option>شاشة</option>
     </select>
 
-    <label id="lbl-desc">وصف المشكلة:</label>
-    <textarea id="desc" rows="2" placeholder="ما هي المشكلة؟"></textarea>
+    <label id="l3">وصف المشكلة:</label>
+    <textarea id="desc" dir="rtl" rows="2" placeholder="ما هي المشكلة؟"></textarea>
 
-    <label id="lbl-pay">طريقة الدفع:</label>
+    <label id="l4">طريقة الدفع:</label>
     <div class="payment-grid">
-        <div class="pay-card active" id="pay-cash" onclick="setPayment(this, 'نقداً')">نقداً</div>
-        <div class="pay-card" id="pay-bank" onclick="setPayment(this, 'بنكك')">بنكك</div>
-        <div class="pay-card" id="pay-ocash" onclick="setPayment(this, 'أوكاش')">أوكاش</div>
+        <div class="pay-card active" id="p1" onclick="setPay(this, 'نقداً')">نقداً</div>
+        <div class="pay-card" id="p2" onclick="setPay(this, 'بنكك')">بنكك</div>
+        <div class="pay-card" id="p3" onclick="setPay(this, 'أوكاش')">أوكاش</div>
     </div>
 
     <div id="bank-card">
-        <span id="bank-label">حساب بنك الخرطوم (أحمد):</span><br>
+        <span id="bLbl">حساب بنك الخرطوم (أحمد):</span><br>
         <b style="color:var(--gold); font-size:22px;">4063324</b>
     </div>
 
     <div class="buttons-wrapper">
-        <button class="btn-action btn-whatsapp" id="btn-wa" onclick="sendOrder()">واتساب ✅</button>
-        <a href="tel:0112002802" class="btn-action btn-call" id="btn-call">اتصال 📞</a>
+        <button class="btn-action btn-whatsapp" id="wBtn" onclick="send()">واتساب ✅</button>
+        <a href="tel:0112002802" class="btn-action btn-call" id="cBtn">اتصال 📞</a>
     </div>
 </div>
 
 <div id="thanks-popup">
-    <h1 style="color: var(--gold);" id="thanks-h">شكراً لك!</h1>
-    <p id="thanks-p">جاري التحويل للواتساب...</p>
+    <h1 style="color: var(--gold);" id="th1">شكراً لك!</h1>
+    <p id="th2">جاري التحويل للواتساب...</p>
 </div>
 
 <script>
     let currentLang = 'AR';
-    let currentPayment = "نقداً";
+    let method = "نقداً";
 
-    function toggleLang() {
-        const body = document.getElementById('bodyTag');
-        const langBtn = document.getElementById('langBtn');
+    function toggleLanguage() {
+        const h = document.getElementById('htmlTag');
+        const b = document.getElementById('lBtn');
         
         if (currentLang === 'AR') {
-            // تحويل للإنجليزية
-            body.dir = "ltr";
-            langBtn.innerText = "AR";
+            h.dir = "ltr";
+            b.innerText = "AR";
             currentLang = 'EN';
-            updateTexts('EN');
+            setTexts('EN');
         } else {
-            // تحويل للعربية
-            body.dir = "rtl";
-            langBtn.innerText = "EN";
+            h.dir = "rtl";
+            b.innerText = "EN";
             currentLang = 'AR';
-            updateTexts('AR');
+            setTexts('AR');
         }
     }
 
-    function updateTexts(lang) {
-        const texts = {
-            'EN': {
-                sub: "Smart Maintenance Services",
-                loc: "Select Location:",
-                dev: "Device Type:",
-                desc: "Description:",
-                pay: "Payment Method:",
-                cash: "CASH",
-                bank: "BANKAK",
-                ocash: "O-CASH",
-                wa: "WHATSAPP",
-                call: "CALL NOW",
-                bankLabel: "Bank Account (Ahmed):",
-                thH: "THANK YOU!",
-                thP: "Redirecting to WhatsApp..."
-            },
-            'AR': {
-                sub: "صيانة أجهزة الولي الكهربائية",
-                loc: "الحي السكني:",
-                dev: "نوع الجهاز:",
-                desc: "وصف المشكلة:",
-                pay: "طريقة الدفع:",
-                cash: "نقداً",
-                bank: "بنكك",
-                ocash: "أوكاش",
-                wa: "واتساب ✅",
-                call: "اتصال 📞",
-                bankLabel: "حساب بنك الخرطوم (أحمد):",
-                thH: "شكراً لك!",
-                thP: "جاري التحويل للواتساب..."
-            }
+    function setTexts(l) {
+        const t = {
+            'EN': { s:"Smart Services", l1:"Location:", l2:"Device:", l3:"Problem:", l4:"Payment:", p1:"CASH", p2:"BANKAK", p3:"O-CASH", w:"WHATSAPP", c:"CALL", b:"Bank Account:", th1:"THANK YOU!", th2:"Redirecting..." },
+            'AR': { s:"صيانة أجهزة الولي الكهربائية", l1:"الحي السكني:", l2:"نوع الجهاز:", l3:"وصف المشكلة:", l4:"طريقة الدفع:", p1:"نقداً", p2:"بنكك", p3:"أوكاش", w:"واتساب ✅", c:"اتصال 📞", b:"حساب بنك الخرطوم (أحمد):", th1:"شكراً لك!", th2:"جاري التحويل للواتساب..." }
         };
-
-        document.getElementById('hero-sub').innerText = texts[lang].sub;
-        document.getElementById('lbl-loc').innerText = texts[lang].loc;
-        document.getElementById('lbl-dev').innerText = texts[lang].dev;
-        document.getElementById('lbl-desc').innerText = texts[lang].desc;
-        document.getElementById('lbl-pay').innerText = texts[lang].pay;
-        document.getElementById('pay-cash').innerText = texts[lang].cash;
-        document.getElementById('pay-bank').innerText = texts[lang].bank;
-        document.getElementById('pay-ocash').innerText = texts[lang].ocash;
-        document.getElementById('btn-wa').innerText = texts[lang].wa;
-        document.getElementById('btn-call').innerText = texts[lang].call;
-        document.getElementById('bank-label').innerText = texts[lang].bankLabel;
-        document.getElementById('thanks-h').innerText = texts[lang].thH;
-        document.getElementById('thanks-p').innerText = texts[lang].thP;
+        document.getElementById('subTxt').innerText = t[l].s;
+        document.getElementById('l1').innerText = t[l].l1;
+        document.getElementById('l2').innerText = t[l].l2;
+        document.getElementById('l3').innerText = t[l].l3;
+        document.getElementById('l4').innerText = t[l].l4;
+        document.getElementById('p1').innerText = t[l].p1;
+        document.getElementById('p2').innerText = t[l].p2;
+        document.getElementById('p3').innerText = t[l].p3;
+        document.getElementById('wBtn').innerText = t[l].w;
+        document.getElementById('cBtn').innerText = t[l].c;
+        document.getElementById('bLbl').innerText = t[l].b;
+        document.getElementById('th1').innerText = t[l].th1;
+        document.getElementById('th2').innerText = t[l].th2;
     }
 
-    function setPayment(el, method) {
+    function setPay(el, m) {
         document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('active'));
         el.classList.add('active'); 
-        currentPayment = method;
-        document.getElementById('bank-card').style.display = (method === 'بنكك') ? 'block' : 'none';
+        method = m;
+        document.getElementById('bank-card').style.display = (m === 'بنكك') ? 'block' : 'none';
     }
 
-    function sendOrder() {
-        const l = document.getElementById('loc').value;
-        const d = document.getElementById('device').value;
-        if(!l || !d) { alert(currentLang === 'AR' ? "يرجى ملء البيانات!" : "Please fill all fields!"); return; }
-
+    function send() {
+        const loc = document.getElementById('loc').value;
+        const dev = document.getElementById('device').value;
+        if(!loc || !dev) { alert(currentLang === 'AR' ? "اكمل البيانات!" : "Fill data!"); return; }
         document.getElementById('thanks-popup').style.display = 'flex';
-        const msg = `*NEW ORDER - SAREE3*%0A📍 Location: ${l}%0A🛠️ Device: ${d}%0A💳 Payment: ${currentPayment}%0A_BY BRAZILI_`;
+        const msg = `*ORDER SAREE3*%0A📍 ${loc}%0A🛠️ ${dev}%0A💰 ${method}%0A_BY BRAZILI_`;
         setTimeout(() => { window.location.href = `https://wa.me/249112002802?text=${msg}`; }, 2000);
     }
 </script>
 
 </body>
 </html>
-
