@@ -12,36 +12,105 @@
         body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 15px; }
         .page { display: none; animation: fadeIn 0.3s ease-in-out; }
         .container { max-width: 500px; margin: auto; background: var(--card); padding: 30px; border-radius: 30px; border: 1px solid #30363d; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        
         h1 { color: var(--gold); font-size: 50px; margin-bottom: 5px; font-weight: 900; }
+        
+        input, select, textarea { 
+            width: 100%; padding: 20px; margin: 12px 0; border-radius: 15px; 
+            border: 2px solid #444; background: #0d1117; color: white; 
+            font-size: 18px; outline: none; box-sizing: border-box; font-family: 'Cairo';
+        }
+
         .btn { width: 100%; padding: 22px; border-radius: 20px; border: none; font-weight: 900; font-size: 22px; cursor: pointer; margin-top: 15px; }
         .btn-gold { background: var(--gold); color: black; }
-        .driver-card { background: #1c2128; padding: 20px; border-radius: 20px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; border: 2px solid #333; border-right: 5px solid var(--blue); }
-        .call-btn { background: var(--green); color: white; padding: 12px 20px; border-radius: 15px; cursor: pointer; font-weight: 900; font-size: 18px; border: none; }
+        .btn-outline { background: transparent; border: 2px solid var(--gold); color: var(--gold); margin-top: 15px; font-size: 16px; padding: 12px; border-radius: 15px; width: 100%; cursor: pointer; }
+
+        .menu-card { background: var(--card); border: 2px solid #30363d; border-radius: 25px; padding: 35px 20px; margin-bottom: 25px; cursor: pointer; }
+        
+        .driver-card { 
+            background: #1c2128; padding: 20px; border-radius: 20px; 
+            margin-bottom: 15px; display: flex; justify-content: space-between; 
+            align-items: center; border: 2px solid #333; border-right: 5px solid var(--blue);
+        }
+        .call-btn { 
+            background: var(--green); color: white; padding: 12px 20px; 
+            border-radius: 15px; cursor: pointer; font-weight: 900; font-size: 18px; border: none;
+        }
+
+        .back-btn { background:none; color:var(--gold); border:none; font-size: 20px; font-weight:bold; float:right; cursor:pointer; padding: 10px; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body onload="checkLoginStatus()">
 
+    <div id="login-page" class="page" style="display: block;">
+        <div class="container" style="margin-top: 40px;">
+            <h1>SAREE3</h1>
+            <h2 style="color: var(--gold);">تسجيل الدخول</h2>
+            <input type="text" id="login-phone" placeholder="رقم الهاتف">
+            <input type="password" id="login-pass" placeholder="كلمة السر">
+            <button class="btn btn-gold" onclick="login()">دخول ✅</button>
+            <button class="btn-outline" onclick="show('register-page')">إنشاء حساب جديد</button>
+        </div>
+    </div>
+
+    <div id="register-page" class="page">
+        <div class="container" style="margin-top: 40px;">
+            <h2 style="color: var(--gold);">عضوية جديدة</h2>
+            <input type="text" id="reg-name" placeholder="الاسم الكامل">
+            <input type="tel" id="reg-phone" placeholder="رقم الهاتف">
+            <input type="password" id="reg-pass" placeholder="كلمة سر من اختيارك">
+            <button class="btn btn-gold" onclick="register()">طلب كود التفعيل ✨</button>
+            <button class="btn-outline" onclick="show('login-page')">لديك حساب؟ سجل دخول</button>
+        </div>
+    </div>
+
+    <div id="home" class="page">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
+             <button class="btn-outline" style="width: auto; margin:0;" onclick="logout()">خروج ⬅️</button>
+             <h1 style="font-size: 35px; margin: 0;">SAREE3</h1>
+        </div>
+        <p id="welcome-msg" style="color: var(--gold); font-weight: bold; margin: 20px 0;"></p>
+        <div class="menu-card" onclick="show('m-page')" style="border-bottom: 6px solid var(--gold);">
+            <span style="font-size: 50px;">🛠️</span><h3>خدمة الصيانة</h3>
+        </div>
+        <div class="menu-card" onclick="show('trip-page')" style="border-bottom: 6px solid var(--blue);">
+            <span style="font-size: 50px;">🚕</span><h3>مشوار</h3>
+        </div>
+        <p style="font-size: 10px; color: #333; letter-spacing: 2px;">DESIGNED BY BRAZILI QQ</p>
+    </div>
+
+    <div id="m-page" class="page">
+        <div class="container">
+            <button class="back-btn" onclick="show('home')">🔙 رجوع</button>
+            <div style="clear:both;"></div>
+            <h2 style="color: var(--gold); font-size: 32px;">طلب صيانة</h2>
+            <select id="m-loc">
+                <option>حي المسجد العتيق</option><option>حي الرحمه</option>
+            </select>
+            <select id="m-dev">
+                <option>مكيف</option><option>ثلاجة</option>
+            </select>
+            <textarea id="m-problem" placeholder="اشرح المشكلة..."></textarea>
+            <button class="btn btn-gold" onclick="sendM()">إرسال الطلب ✅</button>
+        </div>
+    </div>
+
     <div id="trip-page" class="page">
         <div class="container">
-            <button onclick="show('home')" style="background:none; color:var(--gold); border:none; float:right; cursor:pointer;">🔙 رجوع</button>
+            <button class="back-btn" onclick="show('home')">🔙 رجوع</button>
             <div style="clear:both;"></div>
-            <h2 style="color: var(--blue); font-size: 32px;">دليل المشاوير الذكي</h2>
+            <h2 style="color: var(--blue); font-size: 32px;">دليل المشاوير</h2>
             <div style="text-align: right;">
-                <h3 style="color: var(--gold);">📍 مشاوير داخلية</h3>
+                <h3 style="color: var(--gold);">📍 داخلية</h3>
                 <div class="driver-card">
                     <div><h4>عمر عبد الله</h4><p>ركشة</p></div>
                     <button class="call-btn" onclick="realCall('عمر عبد الله', '249121606445')">📞 طلب واتصال</button>
                 </div>
-
-                <h3 style="color: var(--gold);">🏙️ سفر الحصاحيصا</h3>
+                <h3 style="color: var(--gold);">🏙️ سفر</h3>
                 <div class="driver-card">
                     <div><h4>عبد الجليل يوسف</h4><p>ACCENT</p></div>
                     <button class="call-btn" onclick="realCall('عبد الجليل يوسف', '249117655646')">📞 طلب واتصال</button>
-                </div>
-                <div class="driver-card">
-                    <div><h4>جابر عبد الجليل</h4><p>حافلة</p></div>
-                    <button class="call-btn" onclick="realCall('جابر عبد الجليل', '249127879864')">📞 طلب واتصال</button>
                 </div>
             </div>
         </div>
@@ -50,39 +119,94 @@
 <script>
     const MY_PHONE = "249112002802";
 
-    // الوظيفة السحرية الجديدة للاتصال الحقيقي والرسائل
-    function realCall(driverName, driverPhone) {
-        const user = JSON.parse(localStorage.getItem('currentUser'));
-        const userName = user ? user.name : "عميل جديد";
-        
-        // 1. رسائل الواتساب
-        const myMsg = `📢 *تنبيه مطور*%0Aالعميل: ${userName}%0Aيتصل الآن بالسائق: ${driverName}`;
-        const driverMsg = `👋 *طلب مشوار من تطبيق سريع*%0Aأنا العميل ${userName}، أحتاج لمشوار وسأقوم بالاتصال بك الآن.`;
-
-        alert("سيتم إرسال طلبك للإدارة والسائق أولاً، ثم سيفتح الهاتف لوحة الاتصال تلقائياً ✅");
-
-        // إرسال التنبيه للمطور (أنت) في خلفية
-        window.open(`https://wa.me/${MY_PHONE}?text=${myMsg}`, '_blank');
-
-        // إرسال الرسالة للسائق
-        setTimeout(() => {
-            window.open(`https://wa.me/${driverPhone}?text=${driverMsg}`, '_blank');
-        }, 1000);
-
-        // فتح الاتصال الحقيقي بالسائق بعد ثانيتين
-        setTimeout(() => {
-            window.location.href = `tel:${driverPhone}`;
-        }, 2500);
-    }
-
-    // ... باقي وظائف تسجيل الدخول والحفظ السابقة ...
     function show(id) {
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById(id).style.display = 'block';
     }
+
+    // --- نظام الدخول المعدل (بدون دخول تلقائي) ---
+    function login() {
+        const phone = document.getElementById('login-phone').value;
+        const pass = document.getElementById('login-pass').value;
+
+        if(phone === "BRAZILI") {
+            sessionStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('currentUser', JSON.stringify({ name: "مطور النظام 👑", phone: "DEV" }));
+            checkLoginStatus(); return;
+        }
+
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const user = users.find(u => u.phone === phone && u.pass === pass);
+        
+        if(user) {
+            sessionStorage.setItem('isLoggedIn', 'true'); // الجلسة تنتهي بإغلاق المتصفح
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            checkLoginStatus();
+        } else {
+            alert("رقم الهاتف أو كلمة السر غير صحيحة!");
+        }
+    }
+
     function checkLoginStatus() {
+        const loggedIn = sessionStorage.getItem('isLoggedIn');
         const user = JSON.parse(localStorage.getItem('currentUser'));
-        if(user) show('home'); else show('login-page');
+        if(loggedIn === 'true' && user) {
+            document.getElementById('welcome-msg').innerText = "مرحباً، " + user.name;
+            show('home');
+        } else {
+            show('login-page');
+        }
+    }
+
+    function logout() {
+        sessionStorage.removeItem('isLoggedIn');
+        location.reload();
+    }
+
+    // --- إنشاء حساب برسالة مخصصة للمطور ---
+    function register() {
+        const name = document.getElementById('reg-name').value;
+        const phone = document.getElementById('reg-phone').value;
+        const pass = document.getElementById('reg-pass').value;
+
+        if(!name || !phone || !pass) return alert("أكمل البيانات!");
+
+        // الرسالة المعدلة كما طلبت (بدون اسم الموقع)
+        const msg = "أهلاً بك.. لضمان الأمان سيتم تحويلك الآن لتأكيد الهوية عبر المطور BRAZILI QQ والحصول على كود التفعيل.\n\nهل تود المتابعة؟";
+        
+        if(confirm(msg)) {
+            window.open(`https://wa.me/${MY_PHONE}?text=طلب تفعيل%0Aالاسم: ${name}%0Aالرقم: ${phone}`, '_blank');
+            
+            setTimeout(() => {
+                const code = prompt("أدخل كود التفعيل المستلم من BRAZILI QQ:");
+                if(code && code.endsWith("11")) {
+                    const users = JSON.parse(localStorage.getItem('users') || '[]');
+                    users.push({ name, phone, pass });
+                    localStorage.setItem('users', JSON.stringify(users));
+                    alert("تم التحقق بنجاح ✅ سجل دخولك الآن");
+                    show('login-page');
+                } else {
+                    alert("الكود غير صحيح!");
+                }
+            }, 2000);
+        }
+    }
+
+    // --- اتصال حقيقي ورسائل مزدوجة ---
+    function realCall(driverName, driverPhone) {
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        const myMsg = `📢 تنبيه: العميل ${user.name} يتصل بالسائق ${driverName}`;
+        const driverMsg = `👋 طلب مشوار: العميل ${user.name} يحتاجك وسيتصل بك الآن.`;
+
+        window.open(`https://wa.me/${MY_PHONE}?text=${myMsg}`, '_blank');
+        setTimeout(() => { window.open(`https://wa.me/${driverPhone}?text=${driverMsg}`, '_blank'); }, 1000);
+        setTimeout(() => { window.location.href = `tel:${driverPhone}`; }, 2500);
+    }
+
+    function sendM() {
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        const msg = `*طلب صيانة*%0Aالعميل: ${user.name}%0Aالجهاز: ${document.getElementById('m-dev').value}%0Aالمشكلة: ${document.getElementById('m-problem').value}`;
+        window.location.href = `https://wa.me/${MY_PHONE}?text=${msg}`;
     }
 </script>
 </body>
