@@ -8,12 +8,13 @@
     <meta name="theme-color" content="#ffcc00">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #e63946; --gold: #ffcc00; --dark: #0d1117; --card: #161b22; }
+        :root { --red: #e63946; --gold: #ffcc00; --dark: #0d1117; --card: #161b22; --blue: #007bff; }
         body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 10px; }
         .page { display: none; animation: fadeIn 0.4s ease-out; padding-top: 10px; }
         .container { max-width: 420px; margin: auto; background: var(--card); padding: 25px; border-radius: 25px; border: 1px solid #30363d; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
         h1 { color: var(--gold); font-size: 45px; margin-bottom: 5px; font-weight: 900; }
-        .menu-card { background: var(--card); border: 1px solid #30363d; border-radius: 20px; padding: 25px; margin-bottom: 20px; cursor: pointer; transition: 0.3s; }
+        .menu-card { background: var(--card); border: 1px solid #30363d; border-radius: 20px; padding: 20px; margin-bottom: 15px; cursor: pointer; transition: 0.3s; }
+        .menu-card:active { transform: scale(0.95); }
         input, select { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 2px solid #30363d; background: #0d1117; color: white; font-size: 16px; box-sizing: border-box; outline: none; font-family: 'Cairo'; }
         .blood-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
         .b-card { background: #21262d; padding: 12px 0; border-radius: 10px; cursor: pointer; font-weight: bold; color: #8b949e; border: 2px solid transparent; }
@@ -21,7 +22,7 @@
         .btn { width: 100%; padding: 16px; border-radius: 15px; border: none; font-weight: 900; font-size: 16px; cursor: pointer; margin-top: 20px; transition: 0.3s; }
         .btn-gold { background: var(--gold); color: black; }
         .btn-red { background: var(--red); color: white; }
-        .btn-download { background: #238636; color: white; margin-top: 10px; font-size: 14px; }
+        .btn-blue { background: var(--blue); color: white; }
         .admin-item { background: #1c2128; padding: 15px; margin: 8px 0; border-radius: 12px; display: flex; justify-content: space-between; border-right: 5px solid var(--red); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .back-btn { background:none; color:white; border:none; cursor:pointer; font-weight:bold; float:right; padding: 10px; }
@@ -31,25 +32,52 @@
 
     <div id="home" class="page" style="display: block;">
         <h1>SAREE3</h1>
-        <p style="color: #8b949e; margin-bottom: 30px;">نظام الولي للخدمات الذكية</p>
+        <p style="color: #8b949e; margin-bottom: 25px;">نظام الولي للخدمات الذكية</p>
+        
         <div class="menu-card" onclick="show('m-page')" style="border-bottom: 4px solid var(--gold);">
-            <span style="font-size: 40px;">🛠️</span><h2 style="margin:10px 0 0;">خدمة الصيانة</h2>
+            <span style="font-size: 35px;">🛠️</span><h3 style="margin:5px 0;">خدمة الصيانة</h3>
         </div>
+
         <div class="menu-card" onclick="show('b-page')" style="border-bottom: 4px solid var(--red);">
-            <span style="font-size: 40px;">🩸</span><h2 style="margin:10px 0 0;">بنك الدم</h2>
+            <span style="font-size: 35px;">🩸</span><h3 style="margin:5px 0;">بنك الدم</h3>
         </div>
-        <p style="font-size: 10px; color: #333; letter-spacing: 2px;">BY BRAZILI QQ</p>
+
+        <div class="menu-card" onclick="show('trip-page')" style="border-bottom: 4px solid var(--blue);">
+            <span style="font-size: 35px;">🚕</span><h3 style="margin:5px 0;">مشوار</h3>
+        </div>
+        
+        <p style="font-size: 10px; color: #333; letter-spacing: 2px; margin-top: 15px;">BY BRAZILI QQ</p>
+    </div>
+
+    <div id="trip-page" class="page">
+        <div class="container">
+            <button class="back-btn" onclick="show('home')">🔙 رجوع</button>
+            <div style="clear:both;"></div>
+            <h2 style="color: var(--blue);">اطلب مشوارك</h2>
+            
+            <label style="float:right; font-size:12px; color:#8b949e;">وجهة السفر:</label>
+            <select id="trip-type" onchange="updateTripOptions()">
+                <option value="داخلية">مشاوير داخلية</option>
+                <option value="الحصاحيصا">الحصاحيصا</option>
+                <option value="ولايات">سفر ولايات</option>
+            </select>
+
+            <label style="float:right; font-size:12px; color:#8b949e;">نوع الوسيلة:</label>
+            <select id="trip-vehicle">
+                </select>
+
+            <button class="btn btn-blue" onclick="sendTrip()">إرسال طلب المشوار 🚕</button>
+        </div>
     </div>
 
     <div id="m-page" class="page">
         <div class="container">
             <button class="back-btn" onclick="show('home')">🔙 رجوع</button>
             <div style="clear:both;"></div>
-            <h2 style="color: var(--gold);">طلب صيانة جديد</h2>
+            <h2 style="color: var(--gold);">طلب صيانة</h2>
             <select id="m-loc">
                 <option>حي المسجد العتيق</option><option>حي الرحمه</option>
-                <option>حي فريق قدام</option><option>حي نادي الشعله</option>
-                <option>حي نادي اتحاد الولي</option>
+                <option>حي فريق قدام</option><option>حي نادي الشعله</option><option>حي نادي اتحاد الولي</option>
             </select>
             <select id="m-dev"><option>مكيف</option><option>ثلاجة</option><option>غسالة</option><option>شاشة</option></select>
             <button class="btn btn-gold" onclick="sendM()">إرسال واتساب ✅</button>
@@ -74,8 +102,8 @@
             <div id="admin-ui" style="display:none;">
                 <h3 style="color: var(--gold);">لوحة التحكم 👑</h3>
                 <div id="listDisplay"></div>
-                <button class="btn btn-download" onclick="downloadDB()">📥 تنزيل كشف الأسماء (.txt)</button>
-                <button class="btn" style="background:#333; color:white;" onclick="location.reload()">خروج</button>
+                <button class="btn btn-red" style="background:#238636;" onclick="downloadDB()">📥 تنزيل الكشف (.txt)</button>
+                <button class="btn" style="background:#333;" onclick="location.reload()">خروج</button>
             </div>
         </div>
     </div>
@@ -87,6 +115,35 @@
     function show(id) {
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById(id).style.display = 'block';
+        if(id === 'trip-page') updateTripOptions();
+    }
+
+    // وظيفة تحديث خيارات المركبات بناءً على نوع السفر
+    function updateTripOptions() {
+        const type = document.getElementById('trip-type').value;
+        const vehicleSelect = document.getElementById('trip-vehicle');
+        vehicleSelect.innerHTML = "";
+
+        let options = [];
+        if (type === "داخلية") {
+            options = ["ركشة", "تكتك"];
+        } else {
+            options = ["عربة ACCENT", "عربة ATOZ", "عربة 12 راكب", "حافلة"];
+        }
+
+        options.forEach(opt => {
+            let el = document.createElement("option");
+            el.text = opt;
+            el.value = opt;
+            vehicleSelect.add(el);
+        });
+    }
+
+    function sendTrip() {
+        const type = document.getElementById('trip-type').value;
+        const vehicle = document.getElementById('trip-vehicle').value;
+        const msg = `*طلب مشوار جديد (سريع)*%0A📍 الوجهة: ${type}%0A🚕 الوسيلة: ${vehicle}`;
+        window.location.href = `https://wa.me/249112002802?text=${msg}`;
     }
 
     function sendM() {
@@ -105,7 +162,7 @@
         if(!n || !bType) return alert("أكمل البيانات!");
         db.push({name:n, type:bType});
         localStorage.setItem('blood_db', JSON.stringify(db));
-        alert("تم الحفظ بنجاح ✅");
+        alert("تم الحفظ ✅");
         location.reload();
     }
 
@@ -113,34 +170,24 @@
         if(v === "BRAZILI11") {
             document.getElementById('user-ui').style.display = 'none';
             document.getElementById('admin-ui').style.display = 'block';
-            document.getElementById('b-title').innerText = "قاعدة البيانات";
             document.getElementById('listDisplay').innerHTML = db.map(i => `
                 <div class="admin-item"><span>${i.name}</span><b>${i.type}</b></div>
             `).join('');
         }
     }
 
-    // وظيفة تنزيل الملف الجديد
     function downloadDB() {
-        if (db.length === 0) return alert("لا توجد بيانات لتنزيلها!");
-        let content = "--- كشف المتبرعين (تطبيق SAREE3) ---\n\n";
-        db.forEach((item, index) => {
-            content += `${index + 1}. الاسم: ${item.name} | الفصيلة: ${item.type}\n`;
-        });
-        content += "\nتم استخراج الملف بواسطة BRAZILI QQ";
-        
+        if (db.length === 0) return alert("لا توجد بيانات!");
+        let content = "--- كشف متبرعين SAREE3 ---\n\n";
+        db.forEach((item, i) => content += `${i+1}. ${item.name} [${item.type}]\n`);
         const blob = new Blob([content], { type: 'text/plain' });
-        const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = url;
-        a.download = `متبرعين_الولي_${new Date().toLocaleDateString()}.txt`;
+        a.href = URL.createObjectURL(blob);
+        a.download = `متبرعين_${new Date().toLocaleDateString()}.txt`;
         a.click();
-        window.URL.revokeObjectURL(url);
     }
 
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js');
-    }
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 </script>
 </body>
 </html>
