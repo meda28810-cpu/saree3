@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <link rel="icon" type="image/png" href="https://i.ibb.co/vz4488D/br-saree3-logo-192.png">
-
-    <link rel="manifest" href="manifest.json">
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تطبيق سريع | صيانة الولي</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="https://api.qrserver.com/v1/create-qr-code/?size=192x192&data=BR">
+    
     <style>
         :root { --gold: #ffcc00; --green: #28a745; --blue: #007bff; --dark: #0a0a0a; --card: #161616; }
         body { font-family: 'Segoe UI', sans-serif; background-color: var(--dark); color: white; margin: 0; padding: 0; }
         
         .dev-name {
             text-align: center; font-weight: 900; font-size: 14px; letter-spacing: 3px;
-            color: var(--gold); margin-top: 10px; text-shadow: 0 0 10px var(--gold);
+            color: var(--gold); margin-top: 15px; text-shadow: 0 0 10px var(--gold);
             animation: glow 2s ease-in-out infinite alternate;
         }
         @keyframes glow { from { opacity: 0.6; } to { opacity: 1; } }
@@ -31,6 +31,7 @@
             max-width: 450px; margin: -30px auto 30px; width: 90%;
             background: var(--card); border-radius: 25px; padding: 25px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 1px solid #333;
+            box-sizing: border-box;
         }
 
         label { display: block; text-align: right; margin: 15px 5px 8px; color: var(--gold); font-weight: bold; font-size: 13px; }
@@ -51,31 +52,17 @@
             border-radius: 15px; padding: 15px; margin-top: 15px; text-align: center;
         }
 
-        /* تنسيق الأزرار المتساوية */
         .buttons-wrapper {
-            display: flex;
-            gap: 10px;
-            margin-top: 25px;
-            justify-content: center;
+            display: flex; gap: 10px; margin-top: 25px; justify-content: center;
         }
         .btn-action {
-            flex: 1; /* لجعلهم متساويين في العرض */
-            height: 55px; /* طول متوسط وموحد */
-            border-radius: 15px;
-            border: none;
-            font-size: 15px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: 0.3s;
+            flex: 1; height: 55px; border-radius: 15px; border: none;
+            font-size: 15px; font-weight: bold; color: white; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none; transition: 0.3s;
         }
         .btn-whatsapp { background: var(--green); }
         .btn-call { background: var(--blue); }
-        .btn-action:active { transform: scale(0.95); }
 
         #thanks-popup {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -84,9 +71,7 @@
         }
     </style>
 </head>
-<body>
-
-<div class="dev-name">DEVELOPED BY BRAZILI</div>
+<body> <div class="dev-name">DEVELOPED BY BRAZILI</div>
 
 <div class="hero">
     <h1 style="color: var(--gold); font-size: 32px; margin: 0;">سريع | SAREE3</h1>
@@ -111,11 +96,10 @@
         <option>ثلاجة</option>
         <option>غسالة</option>
         <option>شاشة</option>
-        <option>أجهزة أخرى</option>
     </select>
 
     <label>📝 وصف المشكلة:</label>
-    <textarea id="desc" rows="2" placeholder="ما هو العطل؟"></textarea>
+    <textarea id="desc" rows="2" placeholder="ما هي المشكلة؟"></textarea>
 
     <label>💳 طريقة الدفع:</label>
     <div class="payment-grid">
@@ -141,10 +125,17 @@
 
 <div id="thanks-popup">
     <h1 style="color: var(--gold);">شكراً لثقتكم في "سريع" 😊</h1>
-    <p style="padding: 20px; font-size: 16px;">تم تجهيز طلبك بعناية.. سيتم تحويلك الآن للواتساب لتأكيد الموعد.</p>
+    <p style="padding: 20px; font-size: 16px;">تم تجهيز طلبك.. سيتم تحويلك للواتساب الآن.</p>
 </div>
 
 <script>
+    // تسجيل الـ Service Worker لتحويله لتطبيق
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js');
+        });
+    }
+
     let currentPayment = "نقداً";
     function setPayment(el, method) {
         document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('active'));
@@ -156,16 +147,16 @@
         const l = document.getElementById('loc').value;
         const d = document.getElementById('device').value;
         const s = document.getElementById('desc').value;
-        if(!l || !d) { alert("يرجى اختيار الحي والجهاز أولاً!"); return; }
+        if(!l || !d) { alert("يرجى ملء البيانات!"); return; }
 
         document.getElementById('thanks-popup').style.display = 'flex';
-        const msg = `*طلب صيانة (سريع - الولي)*%0A📍 الحي: ${l}%0A🛠️ الجهاز: ${d}%0A📝 العطل: ${s}%0A💰 الدفع: ${currentPayment}%0A------------------%0A_شكراً لثقتكم - نظام BRAZILI_`;
+        const msg = `*طلب صيانة (سريع - الولي)*%0A📍 الحي: ${l}%0A🛠️ الجهاز: ${d}%0A💰 الدفع: ${currentPayment}%0A_تطوير: BRAZILI_`;
         
-        setTimeout(() => { window.location.href = `https://wa.me/249112002802?text=${msg}`; }, 2500);
+        setTimeout(() => { window.location.href = `https://wa.me/249112002802?text=${msg}`; }, 2000);
     }
 </script>
 
-</body>
-</html>
+</body> </html>
+
 
 
