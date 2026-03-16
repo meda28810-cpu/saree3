@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAREE3 | BRAZILI QQ 👑</title>
+    <title>SAREE3 | BRAZILI QQ</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ffcc00">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --red: #e63946; --gold: #ffcc00; --dark: #0d1117; --card: #161b22; --blue: #007bff; }
+        :root { --red: #e63946; --gold: #ffcc00; --dark: #0d1117; --card: #161b22; }
         body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 10px; }
         
         .page { display: none; animation: fadeIn 0.4s ease-out; padding-top: 10px; }
@@ -32,6 +41,8 @@
 
         .admin-item { background: #1c2128; padding: 15px; margin: 8px 0; border-radius: 12px; display: flex; justify-content: space-between; border-right: 5px solid var(--red); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .back-btn { background:none; color:white; border:none; cursor:pointer; font-weight:bold; float:right; padding: 10px; }
     </style>
 </head>
 <body>
@@ -51,12 +62,12 @@
             <h2 style="margin:10px 0 0;">بنك الدم</h2>
             <p style="color: #666; font-size: 12px;">تسجيل متبرعين وخدمات الطوارئ</p>
         </div>
-        <p style="font-size: 10px; color: #333; letter-spacing: 2px;">BY BRAZILI QQ</p>
+        <p style="font-size: 10px; color: #333; letter-spacing: 2px; margin-top: 20px;">BY BRAZILI QQ</p>
     </div>
 
     <div id="m-page" class="page">
         <div class="container">
-            <button onclick="show('home')" style="background:none; color:var(--gold); border:none; cursor:pointer; font-weight:bold; float:right;">🔙 رجوع</button>
+            <button class="back-btn" onclick="show('home')">🔙 رجوع</button>
             <div style="clear:both;"></div>
             <h2 style="color: var(--gold);">طلب صيانة جديد</h2>
             <label style="float:right; font-size:12px; color:#8b949e;">اختر الحي:</label>
@@ -73,7 +84,7 @@
 
     <div id="b-page" class="page">
         <div class="container">
-            <button onclick="show('home')" style="background:none; color:var(--red); border:none; cursor:pointer; font-weight:bold; float:right;">🔙 رجوع</button>
+            <button class="back-btn" onclick="show('home')">🔙 رجوع</button>
             <div style="clear:both;"></div>
             <h2 id="b-title" style="color: var(--red);">نظام المتبرعين</h2>
             <input type="text" id="b-name" placeholder="اكتب الاسم (أو كود المطور)" oninput="checkAuth(this.value)" dir="auto">
@@ -98,18 +109,20 @@
 
 <script>
     let bType = "";
+    // جلب البيانات من ذاكرة المتصفح المحلية
     let db = JSON.parse(localStorage.getItem('blood_db')) || [];
 
     function show(id) {
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById(id).style.display = 'block';
+        window.scrollTo(0,0);
     }
 
     // وظائف الصيانة
     function sendM() {
         const loc = document.getElementById('m-loc').value;
         const dev = document.getElementById('m-dev').value;
-        const msg = `*طلب صيانة جديد (سريع)*%0A📍 الحي: ${loc}%0A🛠️ الجهاز: ${dev}`;
+        const msg = `*طلب صيانة جديد (سريع)*%0A📍 الحي: ${loc}%0A🛠️ الجهاز: ${dev}%0A_SYSTEM BY BRAZILI QQ_`;
         window.location.href = `https://wa.me/249112002802?text=${msg}`;
     }
 
@@ -121,14 +134,15 @@
 
     function saveB() {
         let n = document.getElementById('b-name').value;
-        if(!n || !bType) return alert("أكمل البيانات!");
+        if(!n || !bType) { alert("أكمل البيانات يا بطل!"); return; }
         db.push({name:n, type:bType});
         localStorage.setItem('blood_db', JSON.stringify(db));
-        alert("تم الحفظ بنجاح!");
+        alert("تم الحفظ بنجاح في قاعدة بيانات BRAZILI ✅");
         location.reload();
     }
 
     function checkAuth(v) {
+        // كلمة السر الخاصة بك
         if(v === "BRAZILI11") {
             document.getElementById('user-ui').style.display = 'none';
             document.getElementById('admin-ui').style.display = 'block';
@@ -138,6 +152,15 @@
                 <div class="admin-item"><span>${i.name}</span><b style="color:var(--red)">${i.type}</b></div>
             `).join('');
         }
+    }
+
+    // كود تسجيل الـ Service Worker ليصبح تطبيقاً
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js').then(() => {
+                console.log('BRAZILI App Ready!');
+            });
+        });
     }
 </script>
 </body>
