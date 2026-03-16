@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRAZILI | Donor System 🩸</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* نظام الألوان الاحترافي (Premium Colors) */
+        :root {
+            --red-main: #e63946;    /* أحمر قاني للدم */
+            --red-deep: #b01c2a;    /* أحمر داكن للتفاعل */
+            --dark-bg: #0d1117;    /* أسود غامق للخلفية */
+            --card-bg: #161b22;    /* رمادي غامق للكروت */
+            --text-main: #f0f6fc;  /* أبيض نقي للخطوط */
+            --text-sub: #8b949e;   /* رمادي باهت للعناوين */
+            --gold: #ffcc00;       /* ذهبي للتميز (الإدارة) */
+            --ease: cubic-bezier(0.23, 1, 0.32, 1); /* تأثير حركة ناعم */
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .premium-container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 35px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            border: 1px solid #30363d;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            animation: containerEntry 1s var(--ease);
+        }
+
+        @keyframes containerEntry {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* رأس الصفحة (Hero Section) */
+        .hero {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .blood-icon {
+            font-size: 50px;
+            color: var(--red-main);
+            filter: drop-shadow(0 0 15px rgba(230, 57, 70, 0.6));
+            animation: pulse 2.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(230, 57, 70, 0.6)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 25px rgba(230, 57, 70, 0.9)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(230, 57, 70, 0.6)); }
+        }
+
+        h1 {
+            color: var(--red-main);
+            font-size: 30px;
+            font-weight: 900;
+            margin: 10px 0 5px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin: 0;
+        }
+
+        /* تنسيق حقل الاسم */
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin: 0 10px 8px;
+            color: var(--text-sub);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 15px;
+            border: 2px solid #30363d;
+            background: rgba(48, 54, 61, 0.3);
+            color: var(--text-main);
+            font-size: 16px;
+            font-weight: bold;
+            box-sizing: border-box;
+            transition: 0.3s var(--ease);
+            text-align: center;
+        }
+
+        input:focus {
+            border-color: var(--red-main);
+            background: #21262d;
+            outline: none;
+            box-shadow: 0 0 15px rgba(230, 57, 70, 0.2);
+        }
+
+        input::placeholder {
+            color: #484f58;
+            font-weight: normal;
+        }
+
+        /* تنسيق شبكة فصائل الدم (The Grid) */
+        .blood-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .blood-card {
+            background: #21262d;
+            border: 2px solid #30363d;
+            border-radius: 15px;
+            padding: 20px 0;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 900;
+            font-size: 20px;
+            color: #8b949e;
+            transition: 0.3s var(--ease);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blood-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.05), rgba(255,255,255,0));
+            opacity: 0; transition: 0.3s var(--ease);
+        }
+
+        .blood-card:hover {
+            border-color: #484f58;
+            color: #c9d1d9;
+            transform: translateY(-3px);
+        }
+
+        .blood-card.active {
+            border-color: var(--red-main);
+            color: var(--red-main);
+            background: #2d1618;
+            box-shadow: 0 0 20px rgba(230, 57, 70, 0.4);
+        }
+
+        .blood-card.active::before {
+            opacity: 1;
+        }
+
+        /* تنسيق الزر الرئيسي الساطع */
+        .btn-register {
+            width: 100%;
+            height: 65px;
+            border-radius: 18px;
+            border: none;
+            background: linear-gradient(to right, var(--red-deep), var(--red-main));
+            color: white;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin-top: 35px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(230, 57, 70, 0.4);
+            transition: 0.3s var(--ease);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-register:hover {
+            box-shadow: 0 15px 35px rgba(230, 57, 70, 0.6);
+            filter: brightness(1.1);
+        }
+
+        .btn-register:active {
+            transform: scale(0.97);
+            filter: brightness(0.9);
+        }
+
+        /* لوحة التحكم السرية (Premium Admin) */
+        #admin-panel {
+            display: none;
+            margin-top: 30px;
+            border-top: 2px dashed #303
