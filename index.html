@@ -3,182 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAREE3 | SA</title>
+    <title>SAREE3 | BRAZILI QQ 👑</title>
     
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3259/3259364.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
-        :root { --gold: #ffcc00; --green: #28a745; --blue: #007bff; --dark: #0a0a0a; --card: #161616; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--dark); color: white; margin: 0; padding: 0; overflow-x: hidden; }
-        
-        /* زر تبديل اللغة الاحترافي */
+        :root {
+            --gold: #ffcc00; --red: #e63946; --dark: #0d1117;
+            --card: #161b22; --text: #f0f6fc; --blue: #58a6ff;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif; background-color: var(--dark);
+            color: var(--text); margin: 0; padding: 0; transition: 0.3s;
+        }
+
+        /* زر تبديل اللغة */
         .lang-btn {
-            position: fixed; top: 15px; right: 15px; z-index: 9999;
-            background: var(--gold); color: black; border: none;
-            padding: 8px 15px; border-radius: 20px; font-weight: 900;
-            cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            position: fixed; top: 15px; left: 15px; z-index: 1000;
+            background: var(--card); border: 1px solid #30363d; color: var(--gold);
+            padding: 5px 15px; border-radius: 20px; font-weight: bold; cursor: pointer;
         }
 
-        .dev-name { text-align: center; font-weight: 900; font-size: 14px; letter-spacing: 3px; color: var(--gold); padding: 20px 0 5px; }
+        .container { max-width: 480px; margin: 0 auto; width: 92%; padding-bottom: 40px; }
 
-        .hero {
-            width: 100%; height: 160px;
-            background: linear-gradient(rgba(0,0,0,0.7), var(--dark)), url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80');
-            background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        /* الشاشة الرئيسية */
+        .hero { text-align: center; padding: 50px 20px 30px; }
+        .hero h1 { font-size: 50px; color: var(--gold); margin: 0; font-weight: 900; letter-spacing: 2px; }
+        .dev-tag { font-size: 10px; letter-spacing: 3px; color: #484f58; font-weight: bold; }
+
+        .menu-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 20px; }
+        .menu-card {
+            background: var(--card); border: 1px solid #30363d; border-radius: 25px;
+            padding: 30px; text-align: center; cursor: pointer; transition: 0.3s cubic-bezier(0.23, 1, 0.32, 1);
         }
+        .menu-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+        .menu-card h2 { margin: 15px 0 5px; font-size: 26px; font-weight: 900; }
 
-        .app-container {
-            max-width: 450px; margin: -20px auto 30px; width: 90%;
-            background: var(--card); border-radius: 25px; padding: 25px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 1px solid #333; box-sizing: border-box;
+        /* الصفحات الداخلية */
+        .page { display: none; animation: slideUp 0.5s ease; padding-top: 20px; }
+        @keyframes slideUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+
+        .back-btn { background: none; border: 1px solid #30363d; color: #8b949e; padding: 8px 20px; border-radius: 12px; cursor: pointer; margin-bottom: 20px; font-weight: bold; }
+
+        /* التصميم المشترك للمدخلات */
+        label { display: block; margin: 15px 5px 8px; color: #8b949e; font-size: 13px; font-weight: bold; text-transform: uppercase; }
+        select, input, textarea {
+            width: 100%; padding: 16px; border-radius: 15px; border: 2px solid #30363d;
+            background: rgba(48, 54, 61, 0.2); color: white; font-size: 16px; box-sizing: border-box; outline: none;
         }
+        select:focus, input:focus { border-color: var(--gold); }
 
-        label { display: block; margin: 15px 5px 8px; color: var(--gold); font-weight: bold; font-size: 13px; text-transform: uppercase; }
-        
-        select, textarea {
-            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #333;
-            background: #222; color: white; font-size: 16px; outline: none; box-sizing: border-box;
+        /* نظام المتبرعين (UI فخم) */
+        .blood-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
+        .blood-card {
+            background: #21262d; border: 2px solid #30363d; border-radius: 12px;
+            padding: 15px 0; text-align: center; cursor: pointer; font-weight: 900; color: #8b949e; transition: 0.3s;
         }
+        .blood-card.active { border-color: var(--red); color: var(--red); background: #2d1618; box-shadow: 0 0 15px rgba(230, 57, 70, 0.3); }
 
-        .payment-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .pay-card {
-            background: #222; border: 2px solid transparent; border-radius: 15px;
-            padding: 12px; cursor: pointer; text-align: center; font-size: 12px; font-weight: bold; color: #888;
-        }
-        .pay-card.active { border-color: var(--gold); background: #333; color: var(--gold); }
-
-        #bank-card { display: none; background: #1a1a1a; border: 1px solid var(--gold); border-radius: 15px; padding: 15px; margin-top: 15px; text-align: center; }
-
-        .buttons-wrapper { display: flex; gap: 12px; margin-top: 30px; }
         .btn-action {
-            flex: 1; height: 58px; border-radius: 15px; border: none;
-            font-size: 15px; font-weight: 800; color: white; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; text-decoration: none;
+            width: 100%; height: 60px; border-radius: 18px; border: none;
+            color: white; font-size: 18px; font-weight: 900; margin-top: 30px; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
-        .btn-whatsapp { background: var(--green); }
-        .btn-call { background: var(--blue); }
 
-        #thanks-popup {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 2000; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
+        /* لوحة التحكم السرية */
+        .admin-row {
+            background: #161b22; padding: 15px; border-radius: 15px; border: 1px solid #30363d;
+            margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+            border-right: 5px solid var(--red);
         }
     </style>
 </head>
 <body>
 
-<button class="lang-btn" onclick="toggleLanguage()" id="lBtn">EN</button>
+<button class="lang-btn" onclick="toggleLang()" id="lBtn">EN</button>
 
-<div class="dev-name">DEVELOPED BY BRAZILI</div>
-
-<div class="hero">
-    <h1 style="color: var(--gold); font-size: 38px; margin: 0; font-weight: 900;">SAREE3</h1>
-    <p id="subTxt">صيانة أجهزة الولي الكهربائية</p>
-</div>
-
-<div class="app-container">
-    <label id="l1">الحي السكني:</label>
-    <select id="loc" dir="rtl">
-        <option value="" disabled selected>-- اختر الحي --</option>
-        <option>حي المسجد العتيق</option>
-        <option>حي الرحمه</option>
-        <option>حي فريق قدام</option>
-        <option>حي نادي الشعله</option>
-        <option>حي نادي اتحاد الولي</option>
-    </select>
-
-    <label id="l2">نوع الجهاز:</label>
-    <select id="device" dir="rtl">
-        <option value="" disabled selected>-- اختر الجهاز --</option>
-        <option>مكيف</option>
-        <option>ثلاجة</option>
-        <option>غسالة</option>
-        <option>شاشة</option>
-    </select>
-
-    <label id="l3">وصف المشكلة:</label>
-    <textarea id="desc" dir="rtl" rows="2" placeholder="ما هي المشكلة؟"></textarea>
-
-    <label id="l4">طريقة الدفع:</label>
-    <div class="payment-grid">
-        <div class="pay-card active" id="p1" onclick="setPay(this, 'نقداً')">نقداً</div>
-        <div class="pay-card" id="p2" onclick="setPay(this, 'بنكك')">بنكك</div>
-        <div class="pay-card" id="p3" onclick="setPay(this, 'أوكاش')">أوكاش</div>
+<div class="container">
+    <div id="home-page" class="page" style="display: block;">
+        <div class="hero">
+            <div class="dev-tag">DEVELOPED BY BRAZILI QQ</div>
+            <h1>SAREE3</h1>
+            <p id="h-sub" style="color: #8b949e;">الولي للخدمات الذكية</p>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-card" onclick="showPage('m-page')">
+                <div style="font-size: 45px;">🛠️</div>
+                <h2 id="m-tit">خدمة الصيانة</h2>
+                <p style="color: var(--gold);">Maintenance Service</p>
+            </div>
+            <div class="menu-card" onclick="showPage('b-page')">
+                <div style="font-size: 45px;">🩸</div>
+                <h2 id="b-tit">بنك الدم</h2>
+                <p style="color: var(--red);">Blood Donors</p>
+            </div>
+        </div>
     </div>
 
-    <div id="bank-card">
-        <span id="bLbl">حساب بنك الخرطوم (أحمد):</span><br>
-        <b style="color:var(--gold); font-size:22px;">4063324</b>
+    <div id="m-page" class="page">
+        <button class="back-btn" onclick="showPage('home-page')">🔙 رجوع</button>
+        <h2 style="color: var(--gold); font-size: 30px;">طلب صيانة</h2>
+        <label id="l-loc">الحي السكني:</label>
+        <select id="loc"><option>حي المسجد العتيق</option><option>حي الرحمه</option><option>حي فريق قدام</option><option>حي نادي الشعله</option></select>
+        <label id="l-dev">نوع الجهاز:</label>
+        <select id="dev"><option>مكيف</option><option>ثلاجة</option><option>غسالة</option><option>شاشة</option></select>
+        <button class="btn-action" style="background: var(--gold); color: black;" onclick="sendM()">إرسال الطلب ✅</button>
     </div>
 
-    <div class="buttons-wrapper">
-        <button class="btn-action btn-whatsapp" id="wBtn" onclick="send()">واتساب ✅</button>
-        <a href="tel:0112002802" class="btn-action btn-call" id="cBtn">اتصال 📞</a>
-    </div>
-</div>
+    <div id="b-page" class="page">
+        <button class="back-btn" onclick="showPage('home-page')">🔙 رجوع</button>
+        <h2 style="color: var(--red); font-size: 30px;">نظام المتبرعين</h2>
+        
+        <div id="donor-form">
+            <label id="l-name">الاسم الكامل (أو كود الإدارة):</label>
+            <input type="text" id="b-name" placeholder="ادخل اسمك هنا..." oninput="checkAdmin(this.value)">
+            
+            <div id="donor-ui">
+                <label id="l-type">فصيلة الدم:</label>
+                <div class="blood-grid">
+                    <div class="blood-card" onclick="selB(this, 'A+')">A+</div><div class="blood-card" onclick="selB(this, 'O+')">O+</div>
+                    <div class="blood-card" onclick="selB(this, 'B+')">B+</div><div class="blood-card" onclick="selB(this, 'AB+')">AB+</div>
+                    <div class="blood-card" onclick="selB(this, 'A-')">A-</div><div class="blood-card" onclick="selB(this, 'O-')">O-</div>
+                    <div class="blood-card" onclick="selB(this, 'B-')">B-</div><div class="blood-card" onclick="selB(this, 'AB-')">AB-</div>
+                </div>
+                <button class="btn-action" style="background: var(--red);" onclick="saveB()">تسجيل البيانات 🩸</button>
+            </div>
+        </div>
 
-<div id="thanks-popup">
-    <h1 style="color: var(--gold);" id="th1">شكراً لك!</h1>
-    <p id="th2">جاري التحويل للواتساب...</p>
+        <div id="admin-panel" style="display: none;">
+            <h3 style="color: var(--gold); text-align: center;">لوحة إدارة BRAZILI QQ</h3>
+            <div id="admin-list"></div>
+            <button class="btn-action" style="background: #333;" onclick="location.reload()">تسجيل خروج</button>
+        </div>
+    </div>
 </div>
 
 <script>
-    let currentLang = 'AR';
-    let method = "نقداً";
+    let curLang = 'AR';
+    let selType = '';
+    let db = JSON.parse(localStorage.getItem('brazili_db')) || [];
 
-    function toggleLanguage() {
+    function showPage(p) {
+        document.querySelectorAll('.page').forEach(pg => pg.style.display = 'none');
+        document.getElementById(p).style.display = 'block';
+        window.scrollTo(0,0);
+    }
+
+    function toggleLang() {
         const h = document.getElementById('htmlTag');
         const b = document.getElementById('lBtn');
-        
-        if (currentLang === 'AR') {
-            h.dir = "ltr";
-            b.innerText = "AR";
-            currentLang = 'EN';
-            setTexts('EN');
-        } else {
-            h.dir = "rtl";
-            b.innerText = "EN";
-            currentLang = 'AR';
-            setTexts('AR');
+        if(curLang === 'AR') { h.dir='ltr'; b.innerText='AR'; curLang='EN'; updateT('EN'); }
+        else { h.dir='rtl'; b.innerText='EN'; curLang='AR'; updateT('AR'); }
+    }
+
+    function updateT(l) {
+        const t = {
+            'AR': { h:"الولي للخدمات الذكية", m:"خدمة الصيانة", b:"بنك الدم", loc:"الحي السكني:", dev:"الجهاز:", name:"الاسم الكامل:", type:"فصيلة الدم:" },
+            'EN': { h:"Smart Community Services", m:"Maintenance Service", b:"Blood Bank", loc:"Location:", dev:"Device:", name:"Full Name:", type:"Blood Type:" }
+        };
+        document.getElementById('h-sub').innerText = t[l].h;
+        document.getElementById('m-tit').innerText = t[l].m;
+        document.getElementById('b-tit').innerText = t[l].b;
+        document.getElementById('l-loc').innerText = t[l].loc;
+        document.getElementById('l-dev').innerText = t[l].dev;
+        document.getElementById('l-name').innerText = t[l].name;
+        document.getElementById('l-type').innerText = t[l].type;
+    }
+
+    function selB(el, t) {
+        document.querySelectorAll('.blood-card').forEach(x => x.classList.remove('active'));
+        el.classList.add('active'); selType = t;
+    }
+
+    function saveB() {
+        const n = document.getElementById('b-name').value;
+        if(!n || !selType) return alert("أكمل البيانات!");
+        db.push({name: n, type: selType});
+        localStorage.setItem('brazili_db', JSON.stringify(db));
+        alert("تم الحفظ بنجاح ✅");
+        location.reload();
+    }
+
+    function checkAdmin(v) {
+        if(v === "BRAZILI QQ") {
+            document.getElementById('donor-ui').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'block';
+            const list = document.getElementById('admin-list');
+            list.innerHTML = db.map(i => `<div class="admin-row"><span>${i.name}</span><b style="color:var(--red)">${i.type}</b></div>`).join('');
         }
     }
 
-    function setTexts(l) {
-        const t = {
-            'EN': { s:"Smart Services", l1:"Location:", l2:"Device:", l3:"Problem:", l4:"Payment:", p1:"CASH", p2:"BANKAK", p3:"O-CASH", w:"WHATSAPP", c:"CALL", b:"Bank Account:", th1:"THANK YOU!", th2:"Redirecting..." },
-            'AR': { s:"صيانة أجهزة الولي الكهربائية", l1:"الحي السكني:", l2:"نوع الجهاز:", l3:"وصف المشكلة:", l4:"طريقة الدفع:", p1:"نقداً", p2:"بنكك", p3:"أوكاش", w:"واتساب ✅", c:"اتصال 📞", b:"حساب بنك الخرطوم (أحمد):", th1:"شكراً لك!", th2:"جاري التحويل للواتساب..." }
-        };
-        document.getElementById('subTxt').innerText = t[l].s;
-        document.getElementById('l1').innerText = t[l].l1;
-        document.getElementById('l2').innerText = t[l].l2;
-        document.getElementById('l3').innerText = t[l].l3;
-        document.getElementById('l4').innerText = t[l].l4;
-        document.getElementById('p1').innerText = t[l].p1;
-        document.getElementById('p2').innerText = t[l].p2;
-        document.getElementById('p3').innerText = t[l].p3;
-        document.getElementById('wBtn').innerText = t[l].w;
-        document.getElementById('cBtn').innerText = t[l].c;
-        document.getElementById('bLbl').innerText = t[l].b;
-        document.getElementById('th1').innerText = t[l].th1;
-        document.getElementById('th2').innerText = t[l].th2;
-    }
-
-    function setPay(el, m) {
-        document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('active'));
-        el.classList.add('active'); 
-        method = m;
-        document.getElementById('bank-card').style.display = (m === 'بنكك') ? 'block' : 'none';
-    }
-
-    function send() {
-        const loc = document.getElementById('loc').value;
-        const dev = document.getElementById('device').value;
-        if(!loc || !dev) { alert(currentLang === 'AR' ? "اكمل البيانات!" : "Fill data!"); return; }
-        document.getElementById('thanks-popup').style.display = 'flex';
-        const msg = `*ORDER SAREE3*%0A📍 ${loc}%0A🛠️ ${dev}%0A💰 ${method}%0A_BY BRAZILI_`;
-        setTimeout(() => { window.location.href = `https://wa.me/249112002802?text=${msg}`; }, 2000);
+    function sendM() {
+        const l = document.getElementById('loc').value;
+        const d = document.getElementById('dev').value;
+        window.location.href = `https://wa.me/249112002802?text=*Order SAREE3*%0A📍 ${l}%0A🛠️ ${d}%0A_SYSTEM BY BRAZILI QQ_`;
     }
 </script>
 
