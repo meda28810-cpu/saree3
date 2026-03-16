@@ -10,18 +10,23 @@
     
     <style>
         :root { --gold: #ffcc00; --green: #28a745; --blue: #007bff; --dark: #0a0a0a; --card: #161616; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--dark); color: white; margin: 0; padding: 0; overflow-x: hidden; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--dark); color: white; margin: 0; padding: 0; transition: 0.3s; }
         
-        /* اسم المطور اللامع */
+        /* زر تبديل اللغة */
+        .lang-switcher {
+            position: absolute; top: 15px; right: 15px;
+            background: #222; border: 1px solid var(--gold); border-radius: 20px;
+            padding: 5px 15px; cursor: pointer; display: flex; align-items: center;
+            font-weight: bold; font-size: 12px; color: var(--gold); z-index: 1000;
+        }
+
         .dev-name {
             text-align: center; font-weight: 900; font-size: 14px; letter-spacing: 3px;
-            color: var(--gold); padding: 15px 0 5px; text-shadow: 0 0 10px var(--gold);
-            animation: glow 2s ease-in-out infinite alternate;
+            color: var(--gold); padding: 25px 0 5px; text-shadow: 0 0 10px var(--gold);
         }
-        @keyframes glow { from { opacity: 0.6; } to { opacity: 1; } }
 
         .hero {
-            width: 100%; height: 180px;
+            width: 100%; height: 160px;
             background: linear-gradient(rgba(0,0,0,0.7), var(--dark)), 
                         url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80');
             background-size: cover; background-position: center;
@@ -35,47 +40,34 @@
             box-sizing: border-box;
         }
 
-        /* عناوين المدخلات بالإنجليزية */
-        .label-en { 
-            display: block; text-align: left; margin: 15px 5px 8px; 
-            color: var(--gold); font-weight: bold; font-size: 13px; 
-            text-transform: uppercase; letter-spacing: 1px;
-        }
+        label { display: block; text-align: inherit; margin: 15px 5px 8px; color: var(--gold); font-weight: bold; font-size: 13px; text-transform: uppercase; }
         
         select, textarea {
             width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #333;
             background: #222; color: white; font-size: 16px; outline: none; box-sizing: border-box;
-            text-align: right; /* القوائم تظل عربية */
-            appearance: none;
         }
 
         .payment-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
         .pay-card {
             background: #222; border: 2px solid transparent; border-radius: 15px;
-            padding: 12px; cursor: pointer; text-align: center; transition: 0.3s; 
-            font-size: 11px; font-weight: bold; color: #888;
+            padding: 12px; cursor: pointer; text-align: center; font-size: 12px; font-weight: bold; color: #888;
         }
         .pay-card.active { border-color: var(--gold); background: #333; color: var(--gold); }
 
         #bank-card {
             display: none; background: #1a1a1a; border: 1px solid var(--gold);
             border-radius: 15px; padding: 15px; margin-top: 15px; text-align: center;
-            animation: fadeIn 0.5s;
         }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* الأزرار بالإنجليزية */
         .buttons-wrapper { display: flex; gap: 12px; margin-top: 30px; }
         .btn-action {
             flex: 1; height: 58px; border-radius: 15px; border: none;
             font-size: 15px; font-weight: 800; color: white; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
-            text-decoration: none; transition: 0.3s; text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            text-decoration: none; text-transform: uppercase;
         }
         .btn-whatsapp { background: var(--green); }
         .btn-call { background: var(--blue); }
-        .btn-action:active { transform: scale(0.95); }
 
         #thanks-popup {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -84,17 +76,19 @@
         }
     </style>
 </head>
-<body>
+<body dir="rtl" id="bodyTag">
+
+<div class="lang-switcher" onclick="toggleLang()" id="langBtn">EN</div>
 
 <div class="dev-name">DEVELOPED BY BRAZILI</div>
 
 <div class="hero">
     <h1 style="color: var(--gold); font-size: 38px; margin: 0; letter-spacing: 3px; font-weight: 900;">SAREE3</h1>
-    <p style="font-size: 12px; color: #aaa; text-transform: uppercase; letter-spacing: 2px;">Smart Maintenance Solutions</p>
+    <p id="hero-sub">صيانة أجهزة الولي الكهربائية</p>
 </div>
 
 <div class="app-container">
-    <label class="label-en">Select Location:</label>
+    <label id="lbl-loc">الحي السكني:</label>
     <select id="loc">
         <option value="" disabled selected>-- اختر الحي السكني --</option>
         <option>حي المسجد العتيق</option>
@@ -104,7 +98,7 @@
         <option>حي نادي اتحاد الولي</option>
     </select>
 
-    <label class="label-en">Device Type:</label>
+    <label id="lbl-dev">نوع الجهاز:</label>
     <select id="device">
         <option value="" disabled selected>-- اختر نوع الجهاز --</option>
         <option>مكيف</option>
@@ -113,43 +107,104 @@
         <option>شاشة</option>
     </select>
 
-    <label class="label-en">Problem Description:</label>
-    <textarea id="desc" rows="2" placeholder="اكتب وصفاً مختصراً للمشكلة..."></textarea>
+    <label id="lbl-desc">وصف المشكلة:</label>
+    <textarea id="desc" rows="2" placeholder="ما هي المشكلة؟"></textarea>
 
-    <label class="label-en">Payment Method:</label>
+    <label id="lbl-pay">طريقة الدفع:</label>
     <div class="payment-grid">
-        <div class="pay-card active" onclick="setPayment(this, 'نقداً')">CASH<br>نقداً</div>
-        <div class="pay-card" onclick="setPayment(this, 'بنكك')">BANKAK<br>بنكك</div>
-        <div class="pay-card" onclick="setPayment(this, 'أوكاش')">O-CASH<br>أوكاش</div>
+        <div class="pay-card active" id="pay-cash" onclick="setPayment(this, 'نقداً')">نقداً</div>
+        <div class="pay-card" id="pay-bank" onclick="setPayment(this, 'بنكك')">بنكك</div>
+        <div class="pay-card" id="pay-ocash" onclick="setPayment(this, 'أوكاش')">أوكاش</div>
     </div>
 
     <div id="bank-card">
-        <span style="font-size: 12px; color: #aaa;">حساب بنك الخرطوم باسم (أحمد):</span><br>
-        <b style="color:var(--gold); font-size:22px; letter-spacing: 1px;">4063324</b>
+        <span id="bank-label">حساب بنك الخرطوم (أحمد):</span><br>
+        <b style="color:var(--gold); font-size:22px;">4063324</b>
     </div>
 
     <div class="buttons-wrapper">
-        <button class="btn-action btn-whatsapp" onclick="sendOrder()">WHATSAPP ✅</button>
-        <a href="tel:0112002802" class="btn-action btn-call">CALL NOW 📞</a>
+        <button class="btn-action btn-whatsapp" id="btn-wa" onclick="sendOrder()">واتساب ✅</button>
+        <a href="tel:0112002802" class="btn-action btn-call" id="btn-call">اتصال 📞</a>
     </div>
 </div>
 
 <div id="thanks-popup">
-    <h1 style="color: var(--gold); font-size: 40px;">THANK YOU!</h1>
-    <p style="padding: 20px; font-size: 18px; line-height: 1.6;">تم تجهيز طلبك بنجاح.<br>جاري تحويلك الآن لمحادثة الواتساب...</p>
+    <h1 style="color: var(--gold);" id="thanks-h">شكراً لك!</h1>
+    <p id="thanks-p">جاري التحويل للواتساب...</p>
 </div>
 
 <script>
-    // تسجيل الخدمة لضمان عمله كتطبيق
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js').then(reg => {
-                console.log('SAREE3 App Ready');
-            });
-        });
+    let currentLang = 'AR';
+    let currentPayment = "نقداً";
+
+    function toggleLang() {
+        const body = document.getElementById('bodyTag');
+        const langBtn = document.getElementById('langBtn');
+        
+        if (currentLang === 'AR') {
+            // تحويل للإنجليزية
+            body.dir = "ltr";
+            langBtn.innerText = "AR";
+            currentLang = 'EN';
+            updateTexts('EN');
+        } else {
+            // تحويل للعربية
+            body.dir = "rtl";
+            langBtn.innerText = "EN";
+            currentLang = 'AR';
+            updateTexts('AR');
+        }
     }
 
-    let currentPayment = "نقداً";
+    function updateTexts(lang) {
+        const texts = {
+            'EN': {
+                sub: "Smart Maintenance Services",
+                loc: "Select Location:",
+                dev: "Device Type:",
+                desc: "Description:",
+                pay: "Payment Method:",
+                cash: "CASH",
+                bank: "BANKAK",
+                ocash: "O-CASH",
+                wa: "WHATSAPP",
+                call: "CALL NOW",
+                bankLabel: "Bank Account (Ahmed):",
+                thH: "THANK YOU!",
+                thP: "Redirecting to WhatsApp..."
+            },
+            'AR': {
+                sub: "صيانة أجهزة الولي الكهربائية",
+                loc: "الحي السكني:",
+                dev: "نوع الجهاز:",
+                desc: "وصف المشكلة:",
+                pay: "طريقة الدفع:",
+                cash: "نقداً",
+                bank: "بنكك",
+                ocash: "أوكاش",
+                wa: "واتساب ✅",
+                call: "اتصال 📞",
+                bankLabel: "حساب بنك الخرطوم (أحمد):",
+                thH: "شكراً لك!",
+                thP: "جاري التحويل للواتساب..."
+            }
+        };
+
+        document.getElementById('hero-sub').innerText = texts[lang].sub;
+        document.getElementById('lbl-loc').innerText = texts[lang].loc;
+        document.getElementById('lbl-dev').innerText = texts[lang].dev;
+        document.getElementById('lbl-desc').innerText = texts[lang].desc;
+        document.getElementById('lbl-pay').innerText = texts[lang].pay;
+        document.getElementById('pay-cash').innerText = texts[lang].cash;
+        document.getElementById('pay-bank').innerText = texts[lang].bank;
+        document.getElementById('pay-ocash').innerText = texts[lang].ocash;
+        document.getElementById('btn-wa').innerText = texts[lang].wa;
+        document.getElementById('btn-call').innerText = texts[lang].call;
+        document.getElementById('bank-label').innerText = texts[lang].bankLabel;
+        document.getElementById('thanks-h').innerText = texts[lang].thH;
+        document.getElementById('thanks-p').innerText = texts[lang].thP;
+    }
+
     function setPayment(el, method) {
         document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('active'));
         el.classList.add('active'); 
@@ -160,23 +215,14 @@
     function sendOrder() {
         const l = document.getElementById('loc').value;
         const d = document.getElementById('device').value;
-        const s = document.getElementById('desc').value || "لا يوجد وصف إضافي";
-        
-        if(!l || !d) { 
-            alert("Please select location and device type! \n يرجى اختيار الحي ونوع الجهاز!"); 
-            return; 
-        }
+        if(!l || !d) { alert(currentLang === 'AR' ? "يرجى ملء البيانات!" : "Please fill all fields!"); return; }
 
         document.getElementById('thanks-popup').style.display = 'flex';
-        
-        // تجهيز رسالة الواتساب الاحترافية
-        const msg = `*NEW ORDER - SAREE3*%0A--------------------------%0A📍 *Location:* ${l}%0A🛠️ *Device:* ${d}%0A📝 *Problem:* ${s}%0A💳 *Payment:* ${currentPayment}%0A--------------------------%0A_SYSTEM BY BRAZILI_`;
-        
-        setTimeout(() => { 
-            window.location.href = `https://wa.me/249112002802?text=${msg}`; 
-        }, 2000);
+        const msg = `*NEW ORDER - SAREE3*%0A📍 Location: ${l}%0A🛠️ Device: ${d}%0A💳 Payment: ${currentPayment}%0A_BY BRAZILI_`;
+        setTimeout(() => { window.location.href = `https://wa.me/249112002802?text=${msg}`; }, 2000);
     }
 </script>
 
 </body>
 </html>
+
