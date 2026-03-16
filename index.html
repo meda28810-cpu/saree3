@@ -4,44 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAREE3 | BRAZILI QQ</title>
-    
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffcc00">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
-    
     <style>
         :root { --red: #e63946; --gold: #ffcc00; --dark: #0d1117; --card: #161b22; }
         body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 10px; }
-        
         .page { display: none; animation: fadeIn 0.4s ease-out; padding-top: 10px; }
         .container { max-width: 420px; margin: auto; background: var(--card); padding: 25px; border-radius: 25px; border: 1px solid #30363d; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
-        
         h1 { color: var(--gold); font-size: 45px; margin-bottom: 5px; font-weight: 900; }
         .menu-card { background: var(--card); border: 1px solid #30363d; border-radius: 20px; padding: 25px; margin-bottom: 20px; cursor: pointer; transition: 0.3s; }
-        .menu-card:active { transform: scale(0.95); }
-
-        input, select, textarea { 
-            width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; 
-            border: 2px solid #30363d; background: #0d1117; color: white; 
-            font-size: 16px; box-sizing: border-box; outline: none; font-family: 'Cairo';
-        }
-
+        input, select { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 2px solid #30363d; background: #0d1117; color: white; font-size: 16px; box-sizing: border-box; outline: none; font-family: 'Cairo'; }
         .blood-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
         .b-card { background: #21262d; padding: 12px 0; border-radius: 10px; cursor: pointer; font-weight: bold; color: #8b949e; border: 2px solid transparent; }
         .b-card.active { border-color: var(--red); color: var(--red); background: #2d1618; }
-
-        .btn { width: 100%; padding: 16px; border-radius: 15px; border: none; font-weight: 900; font-size: 16px; cursor: pointer; margin-top: 20px; }
+        .btn { width: 100%; padding: 16px; border-radius: 15px; border: none; font-weight: 900; font-size: 16px; cursor: pointer; margin-top: 20px; transition: 0.3s; }
         .btn-gold { background: var(--gold); color: black; }
         .btn-red { background: var(--red); color: white; }
-
+        .btn-download { background: #238636; color: white; margin-top: 10px; font-size: 14px; }
         .admin-item { background: #1c2128; padding: 15px; margin: 8px 0; border-radius: 12px; display: flex; justify-content: space-between; border-right: 5px solid var(--red); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
         .back-btn { background:none; color:white; border:none; cursor:pointer; font-weight:bold; float:right; padding: 10px; }
     </style>
 </head>
@@ -50,19 +32,13 @@
     <div id="home" class="page" style="display: block;">
         <h1>SAREE3</h1>
         <p style="color: #8b949e; margin-bottom: 30px;">نظام الولي للخدمات الذكية</p>
-        
         <div class="menu-card" onclick="show('m-page')" style="border-bottom: 4px solid var(--gold);">
-            <span style="font-size: 40px;">🛠️</span>
-            <h2 style="margin:10px 0 0;">خدمة الصيانة</h2>
-            <p style="color: #666; font-size: 12px;">طلب صيانة مكيفات، ثلاجات، غسالات</p>
+            <span style="font-size: 40px;">🛠️</span><h2 style="margin:10px 0 0;">خدمة الصيانة</h2>
         </div>
-
         <div class="menu-card" onclick="show('b-page')" style="border-bottom: 4px solid var(--red);">
-            <span style="font-size: 40px;">🩸</span>
-            <h2 style="margin:10px 0 0;">بنك الدم</h2>
-            <p style="color: #666; font-size: 12px;">تسجيل متبرعين وخدمات الطوارئ</p>
+            <span style="font-size: 40px;">🩸</span><h2 style="margin:10px 0 0;">بنك الدم</h2>
         </div>
-        <p style="font-size: 10px; color: #333; letter-spacing: 2px; margin-top: 20px;">BY BRAZILI QQ</p>
+        <p style="font-size: 10px; color: #333; letter-spacing: 2px;">BY BRAZILI QQ</p>
     </div>
 
     <div id="m-page" class="page">
@@ -70,15 +46,13 @@
             <button class="back-btn" onclick="show('home')">🔙 رجوع</button>
             <div style="clear:both;"></div>
             <h2 style="color: var(--gold);">طلب صيانة جديد</h2>
-            <label style="float:right; font-size:12px; color:#8b949e;">اختر الحي:</label>
             <select id="m-loc">
                 <option>حي المسجد العتيق</option><option>حي الرحمه</option>
                 <option>حي فريق قدام</option><option>حي نادي الشعله</option>
                 <option>حي نادي اتحاد الولي</option>
             </select>
-            <label style="float:right; font-size:12px; color:#8b949e;">نوع الجهاز:</label>
             <select id="m-dev"><option>مكيف</option><option>ثلاجة</option><option>غسالة</option><option>شاشة</option></select>
-            <button class="btn btn-gold" onclick="sendM()">إرسال الطلب عبر واتساب ✅</button>
+            <button class="btn btn-gold" onclick="sendM()">إرسال واتساب ✅</button>
         </div>
     </div>
 
@@ -88,7 +62,6 @@
             <div style="clear:both;"></div>
             <h2 id="b-title" style="color: var(--red);">نظام المتبرعين</h2>
             <input type="text" id="b-name" placeholder="اكتب الاسم (أو كود المطور)" oninput="checkAuth(this.value)" dir="auto">
-            
             <div id="user-ui">
                 <div class="blood-grid">
                     <div class="b-card" onclick="selB(this, 'A+')">A+</div><div class="b-card" onclick="selB(this, 'B+')">B+</div>
@@ -98,10 +71,10 @@
                 </div>
                 <button class="btn btn-red" onclick="saveB()">تسجيل متبرع 🩸</button>
             </div>
-
             <div id="admin-ui" style="display:none;">
-                <h3 style="color: var(--gold);">قاعدة بيانات BRAZILI QQ</h3>
+                <h3 style="color: var(--gold);">لوحة التحكم 👑</h3>
                 <div id="listDisplay"></div>
+                <button class="btn btn-download" onclick="downloadDB()">📥 تنزيل كشف الأسماء (.txt)</button>
                 <button class="btn" style="background:#333; color:white;" onclick="location.reload()">خروج</button>
             </div>
         </div>
@@ -109,24 +82,19 @@
 
 <script>
     let bType = "";
-    // جلب البيانات من ذاكرة المتصفح المحلية
     let db = JSON.parse(localStorage.getItem('blood_db')) || [];
 
     function show(id) {
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById(id).style.display = 'block';
-        window.scrollTo(0,0);
     }
 
-    // وظائف الصيانة
     function sendM() {
         const loc = document.getElementById('m-loc').value;
         const dev = document.getElementById('m-dev').value;
-        const msg = `*طلب صيانة جديد (سريع)*%0A📍 الحي: ${loc}%0A🛠️ الجهاز: ${dev}%0A_SYSTEM BY BRAZILI QQ_`;
-        window.location.href = `https://wa.me/249112002802?text=${msg}`;
+        window.location.href = `https://wa.me/249112002802?text=*طلب صيانة*%0A📍 الحي: ${loc}%0A🛠️ الجهاز: ${dev}`;
     }
 
-    // وظائف الدم
     function selB(el, t) {
         document.querySelectorAll('.b-card').forEach(c => c.classList.remove('active'));
         el.classList.add('active'); bType = t;
@@ -134,34 +102,46 @@
 
     function saveB() {
         let n = document.getElementById('b-name').value;
-        if(!n || !bType) { alert("أكمل البيانات يا بطل!"); return; }
+        if(!n || !bType) return alert("أكمل البيانات!");
         db.push({name:n, type:bType});
         localStorage.setItem('blood_db', JSON.stringify(db));
-        alert("تم الحفظ بنجاح في قاعدة بيانات BRAZILI ✅");
+        alert("تم الحفظ بنجاح ✅");
         location.reload();
     }
 
     function checkAuth(v) {
-        // كلمة السر الخاصة بك
         if(v === "BRAZILI11") {
             document.getElementById('user-ui').style.display = 'none';
             document.getElementById('admin-ui').style.display = 'block';
-            document.getElementById('b-title').innerText = "لوحة المطور";
-            document.getElementById('b-title').style.color = "var(--gold)";
+            document.getElementById('b-title').innerText = "قاعدة البيانات";
             document.getElementById('listDisplay').innerHTML = db.map(i => `
-                <div class="admin-item"><span>${i.name}</span><b style="color:var(--red)">${i.type}</b></div>
+                <div class="admin-item"><span>${i.name}</span><b>${i.type}</b></div>
             `).join('');
         }
     }
 
-    // كود تسجيل الـ Service Worker ليصبح تطبيقاً
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js').then(() => {
-                console.log('BRAZILI App Ready!');
-            });
+    // وظيفة تنزيل الملف الجديد
+    function downloadDB() {
+        if (db.length === 0) return alert("لا توجد بيانات لتنزيلها!");
+        let content = "--- كشف المتبرعين (تطبيق SAREE3) ---\n\n";
+        db.forEach((item, index) => {
+            content += `${index + 1}. الاسم: ${item.name} | الفصيلة: ${item.type}\n`;
         });
+        content += "\nتم استخراج الملف بواسطة BRAZILI QQ";
+        
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `متبرعين_الولي_${new Date().toLocaleDateString()}.txt`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+    }
+
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
     }
 </script>
 </body>
 </html>
+
