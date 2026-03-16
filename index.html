@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تطبيق سريع | صيانة الولي</title>
     <style>
-        :root { --gold: #ffcc00; --green: #28a745; --dark: #0a0a0a; --card: #161616; }
+        :root { --gold: #ffcc00; --green: #28a745; --blue: #007bff; --dark: #0a0a0a; --card: #161616; }
         body { font-family: 'Segoe UI', sans-serif; background-color: var(--dark); color: white; margin: 0; padding: 0; }
         
-        /* تصميم اسم المطور BRAZILI */
         .dev-name {
             text-align: center; font-weight: 900; font-size: 14px; letter-spacing: 3px;
             color: var(--gold); margin-top: 10px; text-shadow: 0 0 10px var(--gold);
@@ -17,7 +16,7 @@
         @keyframes glow { from { opacity: 0.6; } to { opacity: 1; } }
 
         .hero {
-            width: 100%; height: 220px;
+            width: 100%; height: 200px;
             background: linear-gradient(rgba(0,0,0,0.6), var(--dark)), 
                         url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80');
             background-size: cover; background-position: center;
@@ -25,21 +24,21 @@
         }
 
         .app-container {
-            max-width: 450px; margin: -40px auto 30px; width: 90%;
+            max-width: 450px; margin: -30px auto 30px; width: 90%;
             background: var(--card); border-radius: 25px; padding: 25px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 1px solid #333;
         }
 
         label { display: block; text-align: right; margin: 15px 5px 8px; color: var(--gold); font-weight: bold; font-size: 13px; }
         select, textarea {
-            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #333;
-            background: #222; color: white; font-size: 16px; outline: none;
+            width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #333;
+            background: #222; color: white; font-size: 16px; outline: none; box-sizing: border-box;
         }
 
         .payment-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
         .pay-card {
             background: #222; border: 2px solid transparent; border-radius: 15px;
-            padding: 12px; cursor: pointer; text-align: center; transition: 0.3s; font-size: 12px;
+            padding: 10px; cursor: pointer; text-align: center; transition: 0.3s; font-size: 12px;
         }
         .pay-card.active { border-color: var(--gold); background: #333; }
 
@@ -48,17 +47,31 @@
             border-radius: 15px; padding: 15px; margin-top: 15px; text-align: center;
         }
 
-        /* الأزرار */
-        .btn-whatsapp {
-            width: 100%; padding: 18px; background: var(--green); color: white;
-            border: none; border-radius: 15px; font-size: 18px; font-weight: bold;
-            margin-top: 20px; cursor: pointer;
+        /* تنسيق الأزرار المتساوية */
+        .buttons-wrapper {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+            justify-content: center;
         }
-        .btn-call {
-            width: 100%; padding: 15px; background: #007bff; color: white;
-            border: none; border-radius: 15px; font-size: 16px; font-weight: bold;
-            margin-top: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none;
+        .btn-action {
+            flex: 1; /* لجعلهم متساويين في العرض */
+            height: 55px; /* طول متوسط وموحد */
+            border-radius: 15px;
+            border: none;
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: 0.3s;
         }
+        .btn-whatsapp { background: var(--green); }
+        .btn-call { background: var(--blue); }
+        .btn-action:active { transform: scale(0.95); }
 
         #thanks-popup {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -72,8 +85,8 @@
 <div class="dev-name">DEVELOPED BY BRAZILI</div>
 
 <div class="hero">
-    <h1 style="color: var(--gold); font-size: 35px; margin: 0;">سريع | SAREE3</h1>
-    <p>صيانة أجهزة الولي الكهربائية</p>
+    <h1 style="color: var(--gold); font-size: 32px; margin: 0;">سريع | SAREE3</h1>
+    <p style="font-size: 14px;">صيانة أجهزة الولي الكهربائية</p>
 </div>
 
 <div class="app-container">
@@ -90,7 +103,11 @@
     <label>🛠️ نوع الجهاز:</label>
     <select id="device">
         <option value="" disabled selected>-- اختر الجهاز --</option>
-        <option>مكيف</option><option>ثلاجة</option><option>غسالة</option><option>شاشة</option>
+        <option>مكيف</option>
+        <option>ثلاجة</option>
+        <option>غسالة</option>
+        <option>شاشة</option>
+        <option>أجهزة أخرى</option>
     </select>
 
     <label>📝 وصف المشكلة:</label>
@@ -105,12 +122,13 @@
 
     <div id="bank-card">
         <span style="font-size: 12px; color: #aaa;">حساب بنك الخرطوم:</span><br>
-        <b style="color:var(--gold); font-size:22px;">4063324</b>
+        <b style="color:var(--gold); font-size:20px;">4063324</b>
     </div>
 
-    <button class="btn-whatsapp" onclick="sendOrder()">إرسال الطلب (واتساب) ✅</button>
-    
-    <a href="tel:0112002802" class="btn-call">📞 اتصال هاتفي مباشر</a>
+    <div class="buttons-wrapper">
+        <button class="btn-action btn-whatsapp" onclick="sendOrder()">واتساب ✅</button>
+        <a href="tel:0112002802" class="btn-action btn-call">اتصال 📞</a>
+    </div>
 
     <div style="text-align: center; margin-top: 20px; font-size: 10px; color: #444;">
         SAREE3 APP SYSTEM © 2026
@@ -119,7 +137,7 @@
 
 <div id="thanks-popup">
     <h1 style="color: var(--gold);">شكراً لثقتكم في "سريع" 😊</h1>
-    <p style="padding: 20px; font-size: 18px;">تم تجهيز طلبك بعناية.. سيتم تحويلك الآن للواتساب لتأكيد الموعد.<br><br><b>نحن في خدمتك دائماً!</b></p>
+    <p style="padding: 20px; font-size: 16px;">تم تجهيز طلبك بعناية.. سيتم تحويلك الآن للواتساب لتأكيد الموعد.</p>
 </div>
 
 <script>
@@ -134,7 +152,7 @@
         const l = document.getElementById('loc').value;
         const d = document.getElementById('device').value;
         const s = document.getElementById('desc').value;
-        if(!l || !d) { alert("يرجى اختيار الحي والجهاز!"); return; }
+        if(!l || !d) { alert("يرجى اختيار الحي والجهاز أولاً!"); return; }
 
         document.getElementById('thanks-popup').style.display = 'flex';
         const msg = `*طلب صيانة (سريع - الولي)*%0A📍 الحي: ${l}%0A🛠️ الجهاز: ${d}%0A📝 العطل: ${s}%0A💰 الدفع: ${currentPayment}%0A------------------%0A_شكراً لثقتكم - نظام BRAZILI_`;
@@ -145,4 +163,5 @@
 
 </body>
 </html>
+
 
