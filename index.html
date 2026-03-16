@@ -3,45 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAREE3 | BRAZILI QQ</title>
+    <title>SAREE3 | BRAZILI QQ 👑</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #e63946; --gold: #ffcc00; --dark: #0d1117; --card: #161b22; }
+        :root { --red: #e63946; --gold: #ffcc00; --dark: #0d1117; --card: #161b22; --blue: #007bff; }
         body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 10px; }
         
-        .page { display: none; animation: fadeIn 0.5s; padding-top: 20px; }
-        .container { max-width: 420px; margin: auto; background: var(--card); padding: 25px; border-radius: 25px; border: 1px solid #30363d; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .page { display: none; animation: fadeIn 0.4s ease-out; padding-top: 10px; }
+        .container { max-width: 420px; margin: auto; background: var(--card); padding: 25px; border-radius: 25px; border: 1px solid #30363d; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
         
-        h1 { color: var(--gold); font-size: 40px; margin-bottom: 5px; font-weight: 900; }
-        h2 { font-size: 22px; margin-bottom: 20px; }
+        h1 { color: var(--gold); font-size: 45px; margin-bottom: 5px; font-weight: 900; }
+        .menu-card { background: var(--card); border: 1px solid #30363d; border-radius: 20px; padding: 25px; margin-bottom: 20px; cursor: pointer; transition: 0.3s; }
+        .menu-card:active { transform: scale(0.95); }
 
-        input { 
-            width: 100%; padding: 16px; margin: 15px 0; border-radius: 15px; 
+        input, select, textarea { 
+            width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; 
             border: 2px solid #30363d; background: #0d1117; color: white; 
-            font-size: 16px; box-sizing: border-box; text-align: center; outline: none;
+            font-size: 16px; box-sizing: border-box; outline: none; font-family: 'Cairo';
         }
-        input:focus { border-color: var(--red); }
 
-        .blood-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
-        .b-card { 
-            background: #21262d; padding: 15px 0; border-radius: 12px; 
-            cursor: pointer; font-weight: bold; border: 2px solid transparent; transition: 0.3s; color: #8b949e;
-        }
+        .blood-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .b-card { background: #21262d; padding: 12px 0; border-radius: 10px; cursor: pointer; font-weight: bold; color: #8b949e; border: 2px solid transparent; }
         .b-card.active { border-color: var(--red); color: var(--red); background: #2d1618; }
 
-        .btn { 
-            width: 100%; padding: 16px; border-radius: 15px; border: none; 
-            font-weight: 900; font-size: 16px; cursor: pointer; margin-top: 25px; transition: 0.3s;
-        }
+        .btn { width: 100%; padding: 16px; border-radius: 15px; border: none; font-weight: 900; font-size: 16px; cursor: pointer; margin-top: 20px; }
+        .btn-gold { background: var(--gold); color: black; }
         .btn-red { background: var(--red); color: white; }
-        .btn-red:active { transform: scale(0.96); }
 
-        /* لوحة التحكم */
-        .admin-item { 
-            background: #1c2128; padding: 15px; margin: 10px 0; border-radius: 12px; 
-            display: flex; justify-content: space-between; align-items: center; border-right: 5px solid var(--red);
-        }
-        
+        .admin-item { background: #1c2128; padding: 15px; margin: 8px 0; border-radius: 12px; display: flex; justify-content: space-between; border-right: 5px solid var(--red); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -49,98 +38,106 @@
 
     <div id="home" class="page" style="display: block;">
         <h1>SAREE3</h1>
-        <p style="color: #8b949e; margin-bottom: 30px;">نظام الولي للخدمات</p>
+        <p style="color: #8b949e; margin-bottom: 30px;">نظام الولي للخدمات الذكية</p>
         
-        <div class="container" onclick="show('blood-page')" style="cursor:pointer; border-bottom: 4px solid var(--red);">
-            <span style="font-size: 50px;">🩸</span>
-            <h2>نظام المتبرعين بالدم</h2>
-            <p style="color: #666; font-size: 13px;">اضغط للتسجيل أو الدخول للإدارة</p>
+        <div class="menu-card" onclick="show('m-page')" style="border-bottom: 4px solid var(--gold);">
+            <span style="font-size: 40px;">🛠️</span>
+            <h2 style="margin:10px 0 0;">خدمة الصيانة</h2>
+            <p style="color: #666; font-size: 12px;">طلب صيانة مكيفات، ثلاجات، غسالات</p>
+        </div>
+
+        <div class="menu-card" onclick="show('b-page')" style="border-bottom: 4px solid var(--red);">
+            <span style="font-size: 40px;">🩸</span>
+            <h2 style="margin:10px 0 0;">بنك الدم</h2>
+            <p style="color: #666; font-size: 12px;">تسجيل متبرعين وخدمات الطوارئ</p>
+        </div>
+        <p style="font-size: 10px; color: #333; letter-spacing: 2px;">BY BRAZILI QQ</p>
+    </div>
+
+    <div id="m-page" class="page">
+        <div class="container">
+            <button onclick="show('home')" style="background:none; color:var(--gold); border:none; cursor:pointer; font-weight:bold; float:right;">🔙 رجوع</button>
+            <div style="clear:both;"></div>
+            <h2 style="color: var(--gold);">طلب صيانة جديد</h2>
+            <label style="float:right; font-size:12px; color:#8b949e;">اختر الحي:</label>
+            <select id="m-loc">
+                <option>حي المسجد العتيق</option><option>حي الرحمه</option>
+                <option>حي فريق قدام</option><option>حي نادي الشعله</option>
+                <option>حي نادي اتحاد الولي</option>
+            </select>
+            <label style="float:right; font-size:12px; color:#8b949e;">نوع الجهاز:</label>
+            <select id="m-dev"><option>مكيف</option><option>ثلاجة</option><option>غسالة</option><option>شاشة</option></select>
+            <button class="btn btn-gold" onclick="sendM()">إرسال الطلب عبر واتساب ✅</button>
         </div>
     </div>
 
-    <div id="blood-page" class="page">
+    <div id="b-page" class="page">
         <div class="container">
             <button onclick="show('home')" style="background:none; color:var(--red); border:none; cursor:pointer; font-weight:bold; float:right;">🔙 رجوع</button>
             <div style="clear:both;"></div>
+            <h2 id="b-title" style="color: var(--red);">نظام المتبرعين</h2>
+            <input type="text" id="b-name" placeholder="اكتب الاسم (أو كود المطور)" oninput="checkAuth(this.value)" dir="auto">
             
-            <h2 id="title-text" style="color: var(--red);">تسجيل متبرع</h2>
-            
-            <input type="text" id="nameInput" placeholder="اكتب اسمك الثلاثي..." oninput="checkAuth(this.value)" dir="auto">
-            
-            <div id="user-section">
-                <label style="color: #8b949e; font-size: 13px;">اختر فصيلة دمك:</label>
+            <div id="user-ui">
                 <div class="blood-grid">
-                    <div class="b-card" onclick="selectB(this, 'A+')">A+</div>
-                    <div class="b-card" onclick="selectB(this, 'B+')">B+</div>
-                    <div class="b-card" onclick="selectB(this, 'O+')">O+</div>
-                    <div class="b-card" onclick="selectB(this, 'AB+')">AB+</div>
-                    <div class="b-card" onclick="selectB(this, 'A-')">A-</div>
-                    <div class="b-card" onclick="selectB(this, 'B-')">B-</div>
-                    <div class="b-card" onclick="selectB(this, 'O-')">O-</div>
-                    <div class="b-card" onclick="selectB(this, 'AB-')">AB-</div>
+                    <div class="b-card" onclick="selB(this, 'A+')">A+</div><div class="b-card" onclick="selB(this, 'B+')">B+</div>
+                    <div class="b-card" onclick="selB(this, 'O+')">O+</div><div class="b-card" onclick="selB(this, 'AB+')">AB+</div>
+                    <div class="b-card" onclick="selB(this, 'A-')">A-</div><div class="b-card" onclick="selB(this, 'B-')">B-</div>
+                    <div class="b-card" onclick="selB(this, 'O-')">O-</div><div class="b-card" onclick="selB(this, 'AB-')">AB-</div>
                 </div>
-                <button class="btn btn-red" onclick="saveDonor()">حفظ البيانات ✅</button>
+                <button class="btn btn-red" onclick="saveB()">تسجيل متبرع 🩸</button>
             </div>
 
-            <div id="admin-section" style="display:none;">
-                <h3 style="color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px;">قائمة المتبرعين 👑</h3>
+            <div id="admin-ui" style="display:none;">
+                <h3 style="color: var(--gold);">قاعدة بيانات BRAZILI QQ</h3>
                 <div id="listDisplay"></div>
-                <button class="btn" style="background: #30363d; color: white;" onclick="location.reload()">تسجيل خروج</button>
+                <button class="btn" style="background:#333; color:white;" onclick="location.reload()">خروج</button>
             </div>
         </div>
     </div>
 
 <script>
-    let bloodType = "";
-    // جلب البيانات من ذاكرة المتصفح
-    let db = JSON.parse(localStorage.getItem('blood_database')) || [];
+    let bType = "";
+    let db = JSON.parse(localStorage.getItem('blood_db')) || [];
 
     function show(id) {
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById(id).style.display = 'block';
     }
 
-    function selectB(el, type) {
-        document.querySelectorAll('.b-card').forEach(c => c.classList.remove('active'));
-        el.classList.add('active');
-        bloodType = type;
+    // وظائف الصيانة
+    function sendM() {
+        const loc = document.getElementById('m-loc').value;
+        const dev = document.getElementById('m-dev').value;
+        const msg = `*طلب صيانة جديد (سريع)*%0A📍 الحي: ${loc}%0A🛠️ الجهاز: ${dev}`;
+        window.location.href = `https://wa.me/249112002802?text=${msg}`;
     }
 
-    function saveDonor() {
-        let name = document.getElementById('nameInput').value;
-        if(!name || !bloodType) return alert("الرجاء كتابة الاسم واختيار الفصيلة!");
-        
-        db.push({ name: name, type: bloodType });
-        localStorage.setItem('blood_database', JSON.stringify(db));
-        
-        alert("شكراً لك! تم تسجيل بياناتك بنجاح ✅");
+    // وظائف الدم
+    function selB(el, t) {
+        document.querySelectorAll('.b-card').forEach(c => c.classList.remove('active'));
+        el.classList.add('active'); bType = t;
+    }
+
+    function saveB() {
+        let n = document.getElementById('b-name').value;
+        if(!n || !bType) return alert("أكمل البيانات!");
+        db.push({name:n, type:bType});
+        localStorage.setItem('blood_db', JSON.stringify(db));
+        alert("تم الحفظ بنجاح!");
         location.reload();
     }
 
-    // فحص كلمة السر BRAZILI11
-    function checkAuth(val) {
-        if (val === "BRAZILI11") {
-            document.getElementById('user-section').style.display = 'none';
-            document.getElementById('admin-section').style.display = 'block';
-            document.getElementById('title-text').innerText = "لوحة التحكم";
-            document.getElementById('title-text').style.color = "var(--gold)";
-            
-            renderList();
+    function checkAuth(v) {
+        if(v === "BRAZILI11") {
+            document.getElementById('user-ui').style.display = 'none';
+            document.getElementById('admin-ui').style.display = 'block';
+            document.getElementById('b-title').innerText = "لوحة المطور";
+            document.getElementById('b-title').style.color = "var(--gold)";
+            document.getElementById('listDisplay').innerHTML = db.map(i => `
+                <div class="admin-item"><span>${i.name}</span><b style="color:var(--red)">${i.type}</b></div>
+            `).join('');
         }
-    }
-
-    function renderList() {
-        const display = document.getElementById('listDisplay');
-        if (db.length === 0) {
-            display.innerHTML = "<p style='color:#666; margin:20px;'>لا توجد بيانات مسجلة.</p>";
-            return;
-        }
-        display.innerHTML = db.map(item => `
-            <div class="admin-item">
-                <span style="font-weight:bold;">${item.name}</span>
-                <b style="color:var(--red); background:rgba(230,57,70,0.1); padding:5px 10px; border-radius:8px;">${item.type}</b>
-            </div>
-        `).join('');
     }
 </script>
 </body>
