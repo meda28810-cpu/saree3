@@ -8,24 +8,36 @@
     <meta name="theme-color" content="#ffcc00">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #e63946; --gold: #ffcc00; --dark: #0d1117; --card: #161b22; --blue: #007bff; }
+        :root { --red: #e63946; --gold: #ffcc00; --dark: #0d1117; --card: #161b22; --blue: #007bff; --green: #28a745; }
         body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 10px; }
         .page { display: none; animation: fadeIn 0.4s ease-out; padding-top: 10px; }
         .container { max-width: 420px; margin: auto; background: var(--card); padding: 25px; border-radius: 25px; border: 1px solid #30363d; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
         h1 { color: var(--gold); font-size: 45px; margin-bottom: 5px; font-weight: 900; }
         .menu-card { background: var(--card); border: 1px solid #30363d; border-radius: 20px; padding: 20px; margin-bottom: 15px; cursor: pointer; transition: 0.3s; }
         .menu-card:active { transform: scale(0.95); }
-        input, select { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 2px solid #30363d; background: #0d1117; color: white; font-size: 16px; box-sizing: border-box; outline: none; font-family: 'Cairo'; }
-        .blood-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        .b-card { background: #21262d; padding: 12px 0; border-radius: 10px; cursor: pointer; font-weight: bold; color: #8b949e; border: 2px solid transparent; }
-        .b-card.active { border-color: var(--red); color: var(--red); background: #2d1618; }
-        .btn { width: 100%; padding: 16px; border-radius: 15px; border: none; font-weight: 900; font-size: 16px; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+        
+        /* تصميم قائمة السائقين */
+        .driver-section { margin-top: 20px; text-align: right; }
+        .driver-card { 
+            background: #1c2128; padding: 15px; border-radius: 15px; 
+            margin-bottom: 12px; display: flex; justify-content: space-between; 
+            align-items: center; border: 1px solid #333; border-right: 4px solid var(--blue);
+        }
+        .driver-info h4 { margin: 0; color: white; font-size: 16px; }
+        .driver-info p { margin: 0; color: #8b949e; font-size: 12px; }
+        .call-btn { 
+            background: var(--green); color: white; padding: 10px 20px; 
+            border-radius: 12px; text-decoration: none; font-weight: bold; 
+            font-size: 14px; box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn { width: 100%; padding: 16px; border-radius: 15px; border: none; font-weight: 900; font-size: 16px; cursor: pointer; margin-top: 20px; }
         .btn-gold { background: var(--gold); color: black; }
         .btn-red { background: var(--red); color: white; }
-        .btn-blue { background: var(--blue); color: white; }
         .admin-item { background: #1c2128; padding: 15px; margin: 8px 0; border-radius: 12px; display: flex; justify-content: space-between; border-right: 5px solid var(--red); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .back-btn { background:none; color:white; border:none; cursor:pointer; font-weight:bold; float:right; padding: 10px; }
+        h3.section-title { color: var(--gold); font-size: 18px; border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -33,40 +45,45 @@
     <div id="home" class="page" style="display: block;">
         <h1>SAREE3</h1>
         <p style="color: #8b949e; margin-bottom: 25px;">نظام الولي للخدمات الذكية</p>
-        
-        <div class="menu-card" onclick="show('m-page')" style="border-bottom: 4px solid var(--gold);">
-            <span style="font-size: 35px;">🛠️</span><h3 style="margin:5px 0;">خدمة الصيانة</h3>
-        </div>
-
-        <div class="menu-card" onclick="show('b-page')" style="border-bottom: 4px solid var(--red);">
-            <span style="font-size: 35px;">🩸</span><h3 style="margin:5px 0;">بنك الدم</h3>
-        </div>
-
-        <div class="menu-card" onclick="show('trip-page')" style="border-bottom: 4px solid var(--blue);">
-            <span style="font-size: 35px;">🚕</span><h3 style="margin:5px 0;">مشوار</h3>
-        </div>
-        
-        <p style="font-size: 10px; color: #333; letter-spacing: 2px; margin-top: 15px;">BY BRAZILI QQ</p>
+        <div class="menu-card" onclick="show('m-page')" style="border-bottom: 4px solid var(--gold);">🛠️ <h3>خدمة الصيانة</h3></div>
+        <div class="menu-card" onclick="show('b-page')" style="border-bottom: 4px solid var(--red);">🩸 <h3>بنك الدم</h3></div>
+        <div class="menu-card" onclick="show('trip-page')" style="border-bottom: 4px solid var(--blue);">🚕 <h3>مشوار</h3></div>
+        <p style="font-size: 10px; color: #333; letter-spacing: 2px;">BY BRAZILI QQ</p>
     </div>
 
     <div id="trip-page" class="page">
         <div class="container">
             <button class="back-btn" onclick="show('home')">🔙 رجوع</button>
             <div style="clear:both;"></div>
-            <h2 style="color: var(--blue);">اطلب مشوارك</h2>
-            
-            <label style="float:right; font-size:12px; color:#8b949e;">وجهة السفر:</label>
-            <select id="trip-type" onchange="updateTripOptions()">
-                <option value="داخلية">مشاوير داخلية</option>
-                <option value="الحصاحيصا">الحصاحيصا</option>
-                <option value="ولايات">سفر ولايات</option>
-            </select>
+            <h2 style="color: var(--blue);">دليل المشاوير</h2>
 
-            <label style="float:right; font-size:12px; color:#8b949e;">نوع الوسيلة:</label>
-            <select id="trip-vehicle">
-                </select>
+            <div class="driver-section">
+                <h3 class="section-title">📍 مشاوير داخلية</h3>
+                <div class="driver-card">
+                    <div class="driver-info">
+                        <h4>عمر عبد الله</h4>
+                        <p>مركبة: ركشة</p>
+                    </div>
+                    <a href="tel:0121606445" class="call-btn">📞 اتصال</a>
+                </div>
 
-            <button class="btn btn-blue" onclick="sendTrip()">إرسال طلب المشوار 🚕</button>
+                <h3 class="section-title">🏙️ سفر الحصاحيصا</h3>
+                <div class="driver-card">
+                    <div class="driver-info">
+                        <h4>عبد الجليل يوسف بابكر</h4>
+                        <p>مركبة: ACCENT</p>
+                    </div>
+                    <a href="tel:0117655646" class="call-btn">📞 اتصال</a>
+                </div>
+
+                <div class="driver-card">
+                    <div class="driver-info">
+                        <h4>جابر عبد الجليل</h4>
+                        <p>مركبة: حافلة</p>
+                    </div>
+                    <a href="tel:0127879864" class="call-btn">📞 اتصال</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -115,35 +132,6 @@
     function show(id) {
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById(id).style.display = 'block';
-        if(id === 'trip-page') updateTripOptions();
-    }
-
-    // وظيفة تحديث خيارات المركبات بناءً على نوع السفر
-    function updateTripOptions() {
-        const type = document.getElementById('trip-type').value;
-        const vehicleSelect = document.getElementById('trip-vehicle');
-        vehicleSelect.innerHTML = "";
-
-        let options = [];
-        if (type === "داخلية") {
-            options = ["ركشة", "تكتك"];
-        } else {
-            options = ["عربة ACCENT", "عربة ATOZ", "عربة 12 راكب", "حافلة"];
-        }
-
-        options.forEach(opt => {
-            let el = document.createElement("option");
-            el.text = opt;
-            el.value = opt;
-            vehicleSelect.add(el);
-        });
-    }
-
-    function sendTrip() {
-        const type = document.getElementById('trip-type').value;
-        const vehicle = document.getElementById('trip-vehicle').value;
-        const msg = `*طلب مشوار جديد (سريع)*%0A📍 الوجهة: ${type}%0A🚕 الوسيلة: ${vehicle}`;
-        window.location.href = `https://wa.me/249112002802?text=${msg}`;
     }
 
     function sendM() {
@@ -191,4 +179,3 @@
 </script>
 </body>
 </html>
-
