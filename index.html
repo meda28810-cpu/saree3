@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-<title>تطبيق سريع | صيانة الولي</title>
     <title>SAREE3 | Maintenance</title>
-
     
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="https://api.qrserver.com/v1/create-qr-code/?size=192x192&data=BR">
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3259/3259364.png">
     
     <style>
         :root { --gold: #ffcc00; --green: #28a745; --blue: #007bff; --dark: #0a0a0a; --card: #161616; }
@@ -23,46 +20,47 @@
         @keyframes glow { from { opacity: 0.6; } to { opacity: 1; } }
 
         .hero {
-            width: 100%; height: 200px;
-            background: linear-gradient(rgba(0,0,0,0.6), var(--dark)), 
+            width: 100%; height: 180px;
+            background: linear-gradient(rgba(0,0,0,0.7), var(--dark)), 
                         url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80');
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
         }
 
         .app-container {
-            max-width: 450px; margin: -30px auto 30px; width: 90%;
+            max-width: 450px; margin: -20px auto 30px; width: 90%;
             background: var(--card); border-radius: 25px; padding: 25px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 1px solid #333;
             box-sizing: border-box;
         }
 
-        label { display: block; text-align: right; margin: 15px 5px 8px; color: var(--gold); font-weight: bold; font-size: 13px; }
+        /* العناوين بالإنجليزية */
+        .label-en { display: block; text-align: left; margin: 15px 5px 8px; color: var(--gold); font-weight: bold; font-size: 14px; text-transform: uppercase; }
+        
         select, textarea {
             width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #333;
             background: #222; color: white; font-size: 16px; outline: none; box-sizing: border-box;
+            text-align: right; /* خيارات القائمة تظل عربية */
         }
 
         .payment-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
         .pay-card {
             background: #222; border: 2px solid transparent; border-radius: 15px;
-            padding: 10px; cursor: pointer; text-align: center; transition: 0.3s; font-size: 12px;
+            padding: 12px; cursor: pointer; text-align: center; transition: 0.3s; font-size: 11px; font-weight: bold;
         }
-        .pay-card.active { border-color: var(--gold); background: #333; }
+        .pay-card.active { border-color: var(--gold); background: #333; color: var(--gold); }
 
         #bank-card {
             display: none; background: #1a1a1a; border: 1px solid var(--gold);
             border-radius: 15px; padding: 15px; margin-top: 15px; text-align: center;
         }
 
-        .buttons-wrapper {
-            display: flex; gap: 10px; margin-top: 25px; justify-content: center;
-        }
+        .buttons-wrapper { display: flex; gap: 10px; margin-top: 25px; }
         .btn-action {
             flex: 1; height: 55px; border-radius: 15px; border: none;
-            font-size: 15px; font-weight: bold; color: white; cursor: pointer;
+            font-size: 16px; font-weight: 800; color: white; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
-            text-decoration: none; transition: 0.3s;
+            text-decoration: none; transition: 0.3s; text-transform: uppercase;
         }
         .btn-whatsapp { background: var(--green); }
         .btn-call { background: var(--blue); }
@@ -74,17 +72,19 @@
         }
     </style>
 </head>
-<body> <div class="dev-name">DEVELOPED BY BRAZILI</div>
+<body>
+
+<div class="dev-name">DEVELOPED BY BRAZILI</div>
 
 <div class="hero">
-    <h1 style="color: var(--gold); font-size: 32px; margin: 0;">سريع | SAREE3</h1>
-    <p style="font-size: 14px;">صيانة أجهزة الولي الكهربائية</p>
+    <h1 style="color: var(--gold); font-size: 35px; margin: 0; letter-spacing: 2px;">SAREE3</h1>
+    <p style="font-size: 12px; color: #aaa;">Expert Maintenance Services</p>
 </div>
 
 <div class="app-container">
-    <label>📍 الحي السكني:</label>
+    <label class="label-en">Select Location:</label>
     <select id="loc">
-        <option value="" disabled selected>-- اختر الحي --</option>
+        <option value="" disabled selected>-- اختر الحي السكني --</option>
         <option>حي المسجد العتيق</option>
         <option>حي الرحمه</option>
         <option>حي فريق قدام</option>
@@ -92,23 +92,23 @@
         <option>حي نادي اتحاد الولي</option>
     </select>
 
-    <label>🛠️ نوع الجهاز:</label>
+    <label class="label-en">Device Type:</label>
     <select id="device">
-        <option value="" disabled selected>-- اختر الجهاز --</option>
+        <option value="" disabled selected>-- اختر نوع الجهاز --</option>
         <option>مكيف</option>
         <option>ثلاجة</option>
         <option>غسالة</option>
         <option>شاشة</option>
     </select>
 
-    <label>📝 وصف المشكلة:</label>
-    <textarea id="desc" rows="2" placeholder="ما هي المشكلة؟"></textarea>
+    <label class="label-en">Problem Description:</label>
+    <textarea id="desc" rows="2" placeholder="وصف المشكلة باختصار..."></textarea>
 
-    <label>💳 طريقة الدفع:</label>
+    <label class="label-en">Payment Method:</label>
     <div class="payment-grid">
-        <div class="pay-card active" onclick="setPayment(this, 'نقداً')">💵<br>نقداً</div>
-        <div class="pay-card" onclick="setPayment(this, 'بنكك')">🏦<br>بنكك</div>
-        <div class="pay-card" onclick="setPayment(this, 'أوكاش')">📱<br>أوكاش</div>
+        <div class="pay-card active" onclick="setPayment(this, 'نقداً')">CASH<br>نقداً</div>
+        <div class="pay-card" onclick="setPayment(this, 'بنكك')">BANKAK<br>بنكك</div>
+        <div class="pay-card" onclick="setPayment(this, 'أوكاش')">O-CASH<br>أوكاش</div>
     </div>
 
     <div id="bank-card">
@@ -117,26 +117,19 @@
     </div>
 
     <div class="buttons-wrapper">
-        <button class="btn-action btn-whatsapp" onclick="sendOrder()">واتساب ✅</button>
-        <a href="tel:0112002802" class="btn-action btn-call">اتصال 📞</a>
-    </div>
-
-    <div style="text-align: center; margin-top: 20px; font-size: 10px; color: #444;">
-        SAREE3 APP SYSTEM © 2026
+        <button class="btn-action btn-whatsapp" onclick="sendOrder()">WHATSAPP</button>
+        <a href="tel:0112002802" class="btn-action btn-call">CALL US</a>
     </div>
 </div>
 
 <div id="thanks-popup">
-    <h1 style="color: var(--gold);">شكراً لثقتكم في "سريع" 😊</h1>
-    <p style="padding: 20px; font-size: 16px;">تم تجهيز طلبك.. سيتم تحويلك للواتساب الآن.</p>
+    <h1 style="color: var(--gold);">THANK YOU!</h1>
+    <p style="padding: 20px; font-size: 16px;">تم استلام طلبك بنجاح.. جاري التحويل للواتساب</p>
 </div>
 
 <script>
-    // تسجيل الـ Service Worker لتحويله لتطبيق
     if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js');
-        });
+        window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js'); });
     }
 
     let currentPayment = "نقداً";
@@ -149,17 +142,18 @@
     function sendOrder() {
         const l = document.getElementById('loc').value;
         const d = document.getElementById('device').value;
-        const s = document.getElementById('desc').value;
-        if(!l || !d) { alert("يرجى ملء البيانات!"); return; }
+        const s = document.getElementById('desc').value || "لا يوجد وصف";
+        if(!l || !d) { alert("يرجى اختيار الحي والجهاز!"); return; }
 
         document.getElementById('thanks-popup').style.display = 'flex';
-        const msg = `*طلب صيانة (سريع - الولي)*%0A📍 الحي: ${l}%0A🛠️ الجهاز: ${d}%0A💰 الدفع: ${currentPayment}%0A_تطوير: BRAZILI_`;
+        const msg = `*SAREE3 ORDER*%0A📍 الحي: ${l}%0A🛠️ الجهاز: ${d}%0A📝 المشكلة: ${s}%0A💰 الدفع: ${currentPayment}%0A_SYSTEM BY BRAZILI_`;
         
         setTimeout(() => { window.location.href = `https://wa.me/249112002802?text=${msg}`; }, 2000);
     }
 </script>
 
-</body> </html>
+</body>
+</html>
 
 
 
