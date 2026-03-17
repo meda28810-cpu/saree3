@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#ffcc00">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #ffcc00; --dark: #0d1117; --card: #161b22; --blue: #007bff; --green: #28a745; --red: #ff4444; }
+        :root { --gold: #ffcc00; --dark: #0d1117; --card: #161b22; --blue: #007bff; --green: #28a745; --red: #ff4444; --purple: #8e44ad; }
         body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 10px; }
         .page { display: none; animation: fadeIn 0.4s; }
         .container { max-width: 450px; margin: auto; background: var(--card); padding: 20px; border-radius: 25px; border: 1px solid #30363d; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
@@ -17,12 +17,21 @@
         input, select, textarea { width: 100%; padding: 14px; margin: 8px 0; border-radius: 12px; border: 1px solid #444; background: #0d1117; color: white; font-family: 'Cairo'; box-sizing: border-box; }
         .btn { width: 100%; padding: 16px; border-radius: 15px; border: none; font-weight: 800; font-size: 17px; cursor: pointer; margin-top: 10px; }
         .btn-gold { background: var(--gold); color: black; }
-        .menu-card { background: var(--card); border: 1px solid #30363d; border-radius: 20px; padding: 18px; margin-bottom: 12px; cursor: pointer; display: flex; align-items: center; gap: 15px; text-align: right; transition: 0.2s; }
+        
+        .menu-card { background: var(--card); border: 1px solid #30363d; border-radius: 20px; padding: 18px; margin-bottom: 12px; cursor: pointer; display: flex; align-items: center; gap: 15px; text-align: right; transition: 0.3s; }
         .menu-card:active { transform: scale(0.95); }
+        .menu-card h3 { margin: 0; font-size: 17px; color: white; }
+        
         .driver-card { background: #1c2128; padding: 12px; border-radius: 15px; margin-bottom: 8px; border-right: 4px solid var(--blue); display: flex; justify-content: space-between; align-items: center; text-align: right; }
-        .driver-info h4 { margin: 0; font-size: 15px; }
+        .driver-info h4 { margin: 0; font-size: 14px; }
         .driver-info p { margin: 0; font-size: 11px; color: #8b949e; }
-        .call-btn { background: var(--green); color: white; padding: 8px 15px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; }
+        .call-btn { background: var(--green); color: white; padding: 8px 15px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; font-family: 'Cairo'; font-size: 12px;}
+        
+        /* تنسيق خاص لقسم دليل الخير */
+        .khair-item { background: #1c2128; padding: 10px; border-radius: 10px; margin-bottom: 8px; text-align: right; border-left: 3px solid var(--purple); }
+        .khair-item h5 { margin: 0; color: var(--gold); font-size: 14px; }
+        .khair-item p { margin: 3px 0 0 0; font-size: 12px; color: #b1b1b1; }
+        
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
@@ -35,7 +44,7 @@
             <input type="text" id="login-phone" placeholder="رقم الهاتف">
             <input type="password" id="login-pass" placeholder="كلمة السر">
             <button class="btn btn-gold" onclick="login()">دخول ✅</button>
-            <button onclick="show('register-page')" style="background:none; border:none; color:var(--gold); margin-top:15px; cursor:pointer;">إنشاء حساب جديد</button>
+            <button onclick="show('register-page')" style="background:none; border:none; color:var(--gold); margin-top:15px; cursor:pointer; font-family:'Cairo'">إنشاء حساب جديد</button>
         </div>
     </div>
 
@@ -44,7 +53,7 @@
             <h2>عضوية جديدة</h2>
             <div id="reg-form">
                 <input type="text" id="reg-name" placeholder="الاسم الكامل">
-                <input type="tel" id="reg-phone" placeholder="رقم الهاتف (يبدأ بـ 01)">
+                <input type="tel" id="reg-phone" placeholder="رقم الهاتف">
                 <input type="password" id="reg-pass" placeholder="كلمة سر">
                 <button class="btn btn-gold" onclick="startActivation()">طلب كود التفعيل 💬</button>
             </div>
@@ -52,32 +61,34 @@
                 <input type="number" id="v-code" placeholder="أدخل كود التفعيل">
                 <button class="btn btn-gold" onclick="completeRegistration()">تأكيد الحساب ✅</button>
             </div>
+            <button onclick="show('login-page')" style="background:none; border:none; color:#777; margin-top:10px; cursor:pointer;">رجوع</button>
         </div>
     </div>
 
     <div id="home" class="page">
         <div style="display:flex; justify-content:space-between; padding:10px; align-items:center">
-            <button onclick="logout()" style="color:var(--red); background:none; border:none; font-weight:bold; cursor:pointer;">خروج ⬅️</button>
+            <button onclick="logout()" style="color:#ff4444; background:none; border:none; font-weight:bold; cursor:pointer;">خروج ⬅️</button>
             <h1 style="font-size:24px; margin:0;">SAREE3</h1>
         </div>
-        <p id="welcome-msg" style="color:var(--gold); font-weight:bold;"></p>
-        <div class="menu-card" onclick="show('m-page')" style="border-right:5px solid var(--gold)">🛠️ <h3>خدمات الصيانة</h3></div>
-        <div class="menu-card" onclick="show('trip-page')" style="border-right:5px solid var(--blue)">🚕 <h3>مشوار (السائقين)</h3></div>
-        <div class="menu-card" onclick="show('health-page')" style="border-right:5px solid var(--red)">🏥 <h3>الطوارئ والصحة</h3></div>
-        <p style="font-size:9px; color:#444; margin-top:20px">DESIGNED BY BRAZILI QQ</p>
+        <p id="welcome-msg" style="color:var(--gold); font-weight:bold; margin:10px 0"></p>
+        
+        <div class="menu-card" onclick="show('m-page')" style="border-right: 5px solid var(--gold);"><span>🛠️</span> <h3>خدمات الصيانة</h3></div>
+        <div class="menu-card" onclick="show('trip-page')" style="border-right: 5px solid var(--blue);"><span>🚕</span> <h3>مشوار (السائقين)</h3></div>
+        <div class="menu-card" onclick="show('health-page')" style="border-right: 5px solid var(--red);"><span>🏥</span> <h3>الخدمات الطبية</h3></div>
+        
+        <div class="menu-card" onclick="show('khair-page')" style="border-right: 5px solid var(--purple);">
+            <span style="font-size: 22px;">🤝</span> <h3>دليل الخير</h3>
+        </div>
+        
+        <p style="font-size:9px; color:#444; letter-spacing:2px; margin-top:20px">DESIGNED BY BRAZILI QQ</p>
     </div>
 
     <div id="m-page" class="page">
         <div class="container">
-            <button onclick="show('home')" style="float:right; color:var(--gold); background:none; border:none; font-size:20px;">🔙</button>
+            <button onclick="show('home')" style="float:right; color:var(--gold); background:none; border:none; font-size:20px; cursor:pointer">🔙</button>
             <h2 style="color:var(--gold)">طلب صيانة</h2>
-            <select id="m-loc">
-                <option>حي المسجد العتيق</option><option>حي الرحمه</option><option>حي فريق قدام</option>
-                <option>حي نادي الشعله</option><option>حي نادي اتحاد الولي</option>
-            </select>
-            <select id="m-dev">
-                <option>مكيف</option><option>ثلاجة</option><option>غسالة</option><option>شاشة</option><option>فرن/ميكروويف</option>
-            </select>
+            <select id="m-loc"><option>حي المسجد العتيق</option><option>حي الرحمه</option><option>حي فريق قدام</option><option>حي نادي الشعله</option><option>حي نادي اتحاد الولي</option></select>
+            <select id="m-dev"><option>مكيف</option><option>ثلاجة</option><option>غسالة</option><option>شاشة</option></select>
             <textarea id="m-problem" placeholder="وصف العطل..."></textarea>
             <button class="btn btn-gold" onclick="sendM()">إرسال الطلب ✅</button>
         </div>
@@ -85,15 +96,16 @@
 
     <div id="trip-page" class="page">
         <div class="container">
-            <button onclick="show('home')" style="float:right; color:var(--gold); background:none; border:none; font-size:20px;">🔙</button>
+            <button onclick="show('home')" style="float:right; color:var(--gold); background:none; border:none; font-size:20px; cursor:pointer">🔙</button>
             <h2 style="color:var(--blue)">دليل السائقين</h2>
             <div style="max-height:420px; overflow-y:auto; padding-right:5px">
                 <h3 style="font-size:15px; color:var(--gold); text-align:right; border-bottom:1px solid #333">📍 داخلية (ركشة)</h3>
                 <div class="driver-card"><div class="driver-info"><h4>عمر عبد الله</h4><p>ركشة</p></div><button class="call-btn" onclick="directCall('249121606445')">اتصال</button></div>
                 <div class="driver-card"><div class="driver-info"><h4>أنور شنان</h4><p>ركشة</p></div><button class="call-btn" onclick="directCall('249113461046')">اتصال</button></div>
+                
                 <h3 style="font-size:15px; color:var(--gold); text-align:right; border-bottom:1px solid #333; margin-top:15px">🏙️ مواصلات السفر</h3>
-                <div class="driver-card"><div class="driver-info"><h4>نزار علي</h4><p>عربة ATOZ</p></div><button class="call-btn" onclick="directCall('249115078527')">اتصال</button></div>
-                <div class="driver-card"><div class="driver-info"><h4>محمد خوجلي الطيب</h4><p>عربة ACCENT</p></div><button class="call-btn" onclick="directCall('249111132818')">اتصال</button></div>
+                <div class="driver-card"><div class="driver-info"><h4>نزار علي</h4><p>ATOZ</p></div><button class="call-btn" onclick="directCall('249115078527')">اتصال</button></div>
+                <div class="driver-card"><div class="driver-info"><h4>محمد خوجلي الطيب</h4><p>ACCENT</p></div><button class="call-btn" onclick="directCall('249111132818')">اتصال</button></div>
                 <div class="driver-card"><div class="driver-info"><h4>عبد الجليل يوسف</h4><p>عربة سفر</p></div><button class="call-btn" onclick="directCall('249117655646')">اتصال</button></div>
                 <div class="driver-card"><div class="driver-info"><h4>جابر عبد الجليل</h4><p>حافلة ركاب</p></div><button class="call-btn" onclick="directCall('249127879864')">اتصال</button></div>
             </div>
@@ -102,14 +114,44 @@
 
     <div id="health-page" class="page">
         <div class="container">
-            <button onclick="show('home')" style="float:right; color:var(--gold); background:none; border:none; font-size:20px;">🔙</button>
-            <h2 style="color:var(--red)">الطوارئ والصحة</h2>
-            <div style="max-height:420px; overflow-y:auto;">
+            <button onclick="show('home')" style="float:right; color:var(--gold); background:none; border:none; font-size:20px; cursor:pointer">🔙</button>
+            <h2 style="color:var(--red)">الخدمات الطبية</h2>
+            <div style="max-height:420px; overflow-y:auto; padding-right:5px">
                 <h3 style="font-size:15px; color:var(--red); text-align:right; border-bottom:1px solid #333">🚨 طوارئ</h3>
-                <div class="driver-card" style="border-right-color: var(--red);"><div class="driver-info"><h4>إسعاف المنطقة</h4><p>طوارئ 24 ساعة</p></div><button class="call-btn" style="background:var(--red)" onclick="directCall('999')">اتصال</button></div>
+                <div class="driver-card" style="border-right-color: var(--red);">
+                    <div class="driver-info"><h4>إسعاف المنطقة</h4><p>طوارئ 24 ساعة</p></div>
+                    <button class="call-btn" style="background:var(--red)" onclick="directCall('999')">اتصال 📞</button>
+                </div>
                 <h3 style="font-size:15px; color:var(--gold); text-align:right; border-bottom:1px solid #333; margin-top:15px">💊 صيدليات وعيادات</h3>
-                <p style="font-size:12px; color:#888">سيتم إضافة الأرقام الطبية قريباً...</p>
+                <p style="font-size:12px; color:#888; text-align:center;">سيتم إضافة الأرقام الطبية قريباً...</p>
             </div>
+        </div>
+    </div>
+
+    <div id="khair-page" class="page">
+        <div class="container">
+            <button onclick="show('home')" style="float:right; color:var(--gold); background:none; border:none; font-size:20px; cursor:pointer">🔙</button>
+            <h2 style="color:var(--purple)">🤝 دليل الخير</h2>
+            
+            <div style="max-height:350px; overflow-y:auto; padding-right:5px;">
+                
+                <h3 style="font-size:15px; color:var(--gold); text-align:right; border-bottom:1px solid #333">💊 صيدلية التكافل (الأدوية الدائمة)</h3>
+                <p style="font-size:11px; color:#888; text-align:right; margin-top:3px">أدوية متوفرة عند الأهالي للإعطاء أو التبادل (السكري، الضغط، البروتين)</p>
+                
+                <div class="khair-item"><h5>منظم سكر (Metformin)</h5><p>متوفر علبة واحدة - حي المسجد - ت: 01xxxxxx</p></div>
+                <div class="khair-item"><h5>دواء ضغط (Amlodipine)</h5><p>مطلوب عاجلاً - حي الرحمه - ت: 09xxxxxx</p></div>
+                <div class="khair-item"><h5>عبوات بروتين لكبار السن</h5><p>متوفر عبوتين - تواصل مع الإدارة</p></div>
+
+                <h3 style="font-size:15px; color:var(--gold); text-align:right; border-bottom:1px solid #333; margin-top:15px">🦽 معدات طبية للإعارة</h3>
+                <p style="font-size:11px; color:#888; text-align:right; margin-top:3px">معدات يملكها أفراد ومستعدون لإعارتها مجاناً</p>
+                
+                <div class="khair-item" style="border-left-color: var(--blue);"><h5>كرسي متحرك</h5><p>متوفر للإعارة (ت: 01xxxxxx)</p></div>
+                <div class="khair-item" style="border-left-color: var(--blue);"><h5>جهاز قياس ضغط (إلكتروني)</h5><p>متاح حالياً (ت: 09xxxxxx)</p></div>
+                <div class="khair-item" style="border-left-color: var(--blue);"><h5>أسطوانة أكسجين / جهاز بخار</h5><p>تواصل مع الإدارة للتنسيق</p></div>
+                
+            </div>
+            
+            <button class="btn" style="background:var(--purple); color:white; font-size:15px; margin-top:15px" onclick="sendKhair()">إضافة دواء أو معدة للخير ✍️</button>
         </div>
     </div>
 
@@ -128,7 +170,8 @@
     }
     function checkLoginStatus() {
         if(sessionStorage.getItem('isLoggedIn') === 'true') {
-            document.getElementById('welcome-msg').innerText = "مرحباً: " + JSON.parse(localStorage.getItem('currentUser')).name;
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            document.getElementById('welcome-msg').innerText = "مرحباً: " + user.name;
             show('home');
         } else { show('login-page'); }
     }
@@ -149,13 +192,19 @@
             const users = JSON.parse(localStorage.getItem('users') || '[]');
             users.push(JSON.parse(localStorage.getItem('tempUser')));
             localStorage.setItem('users', JSON.stringify(users));
-            alert("تم التفعيل!"); location.reload();
-        } else { alert("الكود خطأ!"); }
+            alert("تم التفعيل بنجاح!"); location.reload();
+        } else { alert("الكود غير صحيح!"); }
     }
     function directCall(p) { window.location.href = `tel:${p}`; }
     function sendM() {
         const user = JSON.parse(localStorage.getItem('currentUser'));
-        const msg = `طلب صيانة:%0Aالعميل: ${user.name}%0Aالحي: ${document.getElementById('m-loc').value}%0Aالجهاز: ${document.getElementById('m-dev').value}%0Aالعطل: ${document.getElementById('m-problem').value}`;
+        const msg = `طلب صيانة:%0Aالعميل: ${user.name}%0Aالجهاز: ${document.getElementById('m-dev').value}`;
+        window.location.href = `https://wa.me/${MY_PHONE}?text=${msg}`;
+    }
+    // وظيفة إرسال بيانات الخير لك
+    function sendKhair() {
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        const msg = `مساهمة للخير:%0Aمن العميل: ${user.name}%0Aالتفاصيل (اسم الدواء أو المعدة): `;
         window.location.href = `https://wa.me/${MY_PHONE}?text=${msg}`;
     }
 </script>
