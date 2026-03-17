@@ -3,173 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <title>SAREE3 | سريع</title>
+    <title>SAREE3 | سريع - النسخة النهائية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #ffcc00; --dark: #0d1117; --card: #161b22; --blue: #007bff; --green: #28a745; --red: #ff4444; --purple: #8e44ad; --chat: #21262d; }
-        body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 10px; transition: 0.3s; }
-        .page { display: none; animation: fadeIn 0.4s; }
-        .container { max-width: 450px; margin: auto; background: var(--card); padding: 20px; border-radius: 25px; border: 1px solid #30363d; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { color: var(--gold); font-size: 32px; margin: 10px 0; }
-        input, select, textarea { width: 100%; padding: 14px; margin: 8px 0; border-radius: 12px; border: 1px solid #444; background: #0d1117; color: white; font-family: 'Cairo'; box-sizing: border-box; }
+        :root { --gold: #ffcc00; --dark: #0d1117; --card: #161b22; --blue: #007bff; --green: #28a745; --red: #ff4444; --purple: #8e44ad; }
+        body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 10px; overflow-x: hidden; }
+        
+        .page { display: none; animation: fadeIn 0.4s ease-in-out; width: 100%; max-width: 450px; margin: auto; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .container { background: var(--card); padding: 25px; border-radius: 30px; border: 1px solid #30363d; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+        
+        /* الهيدر العلوي */
+        .app-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px 5px; margin-bottom: 15px; position: sticky; top: 0; z-index: 100; background: var(--dark); }
+        .user-avatar { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; cursor: pointer; }
+        .icon-btn { background: #30363d; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid var(--gold); font-size: 14px; color: var(--gold); font-weight: bold; }
+
+        /* البطاقات الرئيسية */
+        .menu-card { background: var(--card); border: 1px solid #30363d; border-radius: 20px; padding: 20px; margin-bottom: 15px; cursor: pointer; display: flex; align-items: center; gap: 15px; text-align: right; border-right: 6px solid transparent; }
+        
+        /* الدردشة العامة */
+        #chat-window { height: 400px; overflow-y: auto; background: #010409; border-radius: 20px; padding: 15px; border: 1px solid #30363d; display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
+        .chat-msg { padding: 12px 16px; border-radius: 18px; font-size: 14px; max-width: 85%; display: flex; gap: 10px; align-items: flex-start; }
+        .msg-me { background: var(--blue); align-self: flex-end; flex-direction: row-reverse; border-bottom-right-radius: 4px; }
+        .msg-other { background: #30363d; align-self: flex-start; border-bottom-left-radius: 4px; }
+        .chat-avatar { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold); }
+
+        /* رفع الصورة */
+        .upload-area { position: relative; width: 100px; height: 100px; margin: 10px auto; border: 2px dashed var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; }
+        .upload-area img { width: 100%; height: 100%; object-fit: cover; }
+        #file-input { display: none; }
+
+        input, select, textarea { width: 100%; padding: 15px; margin: 10px 0; border-radius: 15px; border: 1px solid #30363d; background: #0d1117; color: white; font-family: 'Cairo'; }
         .btn { width: 100%; padding: 16px; border-radius: 15px; border: none; font-weight: 800; font-size: 17px; cursor: pointer; margin-top: 10px; }
         .btn-gold { background: var(--gold); color: black; }
         
-        /* شريط التطبيق العلوي */
-        .app-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 5px; margin-bottom: 10px; }
-        .icon-btn { background: #30363d; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid var(--gold); font-size: 18px; color: var(--gold); }
-        
-        /* القائمة */
-        .menu-card { background: var(--card); border: 1px solid #30363d; border-radius: 20px; padding: 18px; margin-bottom: 12px; cursor: pointer; display: flex; align-items: center; gap: 15px; text-align: right; }
-        .menu-card h3 { margin: 0; font-size: 17px; }
-
-        /* نظام الدردشة */
-        #chat-box { height: 350px; overflow-y: auto; background: var(--chat); border-radius: 15px; padding: 10px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; border: 1px solid #30363d; }
-        .msg { padding: 10px 14px; border-radius: 15px; max-width: 80%; font-size: 14px; position: relative; text-align: right; line-height: 1.4; }
-        .msg-other { background: #30363d; align-self: flex-start; border-bottom-left-radius: 2px; }
-        .msg-me { background: var(--blue); align-self: flex-end; border-bottom-right-radius: 2px; }
-        .msg-sender { font-size: 10px; font-weight: bold; color: var(--gold); display: block; margin-bottom: 4px; }
-        .chat-input-area { display: flex; gap: 5px; }
-        .chat-input-area input { margin: 0; flex-grow: 1; }
-        .send-chat-btn { background: var(--gold); border: none; border-radius: 12px; padding: 0 15px; cursor: pointer; font-size: 20px; }
-
-        /* السائقين ودليل الخير */
-        .driver-card, .item-row { background: #1c2128; padding: 12px; border-radius: 15px; margin-bottom: 8px; border-right: 4px solid var(--blue); display: flex; justify-content: space-between; align-items: center; text-align: right; }
-        .call-btn, .mini-btn { padding: 6px 12px; border-radius: 10px; border: none; font-family: 'Cairo'; cursor: pointer; font-weight: bold; }
-        .call-btn { background: var(--green); color: white; }
-        .btn-need { background: var(--red); color: white; } .btn-give { background: var(--green); color: white; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; }
+        .modal-content { background: var(--card); width: 85%; max-width: 380px; padding: 30px; border-radius: 25px; border: 2px solid var(--gold); }
     </style>
 </head>
-<body onload="checkLoginStatus()">
+<body onload="initApp()">
 
-    <div id="profile-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:1001; background:var(--card); padding:20px; border-radius:20px; border:1px solid var(--gold); width:80%;">
-        <h3 style="color:var(--gold)">بيانات الحساب</h3>
-        <p>الاسم: <span id="p-name"></span></p>
-        <p>الهاتف: <span id="p-phone"></span></p>
-        <button class="btn btn-gold" onclick="document.getElementById('profile-modal').style.display='none'">إغلاق</button>
-        <button class="btn" style="color:var(--red)" onclick="logout()">خروج</button>
+    <div id="profile-modal" class="modal">
+        <div class="modal-content">
+            <img id="p-avatar-display" src="" class="user-avatar" style="width:80px; height:80px; margin-bottom:15px">
+            <h2 style="color:var(--gold); margin:0">بيانات الحساب</h2>
+            <p>👤 <strong>الاسم:</strong> <span id="display-name"></span></p>
+            <p>📞 <strong>الهاتف:</strong> <span id="display-phone"></span></p>
+            <button class="btn btn-gold" onclick="closeProfile()">إغلاق</button>
+            <button class="btn" style="background:none; color:var(--red)" onclick="logout()">خروج ⬅️</button>
+        </div>
     </div>
 
-    <div id="home" class="page">
-        <div class="app-bar">
-            <div class="icon-btn" onclick="document.getElementById('profile-modal').style.display='block'">👤</div>
-            <h1 style="font-size:24px; color:var(--gold);">SAREE3</h1>
-            <div class="icon-btn" onclick="toggleLang()" id="lang-btn">EN</div>
+    <div id="login-page" class="page">
+        <div class="container" style="margin-top: 60px;">
+            <h1>SAREE3</h1>
+            <input type="tel" id="login-phone" placeholder="رقم الهاتف">
+            <input type="password" id="login-pass" placeholder="كلمة السر">
+            <button class="btn btn-gold" onclick="handleLogin()">دخول ✅</button>
+            <button onclick="showPage('register-page')" style="background:none; border:none; color:var(--gold); margin-top:20px; cursor:pointer;">إنشاء حساب جديد</button>
         </div>
-        
-        <div class="menu-card" onclick="show('chat-page')" style="background: #1c2128; border: 1px solid var(--green);">
-            <span style="font-size:25px;">💬</span> <div><h3 style="color:var(--green)">الدردشة العامة</h3><p style="margin:0; font-size:11px; color:#888">تواصل مع أهل المنطقة الآن</p></div>
-        </div>
-
-        <div class="menu-card" onclick="show('m-page')" style="border-right: 5px solid var(--gold);"><span>🛠️</span> <h3 id="txt-m-serv">خدمات الصيانة</h3></div>
-        <div class="menu-card" onclick="show('trip-page')" style="border-right: 5px solid var(--blue);"><span>🚕</span> <h3 id="txt-trip-serv">مشوار (السائقين)</h3></div>
-        <div class="menu-card" onclick="show('health-page')" style="border-right: 5px solid var(--red);"><span>🏥</span> <h3 id="txt-health-serv">الخدمات الطبية</h3></div>
-        <div class="menu-card" onclick="show('khair-page')" style="border-right: 5px solid var(--purple);"><span>🤝</span> <h3 id="txt-khair-serv">دليل الخير</h3></div>
     </div>
 
-    <div id="chat-page" class="page">
-        <div class="container" style="padding: 10px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px">
-                <button onclick="show('home')" style="color:var(--gold); background:none; border:none; font-size:20px; cursor:pointer">🔙</button>
-                <h3 style="margin:0">الدردشة العامة (الديوان)</h3>
-                <span style="font-size:10px; color:var(--green)">متصل الآن 🟢</span>
-            </div>
+    <div id="register-page" class="page">
+        <div class="container">
+            <h2 style="color:var(--gold)">عضوية جديدة</h2>
             
-            <div id="chat-box">
-                </div>
+            <label class="upload-area" for="file-input">
+                <img id="reg-avatar-preview" src="https://via.placeholder.com/100?text=👤">
+                <input type="file" id="file-input" accept="image/*" onchange="previewImage(event)">
+            </label>
+            <p style="font-size:11px; color:var(--gold)">اضغط لرفع صورتك</p>
 
-            <div class="chat-input-area">
-                <input type="text" id="chat-input" placeholder="اكتب رسالة...">
-                <button class="send-chat-btn" onclick="sendChatMessage()">📤</button>
-            </div>
+            <input type="text" id="reg-name" placeholder="الاسم الكامل">
+            <input type="tel" id="reg-phone" placeholder="رقم الهاتف">
+            <input type="password" id="reg-pass" placeholder="كلمة السر">
+            <button class="btn btn-gold" onclick="handleRegister()">تفعيل عبر واتساب 💬</button>
+            <button onclick="showPage('login-page')" style="background:none; border:none; color:#8b949e; margin-top:10px;">لديك حساب؟ سجل دخول</button>
+        </div>
+    </div>
+
+    <div id="home-page" class="page">
+        <div class="app-bar">
+            <img id="top-avatar" src="" class="user-avatar" onclick="openProfile()">
+            <h1 style="font-size:24px; color:var(--gold); margin:0;">SAREE3</h1>
+            <div class="icon-btn" onclick="toggleLanguage()" id="lang-btn-text">EN</div>
+        </div>
+
+        <div class="menu-card" onclick="showPage('chat-page')" style="border-right-color: var(--green);">
+            <div style="font-size:30px;">💬</div>
+            <div><h3>الدردشة العامة</h3><p>تواصل مع أهل المنطقة</p></div>
+        </div>
+        <div class="menu-card" onclick="showPage('maint-page')" style="border-right-color: var(--gold);">
+            <div style="font-size:30px;">🛠️</div>
+            <div><h3>خدمات الصيانة</h3><p>تبريد وأجهزة منزلية</p></div>
+        </div>
+        <div class="menu-card" onclick="showPage('trip-page')" style="border-right-color: var(--blue);">
+            <div style="font-size:30px;">🚕</div>
+            <div><h3>مشوار (السائقين)</h3><p>دليل السائقين المعتمدين</p></div>
+        </div>
+        <div class="menu-card" onclick="showPage('health-page')" style="border-right-color: var(--red);">
+            <div style="font-size:30px;">🏥</div>
+            <div><h3>الخدمات الطبية</h3><p>طوارئ وإسعاف</p></div>
+        </div>
+        <div class="menu-card" onclick="showPage('khair-page')" style="border-right-color: var(--purple);">
+            <div style="font-size:30px;">🤝</div>
+            <div><h3>دليل الخير</h3><p>تكافل ومساعدة محتاجين</p></div>
         </div>
     </div>
 
     <div id="trip-page" class="page">
         <div class="container">
-            <button onclick="show('home')" style="float:right; border:none; background:none; color:var(--gold); font-size:20px">🔙</button>
+            <button onclick="showPage('home-page')" style="float:right; background:none; border:none; color:var(--gold); font-size:25px;">🔙</button>
             <h2 style="color:var(--blue)">دليل السائقين</h2>
-            <div class="driver-card"><div class="driver-info"><h4>عبد الجليل يوسف</h4><p>عربة سفر</p></div><button class="call-btn" onclick="directCall('249117655646')">اتصال</button></div>
-            <div class="driver-card"><div class="driver-info"><h4>جابر عبد الجليل</h4><p>حافلة ركاب</p></div><button class="call-btn" onclick="directCall('249127879864')">اتصال</button></div>
+            <div style="max-height: 450px; overflow-y: auto; text-align: right;">
+                <h4 style="color:var(--gold)">📍 ركشات</h4>
+                <div class="menu-card" style="padding:10px"><p>عمر عبد الله</p><button class="btn-gold" style="padding:5px 10px; font-size:12px; border-radius:10px" onclick="makeCall('249121606445')">اتصال</button></div>
+                <div class="menu-card" style="padding:10px"><p>أنور شنان</p><button class="btn-gold" style="padding:5px 10px; font-size:12px; border-radius:10px" onclick="makeCall('249113461046')">اتصال</button></div>
+                <h4 style="color:var(--gold)">🏙️ سفر</h4>
+                <div class="menu-card" style="padding:10px"><p>نزار علي (Atoz)</p><button class="btn-gold" onclick="makeCall('249115078527')">اتصال</button></div>
+                <div class="menu-card" style="padding:10px"><p>محمد خوجلي</p><button class="btn-gold" onclick="makeCall('249111132818')">اتصال</button></div>
+                <div class="menu-card" style="padding:10px"><p>عبد الجليل يوسف</p><button class="btn-gold" onclick="makeCall('249117655646')">اتصال</button></div>
+                <div class="menu-card" style="padding:10px"><p>جابر عبد الجليل</p><button class="btn-gold" onclick="makeCall('249127879864')">اتصال</button></div>
+            </div>
         </div>
     </div>
 
-    <div id="login-page" class="page"><div class="container"><h1>SAREE3</h1><input type="text" id="login-phone" placeholder="رقم الهاتف"><input type="password" id="login-pass" placeholder="كلمة السر"><button class="btn btn-gold" onclick="login()">دخول</button></div></div>
+    <div id="maint-page" class="page">
+        <div class="container">
+            <button onclick="showPage('home-page')" style="float:right; border:none; background:none; color:var(--gold); font-size:25px;">🔙</button>
+            <h2 style="color:var(--gold)">طلب صيانة</h2>
+            <select id="m-loc"><option>حي المسجد العتيق</option><option>حي الرحمه</option><option>حي فريق قدام</option><option>حي نادي الشعله</option></select>
+            <select id="m-dev"><option>مكيف</option><option>ثلاجة</option><option>غسالة</option></select>
+            <textarea id="m-desc" placeholder="وصف المشكلة..."></textarea>
+            <button class="btn btn-gold" onclick="sendMaint()">إرسال واتساب ✅</button>
+        </div>
+    </div>
+
+    <div id="chat-page" class="page">
+        <div class="container" style="padding:10px">
+            <button onclick="showPage('home-page')" style="float:right; border:none; background:none; color:var(--gold); font-size:25px;">🔙</button>
+            <h3>ديوان المنطقة</h3>
+            <div id="chat-window"></div>
+            <div style="display:flex; gap:5px">
+                <input type="text" id="chat-input" placeholder="اكتب رسالة..." style="margin:0">
+                <button onclick="sendMessage()" style="background:var(--gold); border:none; border-radius:15px; width:60px; font-size:20px">📤</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="health-page" class="page"><div class="container"><button onclick="showPage('home-page')" style="float:right; border:none; background:none; color:var(--gold); font-size:25px;">🔙</button><h2 style="color:var(--red)">الخدمات الطبية</h2><div class="menu-card"><p>إسعاف المنطقة</p><button class="btn-gold" style="background:var(--red); color:white" onclick="makeCall('999')">اتصال</button></div></div></div>
+    <div id="khair-page" class="page"><div class="container"><button onclick="showPage('home-page')" style="float:right; border:none; background:none; color:var(--gold); font-size:25px;">🔙</button><h2 style="color:var(--purple)">🤝 دليل الخير</h2><div class="menu-card"><p>أدوية ومعدات</p><div><button class="btn-gold" style="background:var(--red); color:white; font-size:12px; padding:5px" onclick="contactKhair('طلب')">محتاج</button> <button class="btn-gold" style="background:var(--green); color:white; font-size:12px; padding:5px" onclick="contactKhair('تبرع')">متبرع</button></div></div></div></div>
 
 <script>
     const MY_PHONE = "249112002802";
-    let currentLang = 'AR';
+    let base64Image = "https://via.placeholder.com/100?text=👤";
 
-    function show(id) { 
-        document.querySelectorAll('.page').forEach(p => p.style.display = 'none'); 
-        document.getElementById(id).style.display = 'block';
-        if(id === 'chat-page') loadMessages();
+    function initApp() {
+        if (sessionStorage.getItem('isLoggedIn') === 'true') {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            document.getElementById('display-name').innerText = user.name;
+            document.getElementById('display-phone').innerText = user.phone;
+            document.getElementById('top-avatar').src = user.avatar || base64Image;
+            document.getElementById('p-avatar-display').src = user.avatar || base64Image;
+            showPage('home-page');
+            refreshChat();
+        } else {
+            showPage('login-page');
+        }
     }
 
-    // نظام الدردشة (محاكاة التزامن)
-    function sendChatMessage() {
-        const input = document.getElementById('chat-input');
-        const user = JSON.parse(localStorage.getItem('currentUser'));
-        if(!input.value.trim()) return;
-
-        const msgObj = {
-            sender: user.name,
-            text: input.value,
-            time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-            me: true
+    // معاينة الصورة المحملة وتحويلها لـ Base64
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function() {
+            base64Image = reader.result;
+            document.getElementById('reg-avatar-preview').src = base64Image;
         };
-
-        let messages = JSON.parse(localStorage.getItem('global_chat') || '[]');
-        messages.push(msgObj);
-        localStorage.setItem('global_chat', JSON.stringify(messages));
-        
-        input.value = '';
-        loadMessages();
+        reader.readAsDataURL(file);
     }
 
-    function loadMessages() {
-        const chatBox = document.getElementById('chat-box');
+    function handleRegister() {
+        const n = document.getElementById('reg-name').value;
+        const p = document.getElementById('reg-phone').value;
+        const ps = document.getElementById('reg-pass').value;
+        if (!n || !p || !ps) return alert("أكمل البيانات!");
+
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        users.push({ name: n, phone: p, pass: ps, avatar: base64Image });
+        localStorage.setItem('users', JSON.stringify(users));
+
+        window.open(`https://wa.me/${MY_PHONE}?text=تفعيل حساب: ${n}`, '_blank');
+        alert("تم الحفظ بنجاح!");
+        showPage('login-page');
+    }
+
+    function handleLogin() {
+        const ph = document.getElementById('login-phone').value;
+        const ps = document.getElementById('login-pass').value;
+        if(ph === "BRAZILI") {
+            localStorage.setItem('currentUser', JSON.stringify({name:"المطور 👑", phone:"ADMIN", avatar:base64Image}));
+            sessionStorage.setItem('isLoggedIn', 'true');
+            location.reload(); return;
+        }
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const user = users.find(u => u.phone === ph && u.pass === ps);
+        if(user) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            sessionStorage.setItem('isLoggedIn', 'true');
+            location.reload();
+        } else { alert("خطأ في البيانات!"); }
+    }
+
+    function sendMessage() {
+        const inp = document.getElementById('chat-input');
+        if (!inp.value.trim()) return;
         const user = JSON.parse(localStorage.getItem('currentUser'));
-        let messages = JSON.parse(localStorage.getItem('global_chat') || '[]');
-        
-        chatBox.innerHTML = messages.map(m => `
-            <div class="msg ${m.sender === user.name ? 'msg-me' : 'msg-other'}">
-                <span class="msg-sender">${m.sender === user.name ? 'أنا' : m.sender}</span>
-                ${m.text}
-                <div style="font-size:8px; opacity:0.6; margin-top:4px">${m.time}</div>
+        const msgs = JSON.parse(localStorage.getItem('saree3_chat_v2') || '[]');
+        msgs.push({ sender: user.name, text: inp.value, avatar: user.avatar, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) });
+        localStorage.setItem('saree3_chat_v2', JSON.stringify(msgs));
+        inp.value = '';
+        refreshChat();
+    }
+
+    function refreshChat() {
+        const win = document.getElementById('chat-window');
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        const msgs = JSON.parse(localStorage.getItem('saree3_chat_v2') || '[]');
+        win.innerHTML = msgs.map(m => `
+            <div class="chat-msg ${m.sender === user.name ? 'msg-me' : 'msg-other'}">
+                <img src="${m.avatar || base64Image}" class="chat-avatar">
+                <div>
+                    <span style="font-size:10px; color:var(--gold); display:block">${m.sender === user.name ? 'أنا' : m.sender}</span>
+                    ${m.text}
+                </div>
             </div>
         `).join('');
-        chatBox.scrollTop = chatBox.scrollHeight;
+        win.scrollTop = win.scrollHeight;
     }
 
-    // تكرار تحميل الرسائل كل 3 ثوانٍ (محاكاة الربط بالسيرفر)
-    setInterval(() => { if(document.getElementById('chat-page').style.display === 'block') loadMessages(); }, 3000);
-
-    // بقية وظائف النظام
-    function login() {
-        const phone = document.getElementById('login-phone').value;
-        if(phone === "BRAZILI") { 
-            localStorage.setItem('currentUser', JSON.stringify({name:"المطور 👑", phone:"ADMIN"}));
-            sessionStorage.setItem('isLoggedIn', 'true'); checkLoginStatus(); return;
-        }
-        localStorage.setItem('currentUser', JSON.stringify({name:"مستخدم جديد", phone:phone}));
-        sessionStorage.setItem('isLoggedIn', 'true'); checkLoginStatus();
+    function showPage(id) { document.querySelectorAll('.page').forEach(p => p.style.display='none'); document.getElementById(id).style.display='block'; window.scrollTo(0,0); }
+    function openProfile() { document.getElementById('profile-modal').style.display='flex'; }
+    function closeProfile() { document.getElementById('profile-modal').style.display='none'; }
+    function logout() { sessionStorage.clear(); location.reload(); }
+    function makeCall(n) { window.location.href=`tel:${n}`; }
+    function sendMaint() { 
+        const u = JSON.parse(localStorage.getItem('currentUser'));
+        window.open(`https://wa.me/${MY_PHONE}?text=صيانة من ${u.name}: ${document.getElementById('m-dev').value} في ${document.getElementById('m-loc').value}`, '_blank');
     }
-
-    function checkLoginStatus() {
-        if(sessionStorage.getItem('isLoggedIn') === 'true') {
-            const user = JSON.parse(localStorage.getItem('currentUser'));
-            document.getElementById('p-name').innerText = user.name;
-            document.getElementById('p-phone').innerText = user.phone;
-            show('home');
-        } else { show('login-page'); }
+    function contactKhair(t) { 
+        const u = JSON.parse(localStorage.getItem('currentUser'));
+        window.open(`https://wa.me/${MY_PHONE}?text=دليل الخير (${t}) من ${u.name}`, '_blank');
     }
-
-    function logout() { sessionStorage.removeItem('isLoggedIn'); location.reload(); }
-    function directCall(p) { window.location.href = `tel:${p}`; }
+    function toggleLanguage() { 
+        currentLang = (currentLang === 'AR') ? 'EN' : 'AR';
+        document.body.dir = (currentLang === 'AR') ? 'rtl' : 'ltr';
+        document.getElementById('lang-btn-text').innerText = (currentLang === 'AR') ? 'EN' : 'AR';
+    }
+    setInterval(() => { if(document.getElementById('chat-page').style.display==='block') refreshChat(); }, 3000);
 </script>
 </body>
 </html>
