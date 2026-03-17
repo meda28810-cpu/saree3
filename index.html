@@ -4,51 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    
-    <title>SAREE3 | BRAZILI QQ</title>
+    <title>SAREE3 | سريع</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffcc00">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&display=swap" rel="stylesheet">
-    
     <style>
         :root { --gold: #ffcc00; --dark: #0d1117; --card: #161b22; --blue: #007bff; --green: #28a745; }
         body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 10px; }
-        .page { display: none; animation: fadeIn 0.4s ease-in-out; }
-        .container { max-width: 450px; margin: auto; background: var(--card); padding: 25px; border-radius: 25px; border: 1px solid #30363d; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
-        
-        h1 { color: var(--gold); font-size: 35px; margin: 10px 0; font-weight: 800; }
-        h2 { font-size: 20px; margin-bottom: 15px; color: #eee; }
-
-        input, select, textarea { 
-            width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; 
-            border: 1px solid #444; background: #0d1117; color: white; 
-            font-size: 16px; outline: none; box-sizing: border-box; font-family: 'Cairo';
-        }
-
-        .btn { width: 100%; padding: 18px; border-radius: 15px; border: none; font-weight: 800; font-size: 18px; cursor: pointer; margin-top: 10px; transition: 0.2s; }
+        .page { display: none; animation: fadeIn 0.4s; }
+        .container { max-width: 450px; margin: auto; background: var(--card); padding: 20px; border-radius: 25px; border: 1px solid #30363d; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { color: var(--gold); font-size: 32px; margin: 10px 0; }
+        input, select, textarea { width: 100%; padding: 14px; margin: 8px 0; border-radius: 12px; border: 1px solid #444; background: #0d1117; color: white; font-family: 'Cairo'; box-sizing: border-box; }
+        .btn { width: 100%; padding: 16px; border-radius: 15px; border: none; font-weight: 800; font-size: 17px; cursor: pointer; margin-top: 10px; }
         .btn-gold { background: var(--gold); color: black; }
-        .btn-gold:active { transform: scale(0.96); }
+        .menu-card { background: var(--card); border: 1px solid #30363d; border-radius: 20px; padding: 20px; margin-bottom: 15px; cursor: pointer; }
         
-        .btn-outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); font-size: 14px; padding: 10px; border-radius: 12px; width: 100%; cursor: pointer; margin-top: 15px; }
-
-        .menu-card { background: var(--card); border: 1px solid #30363d; border-radius: 20px; padding: 25px; margin-bottom: 15px; cursor: pointer; }
-        
+        /* تنسيق قائمة السائقين المصغرة */
         .driver-card { 
-            background: #1c2128; padding: 15px; border-radius: 18px; 
-            margin-bottom: 12px; border: 1px solid #333; border-right: 5px solid var(--blue);
-            text-align: right;
+            background: #1c2128; padding: 12px; border-radius: 15px; 
+            margin-bottom: 8px; border-right: 4px solid var(--blue); 
+            display: flex; justify-content: space-between; align-items: center; text-align: right;
         }
+        .driver-info h4 { margin: 0; font-size: 15px; }
+        .driver-info p { margin: 0; font-size: 11px; color: #8b949e; }
+        .call-btn { background: var(--green); color: white; padding: 8px 15px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; font-family: 'Cairo'; }
         
-        .call-btn { 
-            background: var(--green); color: white; padding: 12px 20px; 
-            border-radius: 12px; cursor: pointer; font-weight: 800; font-size: 15px; border: none; margin-top: 8px; width: 100%;
-        }
-
-        #verify-section { display: none; background: rgba(255, 204, 0, 0.05); padding: 15px; border-radius: 15px; border: 1px dashed var(--gold); margin-top: 15px; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body onload="checkLoginStatus()">
@@ -56,90 +37,97 @@
     <div id="login-page" class="page">
         <div class="container" style="margin-top: 40px;">
             <h1>SAREE3</h1>
-            <h2>تسجيل الدخول</h2>
+            <h2 style="color:var(--gold)">تسجيل الدخول</h2>
             <input type="text" id="login-phone" placeholder="رقم الهاتف">
             <input type="password" id="login-pass" placeholder="كلمة السر">
             <button class="btn btn-gold" onclick="login()">دخول ✅</button>
-            <button class="btn-outline" onclick="show('register-page')">مستخدم جديد؟ أنشئ حساب</button>
+            <button onclick="show('register-page')" style="background:none; border:none; color:var(--gold); margin-top:15px; cursor:pointer; font-family:'Cairo'">إنشاء حساب جديد</button>
         </div>
     </div>
 
     <div id="register-page" class="page">
         <div class="container">
-            <h2 style="color: var(--gold);">عضوية جديدة</h2>
+            <h2>عضوية جديدة</h2>
             <div id="reg-form">
                 <input type="text" id="reg-name" placeholder="الاسم الكامل">
                 <input type="tel" id="reg-phone" placeholder="رقم الهاتف">
-                <input type="password" id="reg-pass" placeholder="كلمة سر جديدة">
-                <button class="btn btn-gold" onclick="startActivation()">طلب كود التفعيل (واتساب) 💬</button>
+                <input type="password" id="reg-pass" placeholder="كلمة سر">
+                <button class="btn btn-gold" onclick="startActivation()">طلب كود التفعيل 💬</button>
             </div>
-
-            <div id="verify-section">
-                <p style="color: var(--gold); font-size: 13px;">عُد إلى هنا وأدخل الكود فور استلامه من المطور:</p>
-                <input type="number" id="v-code" placeholder="أدخل كود التفعيل">
-                <button class="btn btn-gold" onclick="completeRegistration()">تأكيد ودخول ✅</button>
+            <div id="verify-section" style="display:none; margin-top:15px; border:1px dashed var(--gold); padding:15px; border-radius:15px;">
+                <input type="number" id="v-code" placeholder="أدخل الكود المستلم">
+                <button class="btn btn-gold" onclick="completeRegistration()">تأكيد الحساب ✅</button>
             </div>
-            <button class="btn-outline" onclick="show('login-page')">رجوع</button>
+            <button onclick="show('login-page')" style="background:none; border:none; color:#777; margin-top:10px; cursor:pointer;">رجوع</button>
         </div>
     </div>
 
     <div id="home" class="page">
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 15px;">
-             <button onclick="logout()" style="background:none; color:#ff4444; border:none; font-weight:bold; cursor:pointer;">خروج ⬅️</button>
-             <h1 style="font-size: 24px; margin: 0;">SAREE3</h1>
+        <div style="display:flex; justify-content:space-between; padding:10px; align-items:center">
+            <button onclick="logout()" style="color:#ff4444; background:none; border:none; font-weight:bold; cursor:pointer;">خروج ⬅️</button>
+            <h1 style="font-size:24px; margin:0;">SAREE3</h1>
         </div>
-        <p id="welcome-msg" style="color: var(--gold); font-weight: bold; margin-bottom: 20px;"></p>
-        
+        <p id="welcome-msg" style="color:var(--gold); font-weight:bold; margin:10px 0"></p>
         <div class="menu-card" onclick="show('m-page')">🛠️ <h3>خدمات الصيانة</h3></div>
-        <div class="menu-card" onclick="show('trip-page')">🚕 <h3>مشوار</h3></div>
-        
-        <p style="font-size: 10px; color: #444; margin-top: 30px;">DEVELOPED BY BRAZILI QQ</p>
+        <div class="menu-card" onclick="show('trip-page')">🚕 <h3>مشوار (دليل السائقين)</h3></div>
+        <p style="font-size:9px; color:#444; letter-spacing:2px">DESIGNED BY BRAZILI QQ</p>
     </div>
 
     <div id="m-page" class="page">
         <div class="container">
-            <button onclick="show('home')" style="float:right; color:var(--gold); background:none; border:none; font-size:20px;">🔙</button>
-            <h2 style="color: var(--gold);">طلب صيانة</h2>
+            <button onclick="show('home')" style="float:right; color:var(--gold); background:none; border:none; font-size:20px; cursor:pointer">🔙</button>
+            <h2 style="color:var(--gold)">طلب صيانة</h2>
             <select id="m-loc">
-                <option>حي المسجد العتيق</option><option>حي الرحمه</option>
-                <option>حي فريق قدام</option><option>حي نادي الشعله</option>
-                <option>حي نادي اتحاد الولي</option>
+                <option>حي المسجد العتيق</option><option>حي الرحمه</option><option>حي فريق قدام</option>
+                <option>حي نادي الشعله</option><option>حي نادي اتحاد الولي</option>
             </select>
             <select id="m-dev">
-                <option>مكيف</option><option>ثلاجة</option><option>غسالة</option>
-                <option>شاشة</option><option>فرن/ميكروويف</option>
+                <option>مكيف</option><option>ثلاجة</option><option>غسالة</option><option>شاشة</option>
             </select>
-            <textarea id="m-problem" placeholder="صف العطل..."></textarea>
+            <textarea id="m-problem" placeholder="وصف العطل..."></textarea>
             <button class="btn btn-gold" onclick="sendM()">إرسال الطلب ✅</button>
         </div>
     </div>
 
     <div id="trip-page" class="page">
         <div class="container">
-            <button onclick="show('home')" style="float:right; color:var(--gold); background:none; border:none; font-size:20px;">🔙</button>
-            <h2 style="color: var(--blue);">دليل السائقين</h2>
+            <button onclick="show('home')" style="float:right; color:var(--gold); background:none; border:none; font-size:20px; cursor:pointer">🔙</button>
+            <h2 style="color:var(--blue)">دليل السائقين</h2>
             
-            <div class="driver-card">
-                <h4>عمر عبد الله</h4>
-                <p>ركشة داخلية</p>
-                <button class="call-btn" onclick="directCall('249121606445')">اتصال مباشر 📞</button>
-            </div>
+            <div style="max-height:420px; overflow-y:auto; padding-right:5px">
+                <h3 style="font-size:15px; color:var(--gold); text-align:right; border-bottom:1px solid #333">📍 داخلية (ركشة)</h3>
+                <div class="driver-card">
+                    <div class="driver-info"><h4>عمر عبد الله</h4><p>ركشة داخلية</p></div>
+                    <button class="call-btn" onclick="directCall('249121606445')">اتصال 📞</button>
+                </div>
+                <div class="driver-card">
+                    <div class="driver-info"><h4>أنور شنان</h4><p>ركشة داخلية</p></div>
+                    <button class="call-btn" onclick="directCall('249113461046')">اتصال 📞</button>
+                </div>
 
-            <div class="driver-card">
-                <h4>عبد الجليل يوسف</h4>
-                <p>عربة (سفر)</p>
-                <button class="call-btn" onclick="directCall('249117655646')">اتصال مباشر 📞</button>
-            </div>
-
-            <div class="driver-card">
-                <h4>جابر عبد الجليل</h4>
-                <p>حافلة ركاب</p>
-                <button class="call-btn" onclick="directCall('249127879864')">اتصال مباشر 📞</button>
+                <h3 style="font-size:15px; color:var(--gold); text-align:right; border-bottom:1px solid #333; margin-top:15px">🏙️ مواصلات السفر</h3>
+                <div class="driver-card">
+                    <div class="driver-info"><h4>نزار علي</h4><p>عربة ATOZ</p></div>
+                    <button class="call-btn" onclick="directCall('249115078527')">اتصال 📞</button>
+                </div>
+                <div class="driver-card">
+                    <div class="driver-info"><h4>محمد خوجلي الطيب</h4><p>عربة ACCENT</p></div>
+                    <button class="call-btn" onclick="directCall('249111132818')">اتصال 📞</button>
+                </div>
+                <div class="driver-card">
+                    <div class="driver-info"><h4>عبد الجليل يوسف</h4><p>عربة سفر</p></div>
+                    <button class="call-btn" onclick="directCall('249117655646')">اتصال 📞</button>
+                </div>
+                <div class="driver-card">
+                    <div class="driver-info"><h4>جابر عبد الجليل</h4><p>حافلة ركاب</p></div>
+                    <button class="call-btn" onclick="directCall('249127879864')">اتصال 📞</button>
+                </div>
             </div>
         </div>
     </div>
 
 <script>
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
     const MY_PHONE = "249112002802";
 
     function show(id) {
@@ -147,86 +135,61 @@
         document.getElementById(id).style.display = 'block';
     }
 
-    // الدخول يعتمد على الجلسة فقط (سيطلب دخولاً جديداً عند إغلاق التطبيق)
     function login() {
         const phone = document.getElementById('login-phone').value;
         const pass = document.getElementById('login-pass').value;
-
         if(phone === "BRAZILI") {
             sessionStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('currentUser', JSON.stringify({ name: "المطور 👑", phone: "DEV" }));
+            localStorage.setItem('currentUser', JSON.stringify({name:"المطور 👑", phone:"DEV"}));
             checkLoginStatus(); return;
         }
-
         const users = JSON.parse(localStorage.getItem('users') || '[]');
         const user = users.find(u => u.phone === phone && u.pass === pass);
-        
         if(user) {
             sessionStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('currentUser', JSON.stringify(user));
             checkLoginStatus();
-        } else {
-            alert("خطأ في بيانات الدخول!");
-        }
+        } else { alert("خطأ في البيانات!"); }
     }
 
     function checkLoginStatus() {
-        const loggedIn = sessionStorage.getItem('isLoggedIn');
-        const user = JSON.parse(localStorage.getItem('currentUser'));
-        if(loggedIn === 'true' && user) {
-            document.getElementById('welcome-msg').innerText = "مرحباً: " + user.name;
+        if(sessionStorage.getItem('isLoggedIn') === 'true') {
+            document.getElementById('welcome-msg').innerText = "مرحباً: " + JSON.parse(localStorage.getItem('currentUser')).name;
             show('home');
-        } else {
-            show('login-page');
-        }
+        } else { show('login-page'); }
     }
 
-    function logout() {
-        sessionStorage.removeItem('isLoggedIn');
-        location.reload();
-    }
+    function logout() { sessionStorage.removeItem('isLoggedIn'); location.reload(); }
 
-    // التفعيل مع خانة كود ثابتة
     function startActivation() {
         const name = document.getElementById('reg-name').value;
         const phone = document.getElementById('reg-phone').value;
         const pass = document.getElementById('reg-pass').value;
-
         if(!name || !phone || !pass) return alert("أكمل البيانات!");
-
-        localStorage.setItem('tempUser', JSON.stringify({ name, phone, pass }));
-        document.getElementById('reg-form').style.display = 'none';
-        document.getElementById('verify-section').style.display = 'block';
-
-        const msg = `طلب تفعيل%0Aالاسم: ${name}%0Aالرقم: ${phone}`;
-        window.open(`https://wa.me/${MY_PHONE}?text=${msg}`, '_blank');
+        localStorage.setItem('tempUser', JSON.stringify({name, phone, pass}));
+        document.getElementById('reg-form').style.display='none';
+        document.getElementById('verify-section').style.display='block';
+        window.open(`https://wa.me/${MY_PHONE}?text=طلب تفعيل: ${name}`, '_blank');
     }
 
     function completeRegistration() {
         const code = document.getElementById('v-code').value;
-        const tempUser = JSON.parse(localStorage.getItem('tempUser'));
-
         if(code && code.endsWith("11")) {
             const users = JSON.parse(localStorage.getItem('users') || '[]');
-            users.push(tempUser);
+            users.push(JSON.parse(localStorage.getItem('tempUser')));
             localStorage.setItem('users', JSON.stringify(users));
-            localStorage.removeItem('tempUser');
-            alert("تم التفعيل! سجل دخولك الآن");
-            location.reload();
-        } else { alert("الكود خطأ!"); }
+            alert("تم التفعيل بنجاح!"); location.reload();
+        } else { alert("الكود غير صحيح!"); }
     }
 
-    // مكالمة مباشرة فقط كما طلبت
-    function directCall(phone) {
-        window.location.href = `tel:${phone}`;
-    }
+    function directCall(p) { window.location.href = `tel:${p}`; }
 
-    // إرسال طلب الصيانة لك
     function sendM() {
         const user = JSON.parse(localStorage.getItem('currentUser'));
-        const msg = `*طلب صيانة*%0Aالعميل: ${user.name}%0Aالحي: ${document.getElementById('m-loc').value}%0Aالجهاز: ${document.getElementById('m-dev').value}%0Aالعطل: ${document.getElementById('m-problem').value}`;
+        const msg = `طلب صيانة:%0Aالعميل: ${user.name}%0Aالجهاز: ${document.getElementById('m-dev').value}%0Aالحي: ${document.getElementById('m-loc').value}`;
         window.location.href = `https://wa.me/${MY_PHONE}?text=${msg}`;
     }
 </script>
 </body>
 </html>
+
