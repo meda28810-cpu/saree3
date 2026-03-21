@@ -25,48 +25,64 @@
         .auth-btn { width: 100%; padding: 16px; background: #ffc107; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; color: black; font-size: 18px; margin-top: 10px; }
         .toggle-link { color: #ffc107; font-size: 13px; cursor: pointer; margin-top: 15px; display: block; text-decoration: underline; }
 
-        /* 3. ✨ شعار BR الخافت في المنتصف تماماً ✨ */
+        /* 3. Watermark BR */
         .br-watermark { 
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
             font-size: 140px; color: rgba(255, 193, 7, 0.03); font-weight: bold; 
             z-index: 1; pointer-events: none; user-select: none; 
             border: 15px solid rgba(255, 193, 7, 0.03); border-radius: 40px; padding: 10px 30px;
-            font-family: 'Arial Black', sans-serif;
         }
         
         /* 4. Main Menu Layout */
         .container { display: none; height: 100%; flex-direction: column; justify-content: center; align-items: center; padding: 20px; z-index: 10; position: relative; overflow-y: auto; }
         
-        /* ✨ جعل الأزرار في منتصف القائمة تماماً ✨ */
-        #mainMenu { 
-            width: 100%; max-width: 400px; display: flex; flex-direction: column; justify-content: center; align-items: center; 
+        /* النص التعاوني الجديد */
+        .community-text {
+            font-family: 'Reem Kufi', sans-serif;
+            color: #ffc107;
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
+        #mainMenu { width: 100%; max-width: 400px; display: flex; flex-direction: column; align-items: center; }
+
+        /* الأزرار بعد حذف الأيقونات الزرقاء */
         .menu-btn { 
             width: 100%; padding: 22px; margin: 10px 0; border: none; border-radius: 15px; 
             font-size: 18px; font-weight: bold; color: white; cursor: pointer; 
-            display: flex; justify-content: space-between; align-items: center;
+            text-align: center; justify-content: center;
             background: rgba(255,255,255,0.05); border-right: 6px solid transparent; 
             transition: 0.3s;
         }
         .border-maint { border-right-color: #ffc107; }
         .border-trans { border-right-color: #28a745; }
         .border-health { border-right-color: #dc3545; }
-        .menu-btn:active { transform: scale(0.98); background: rgba(255,255,255,0.1); }
+
+        /* نمط المطور BRAZILI الفتاك */
+        .dev-signature {
+            margin-top: 30px;
+            font-family: 'Arial Black', sans-serif;
+            font-size: 24px;
+            letter-spacing: 5px;
+            color: #ffc107;
+            text-shadow: 0 0 10px #ffc107, 0 0 20px #ffc107;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
 
         .section { display: none; width: 100%; max-width: 400px; text-align: right; }
-        .info-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 1px solid #333; }
-        .call-btn { background: #28a745; color: white; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; }
-        .back-btn { background: none; color: #ffc107; border: 1px solid #ffc107; padding: 8px 15px; border-radius: 8px; cursor: pointer; margin-bottom: 20px; font-family: 'Cairo'; }
+        .info-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .call-btn { background: #28a745; color: white; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: bold; }
+        .back-btn { width: 100%; background: none; color: #ffc107; border: 1px solid #ffc107; padding: 12px; border-radius: 12px; cursor: pointer; margin-bottom: 25px; font-family: 'Cairo'; font-weight: bold; }
 
-        .hidden { display: none; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes rocketMove { 0% { transform: translateX(120vw); } 100% { transform: translateX(-120vw); } }
+        @keyframes glow { from { text-shadow: 0 0 5px #ffc107; } to { text-shadow: 0 0 20px #ffc107, 0 0 30px #f39c12; } }
     </style>
 </head>
 <body>
-
-<audio id="startSound"><source src="start.mp3" type="audio/mpeg"></audio>
 
 <div class="br-watermark">BR</div>
 
@@ -83,7 +99,6 @@
         <div id="passField"><input type="password" id="password" placeholder="كلمة المرور"></div>
         <button class="auth-btn" id="mainBtn" onclick="doLogin()">دخول للتطبيق</button>
         <span class="toggle-link" onclick="toggleAuth('signup')">إنشاء حساب جديد</span>
-        <p style="color: #444; font-size: 10px; margin-top: 20px;">DESIGNED BY BRAZILI 👑</p>
     </div>
 
     <div class="auth-box hidden" id="signupForm">
@@ -99,14 +114,17 @@
 <div class="container" id="mainApp">
     
     <div id="mainMenu">
-        <h2 style="color:#ffc107; margin-bottom: 30px; text-align: center;">سريع | القائمة الرئيسية</h2>
-        <button class="menu-btn border-maint" onclick="showSec('maint')"><span>🛠️ خدمات الصيانة</span> <span>⬅️</span></button>
-        <button class="menu-btn border-trans" onclick="showSec('trans')"><span>🛺 مشوار (المواصلات)</span> <span>⬅️</span></button>
-        <button class="menu-btn border-health" onclick="showSec('health')"><span>🏥 الخدمات الصحية</span> <span>⬅️</span></button>
+        <div class="community-text">من أجل تطوير القرية بالتعاون مع<br>قروب القومة للولي</div>
+        
+        <button class="menu-btn border-maint" onclick="showSec('maint')">🛠️ خدمات الصيانة</button>
+        <button class="menu-btn border-trans" onclick="showSec('trans')">🛺 مشوار (المواصلات)</button>
+        <button class="menu-btn border-health" onclick="showSec('health')">🏥 الخدمات الصحية</button>
+
+        <div class="dev-signature">BRAZILI</div>
     </div>
 
     <div id="maint" class="section">
-        <button class="back-btn" onclick="hideSec()">🔙 عودة</button>
+        <button class="back-btn" onclick="hideSec()">🔙 العودة للقائمة الرئيسية</button>
         <h2 style="color:#ffc107">⚡ الكهرباء والطاقة</h2>
         <div class="info-card">
             <div><strong>أبوبكر عبد الرحمن</strong><br><small>فني كهرباء وطاقة شمسية</small></div>
@@ -115,38 +133,30 @@
     </div>
 
     <div id="trans" class="section">
-        <button class="back-btn" onclick="hideSec()">🔙 عودة</button>
+        <button class="back-btn" onclick="hideSec()">🔙 العودة للقائمة الرئيسية</button>
         <h2 style="color:#28a745">🛺 السائقين المعتمدين</h2>
-        <p style="color:#28a745; border-bottom:1px solid #333;">📍 ركشات</p>
         <div class="info-card"><span>عمر عبد الله</span><a href="tel:09" class="call-btn">اتصال</a></div>
-        <div class="info-card"><span>أنور شنان</span><a href="tel:09" class="call-btn">اتصال</a></div>
-        <p style="color:#28a745; border-bottom:1px solid #333; margin-top:20px;">🛣️ بوكس (سفري)</p>
         <div class="info-card"><span>نزار علي</span><a href="tel:09" class="call-btn">اتصال</a></div>
-        <div class="info-card"><span>محمد خوجلي الطيب</span><a href="tel:09" class="call-btn">اتصال</a></div>
-        <div class="info-card"><span>عبد الجليل يوسف</span><a href="tel:09" class="call-btn">اتصال</a></div>
-        <div class="info-card"><span>جابر عبد الجليل</span><a href="tel:09" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>محمد خوجلي</span><a href="tel:09" class="call-btn">اتصال</a></div>
     </div>
 
     <div id="health" class="section">
-        <button class="back-btn" onclick="hideSec()">🔙 عودة</button>
+        <button class="back-btn" onclick="hideSec()">🔙 العودة للقائمة الرئيسية</button>
         <h2 style="color:#dc3545">🏥 حجز المركز الصحي</h2>
-        <div id="qDisplay" style="color:#dc3545; font-weight:bold; text-align:center; margin:15px; border:1px dashed #dc3545; padding:15px; border-radius:10px;"></div>
+        <div id="qDisplay" style="color:#dc3545; font-weight:bold; text-align:center; margin-bottom:15px;"></div>
         <input type="text" id="patientName" placeholder="اسم المريض الثلاثي" style="width:100%; padding:15px; border-radius:12px; background:#1a1e25; color:white; border:1px solid #333;">
         <button class="auth-btn" style="background:#dc3545; color:white;" onclick="booking()">تأكيد الحجز ✅</button>
     </div>
 </div>
 
 <script>
-    // Splash logic
     window.onload = function() {
-        document.getElementById('startSound').play().catch(() => {});
         setTimeout(() => {
             document.getElementById('splash').style.opacity = '0';
             setTimeout(() => document.getElementById('splash').style.display = 'none', 800);
         }, 4000);
     };
 
-    // Auth logic
     function toggleAuth(mode) {
         document.getElementById('loginForm').classList.toggle('hidden', mode === 'signup');
         document.getElementById('signupForm').classList.toggle('hidden', mode === 'login');
@@ -155,15 +165,12 @@
     function checkDev(val) {
         const pf = document.getElementById('passField');
         const lt = document.getElementById('loginTitle');
-        const mb = document.getElementById('mainBtn');
         if(val === "BRAZILI") {
             pf.classList.add('hidden');
             lt.innerText = "أهلاً بالمطور BRAZILI 👑";
-            mb.innerText = "دخول المطور المعتمد";
         } else {
             pf.classList.remove('hidden');
             lt.innerText = "🔐 تسجيل الدخول";
-            mb.innerText = "دخول للتطبيق";
         }
     }
 
@@ -172,7 +179,7 @@
         const p = document.getElementById('regPass').value;
         if(p.length < 5) return alert("كلمة المرور يجب أن لا تقل عن 5 خانات!");
         localStorage.setItem('u_' + u, p);
-        alert("تم إنشاء حسابك! سجل دخولك الآن.");
+        alert("تم الحفظ بنجاح!");
         toggleAuth('login');
     }
 
@@ -183,11 +190,10 @@
             document.getElementById('authPage').style.top = '-100%';
             document.getElementById('mainApp').style.display = 'flex';
         } else {
-            alert("خطأ في بيانات الدخول");
+            alert("بيانات خاطئة");
         }
     }
 
-    // UI logic
     function showSec(id) {
         document.getElementById('mainMenu').style.display = 'none';
         document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
@@ -205,7 +211,7 @@
 
     function booking() {
         let name = document.getElementById('patientName').value;
-        if(!name) return alert("يرجى كتابة الاسم");
+        if(!name) return alert("اكتب الاسم");
         let n = parseInt(localStorage.getItem('wali_q') || 0) + 1;
         localStorage.setItem('wali_q', n);
         window.open(`https://wa.me/249112002802?text=حجز جديد%0Aالرقم: ${n}%0Aالاسم: ${name}`, '_blank');
