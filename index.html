@@ -3,167 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAREE3 | BRAZILI V4</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <title>خدمات الولي والحلاوين الرقمية | BRAZILI</title>
     <style>
-        :root { --gold: #ffcc00; --dark: #0d1117; --card: #161b22; --border: #30363d; --blue: #58a6ff; --red: #da3633; --green: #238636; }
-        body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        .page { display: none; width: 100%; max-width: 450px; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* الهوية البصرية لشعار المطور */
-        .br-badge { position: fixed; top: 15px; left: 15px; font-family: 'Orbitron', sans-serif; color: var(--gold); border: 2px solid var(--gold); padding: 5px 10px; border-radius: 8px; font-weight: 900; z-index: 100; background: rgba(13,17,23,0.8); }
-
-        /* الأزرار الرئيسية المتساوية */
-        .btn-main { background: var(--card); border: 1px solid var(--border); border-radius: 20px; height: 90px; display: flex; align-items: center; padding: 0 20px; gap: 15px; cursor: pointer; border-right: 8px solid var(--gold); margin-bottom: 12px; width: 100%; box-sizing: border-box; }
-        .btn-main h3 { margin: 0; font-size: 18px; }
-
-        /* الحقول والقوائم */
-        input, textarea, select { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid var(--border); background: #010409; color: white; font-family: 'Cairo'; box-sizing: border-box; }
-        .action-btn { width: 100%; padding: 16px; border-radius: 15px; border: none; background: var(--gold); color: black; font-weight: 900; cursor: pointer; }
-
-        .list-row { background: var(--card); padding: 15px; border-radius: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border); }
-        .call-btn { background: var(--green); color: white; border: none; padding: 8px 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        /* التنسيقات العامة */
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #0f1217; color: white; margin: 0; padding: 20px; text-align: center; overflow-x: hidden; }
+        .container { max-width: 420px; margin: auto; position: relative; z-index: 10; } /* لضمان ظهور المحتوى فوق الشعار */
         
-        .section-title { color: var(--gold); font-size: 14px; margin: 15px 0 5px; font-weight: bold; border-right: 3px solid var(--gold); padding-right: 10px; }
+        /* الهيدر العلوي */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; position: relative; z-index: 20; }
+        .br-logo-top { border: 2px solid #ffc107; color: #ffc107; padding: 5px 10px; font-weight: bold; border-radius: 5px; font-size: 14px; }
+        .back-btn { background: none; border: none; color: white; font-size: 12px; cursor: pointer; display: none; } 
+        .welcome { color: #ffc107; font-size: 14px; margin: 0; }
+
+        /* ✨ شعار BR الخلفي الشفاف في نصف الشاشة ✨ */
+        .br-watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 150px; /* حجم كبير جداً */
+            color: rgba(255, 193, 7, 0.03); /* لون ذهبي بشفافية خافتة جداً */
+            font-weight: bold;
+            border: 20px solid rgba(255, 193, 7, 0.03); /* إطار بشفافية خافتة */
+            border-radius: 50px;
+            padding: 20px 40px;
+            z-index: 1; /* خلف المحتوى الأساسي */
+            pointer-events: none; /* لمنع الضغط عليه تماماً */
+            user-select: none; /* لمنع تحديد النص */
+        }
+
+        /* تنسيق الأزرار الرئيسية (القائمة) */
+        .menu-btn { width: 100%; padding: 18px; margin: 10px auto; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; color: white; cursor: pointer; text-align: right; display: flex; align-items: center; justify-content: space-between; background-color: rgba(255, 255, 255, 0.05); transition: 0.3s; position: relative; z-index: 20; }
+        .menu-btn:hover { background-color: rgba(255, 255, 255, 0.1); transform: scale(1.02); }
+        .btn-text { flex-grow: 1; margin-right: 15px; text-align: right; }
+        
+        /* الخطوط الملونة الجانبية */
+        .border-maint { border-right: 5px solid #ffc107; } /* خدمات القرية */
+        .border-trans { border-right: 5px solid #28a745; } /* المشوار */
+        .border-health { border-right: 5px solid #dc3545; } /* الصحة */
+
+        /* الأقسام المخفية */
+        .section { display: none; text-align: right; animation: fadeIn 0.4s; position: relative; z-index: 20; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .section h2 { color: #ffc107; font-size: 20px; text-align: right; }
+
+        /* تنسيق كروت الاتصال للسائقين وفنيي الصيانة */
+        .info-card { background: rgba(255, 255, 255, 0.04); border-radius: 10px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; text-align: right; }
+        .call-btn { background-color: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; text-decoration: none; font-size: 14px; }
+        
+        /* تنسيق نظام الصحة */
+        .queue-box { border: 2px dashed #dc3545; color: #dc3545; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 15px; font-weight: bold; background: rgba(220, 53, 69, 0.05); }
+        input, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1e25; color: white; box-sizing: border-box; font-size: 16px; margin-bottom: 10px; }
+        .submit-btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: bold; font-size: 18px; color: white; cursor: pointer; margin-top: 15px; }
+
+        .footer { margin-top: 50px; font-size: 10px; color: #555; position: relative; z-index: 20; }
     </style>
 </head>
-<body onload="init()">
+<body>
 
-    <div class="br-badge">BR</div>
+<div class="br-watermark">BR</div>
 
-    <div id="p-login" class="page" style="display: block;">
-        <h1 style="color:var(--gold); text-align:center; font-family:'Orbitron'; font-size:45px; margin:40px 0;">SAREE3</h1>
-        <input type="text" id="l-phone" placeholder="رقم الهاتف">
-        <input type="password" id="l-pass" placeholder="كلمة السر">
-        <button class="action-btn" onclick="login()">دخول</button>
-        <p style="text-align:center;">مستخدم جديد؟ <span onclick="go('p-reg')" style="color:var(--gold); cursor:pointer;">سجل هنا</span></p>
+<div class="container">
+    <div class="header">
+        <div class="br-logo-top">BR</div>
+        <div class="welcome">👑 مرحباً : المطور BRAZILI</div>
+        <button class="back-btn" id="generalBackBtn" onclick="showMainMenu()">🏠 الرئيسية</button>
     </div>
 
-    <div id="p-reg" class="page">
-        <h2 style="text-align:center; color:var(--gold)">إنشاء حساب</h2>
-        <input type="text" id="r-name" placeholder="الاسم بالكامل">
-        <input type="tel" id="r-phone" placeholder="249XXXXXXXXX">
-        <input type="password" id="r-pass" placeholder="كلمة السر">
-        <button class="action-btn" onclick="register()">تأكيد الحساب ✅</button>
-        <button onclick="go('p-login')" style="background:none; border:none; color:#888; width:100%; margin-top:10px;">رجوع</button>
+    <div id="mainMenu">
+        <button class="menu-btn border-maint" onclick="showSection('maintSection')">
+            <span class="btn-text">🛠️ خدمات القرية (صيانة)</span>
+        </button>
+        <button class="menu-btn border-trans" onclick="showSection('transSection')">
+            <span class="btn-text">🛺 مشوار (المواصلات)</span>
+        </button>
+        <button class="menu-btn border-health" onclick="showSection('healthSection')">
+            <span class="btn-text">🏥 الخدمات الصحية</span>
+        </button>
     </div>
 
-    <div id="p-home" class="page">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <div id="u-info" style="color:var(--gold); font-weight:bold;"></div>
-            <span onclick="logout()" style="cursor:pointer">🚪 خروج</span>
-        </div>
-        <div class="btn-main" onclick="go('p-chat')" style="border-right-color: var(--blue);"><span>💬</span><h3>ديوان المنطقة</h3></div>
-        <div class="btn-main" onclick="go('p-maint')" style="border-right-color: var(--gold);"><span>⚡</span><h3>كهرباء وطاقة شمسية</h3></div>
-        <div class="btn-main" onclick="go('p-trip')" style="border-right-color: var(--green);"><span>🚕</span><h3>مشوار (المواصلات)</h3></div>
-        <div class="btn-main" onclick="go('p-health')" style="border-right-color: var(--red);"><span>🏥</span><h3>الخدمات الصحية</h3></div>
-        <div class="btn-main" onclick="go('p-khair')" style="border-right-color: #8e44ad;"><span>🤝</span><h3>دليل الخير</h3></div>
+    <div id="healthSection" class="section">
+        <h2>🏥 مركز صحي الولي</h2>
+        <div class="queue-box" id="currentQueueDisplay">رقم دورك سيكون: ...</div>
+        <input type="text" id="pName" placeholder="أدخل اسم المريض">
+        <select id="pDept"><option>الطب العام</option><option>عيادة الأطفال</option><option>المختبر</option></select>
+        <button class="submit-btn" style="background:#dc3545;" onclick="sendToAhmed()">إرسال للمسجل (أحمد) ✅</button>
+        <p style="font-size:11px; color:#555; text-align:center;">المسجل أحمد | 0112002802</p>
     </div>
 
-    <div id="p-maint" class="page">
-        <button onclick="go('p-home')" style="background:none; border:none; color:var(--gold); font-size:25px;">🔙</button>
-        <h2 style="color:var(--gold)">صيانة الكهرباء والطاقة</h2>
-        <div class="list-row">
-            <div>
-                <b>أبوبكر عبد الرحمن</b><br>
-                <small style="color:#888;">فني كهرباء وطاقة شمسية</small>
-            </div>
-            <button class="call-btn" onclick="window.location.href='tel:0114239983'">اتصال</button>
-        </div>
-        <p style="font-size:12px; color:#666; text-align:center;">يمكنك الاتصال مباشرة بالفني المعتمد للمنطقة</p>
-    </div>
-
-    <div id="p-trip" class="page">
-        <button onclick="go('p-home')" style="background:none; border:none; color:var(--gold); font-size:25px;">🔙</button>
-        <h2 style="color:var(--blue)">دليل المواصلات</h2>
+    <div id="maintSection" class="section">
+        <h2>🛠️ خدمات القرية (صيانة)</h2>
+        <p style="color:#ffc107; font-size:13px; text-align:center;">صيانة الكهرباء والطاقة الشمسية</p>
         
-        <div class="section-title">📍 مواصلات داخلية (ركشات)</div>
-        <div class="list-row"><span>عمر عبد الله</span><button class="call-btn" onclick="window.location.href='tel:249121606445'">اتصال</button></div>
-        <div class="list-row"><span>أنور شنان</span><button class="call-btn" onclick="window.location.href='tel:249113461046'">اتصال</button></div>
-
-        <div class="section-title">🛣️ مواصلات سفرية (خارجي)</div>
-        <div class="list-row"><span>نزار علي</span><button class="call-btn" onclick="window.location.href='tel:249115078527'">اتصال</button></div>
-        <div class="list-row"><span>محمد خوجلي الطيب</span><button class="call-btn" onclick="window.location.href='tel:249111132818'">اتصال</button></div>
-        <div class="list-row"><span>عبد الجليل يوسف</span><button class="call-btn" onclick="window.location.href='tel:249117655646'">اتصال</button></div>
-        <div class="list-row"><span>جابر عبد الجليل</span><button class="call-btn" onclick="window.location.href='tel:249127879864'">اتصال</button></div>
-    </div>
-
-    <div id="p-health" class="page">
-        <button onclick="go('p-home')" style="background:none; border:none; color:var(--gold); font-size:25px;">🔙</button>
-        <h2 style="color:var(--red)">الطوارئ الصحية</h2>
-        <div class="list-row" style="border-right: 5px solid var(--red);">
-            <span>إسعاف المنطقة</span>
-            <button class="call-btn" style="background:var(--red)" onclick="window.location.href='tel:999'">اتصال</button>
+        <div class="info-card">
+            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
+            <div>
+                <div style="font-weight:bold;">أبوبكر عبد الرحمن</div>
+                <div style="font-size:12px; color:#aaa;">فني كهرباء وطاقة شمسية</div>
+            </div>
         </div>
+        
+        <div class="info-card">
+            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
+            <div>
+                <div style="font-weight:bold;">محمد علي</div>
+                <div style="font-size:12px; color:#aaa;">صيانة أجهزة منزلية</div>
+            </div>
+        </div>
+        
+        <p style="font-size:11px; color:#555; text-align:center; margin-top:20px;">يمكنك الاتصال مباشرة بالفني المعتمد للمنطقة</p>
     </div>
 
-    <div id="p-khair" class="page">
-        <button onclick="go('p-home')" style="background:none; border:none; color:var(--gold); font-size:25px;">🔙</button>
-        <h2 style="color:#8e44ad;">دليل الخير</h2>
-        <div class="list-row">
-            <span>توفير أدوية / معدات</span>
-            <button class="call-btn" style="background:#8e44ad" onclick="alert('سيتم توجيهك للمسؤول')">طلب</button>
+    <div id="transSection" class="section">
+        <h2>🛺 دليل المواصلات (مشوار)</h2>
+        
+        <p style="color:#28a745; font-size:13px; border-bottom:1px solid #28a745; padding-bottom:5px;">📍 مواصلات داخلية (ركشات)</p>
+        
+        <div class="info-card">
+            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
+            <div>
+                <div style="font-weight:bold;">عمر عبد الله</div>
+                <div style="font-size:12px; color:#aaa;">ركشة - مواصلات داخلية</div>
+            </div>
         </div>
+        
+        <div class="info-card">
+            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
+            <div>
+                <div style="font-weight:bold;">أنور شنان</div>
+                <div style="font-size:12px; color:#aaa;">ركشة - مواصلات داخلية</div>
+            </div>
+        </div>
+
+        <p style="color:#28a745; font-size:13px; border-bottom:1px solid #28a745; padding-bottom:5px; margin-top:20px;">🛣️ مواصلات سفرية (خارجي)</p>
+        
+        <div class="info-card">
+            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
+            <div>
+                <div style="font-weight:bold;">نزار علي</div>
+                <div style="font-size:12px; color:#aaa;">بوكس - مواصلات خارجية</div>
+            </div>
+        </div>
+        
+        <div class="info-card">
+            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
+            <div>
+                <div style="font-weight:bold;">جابر عبد الجليل</div>
+                <div style="font-size:12px; color:#aaa;">بوكس - مواصلات خارجية</div>
+            </div>
+        </div>
+        
+        <p style="font-size:11px; color:#555; text-align:center; margin-top:20px;">تطبيق سريع للمواصلات - الولي</p>
     </div>
 
-    <div id="p-chat" class="page">
-        <button onclick="go('p-home')" style="background:none; border:none; color:var(--gold); font-size:25px;">🔙</button>
-        <h3>ديوان المنطقة</h3>
-        <div id="chat-win" style="height:350px; overflow-y:auto; background:#010409; border-radius:15px; padding:10px; border:1px solid var(--border); display:flex; flex-direction:column; gap:10px;"></div>
-        <div style="display:flex; gap:10px; margin-top:10px;">
-            <input type="text" id="c-msg" style="margin:0">
-            <button onclick="sendMsg()" style="background:var(--gold); border:none; border-radius:12px; width:60px;">📤</button>
-        </div>
-    </div>
+    <div class="footer">تطوير بواسطة BRAZILI © 2026 | خدمات الولي المتكاملة</div>
+</div>
 
 <script>
-    function go(id) { document.querySelectorAll('.page').forEach(p => p.style.display='none'); document.getElementById(id).style.display='block'; }
-
-    function register() {
-        const n = document.getElementById('r-name').value, p = document.getElementById('r-phone').value, s = document.getElementById('r-pass').value;
-        if(!p.startsWith("249") || p.length !== 12) return alert("الرقم يجب أن يبدأ بـ 249 ويتكون من 12 رقماً");
-        const db = JSON.parse(localStorage.getItem('s_db') || '[]');
-        db.push({n, p, s}); localStorage.setItem('s_db', JSON.stringify(db));
-        alert("تم التسجيل بنجاح!"); go('p-login');
+    // وظائف التنقل بين الأقسام
+    function showSection(id) {
+        document.getElementById('mainMenu').style.display = 'none';
+        document.getElementById('generalBackBtn').style.display = 'block';
+        document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+        if(id === 'healthSection') updateQueueDisplay(); 
     }
 
-    function login() {
-        const ph = document.getElementById('l-phone').value, ps = document.getElementById('l-pass').value;
-        if(ph === "BRAZILI" && ps === "") {
-            saveSession({n:"المطور BRAZILI 👑"}); return;
-        }
-        const db = JSON.parse(localStorage.getItem('s_db') || '[]');
-        const user = db.find(u => u.p === ph && u.s === ps);
-        if(user) saveSession(user); else alert("بيانات غير صحيحة");
+    function showMainMenu() {
+        document.getElementById('mainMenu').style.display = 'block';
+        document.getElementById('generalBackBtn').style.display = 'none';
+        document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
     }
 
-    function saveSession(u) { localStorage.setItem('curr', JSON.stringify(u)); sessionStorage.setItem('auth', '1'); location.reload(); }
-
-    function init() {
-        if(sessionStorage.getItem('auth')) {
-            const u = JSON.parse(localStorage.getItem('curr'));
-            document.getElementById('u-info').innerText = "مرحباً: " + u.n;
-            go('p-home'); refreshChat();
-        }
+    // وظائف قسم الصحة 
+    function updateQueueDisplay() {
+        let lastNum = localStorage.getItem('wali_last_num') || 0;
+        let nextNum = parseInt(lastNum) + 1;
+        document.getElementById('currentQueueDisplay').innerText = `رقم دورك القادم سيكون: (${nextNum})`;
     }
 
-    function sendMsg() {
-        const input = document.getElementById('c-msg'), u = JSON.parse(localStorage.getItem('curr'));
-        if(!input.value.trim()) return;
-        const msgs = JSON.parse(localStorage.getItem('s_chat') || '[]');
-        msgs.push({n: u.n, t: input.value});
-        localStorage.setItem('s_chat', JSON.stringify(msgs));
-        input.value = ''; refreshChat();
-    }
+    function sendToAhmed() {
+        const name = document.getElementById('pName').value;
+        const dept = document.getElementById('pDept').value;
+        const registrarPhone = "249112002802"; 
 
-    function refreshChat() {
-        const win = document.getElementById('chat-win'), msgs = JSON.parse(localStorage.getItem('s_chat') || '[]');
-        win.innerHTML = msgs.map(m => `<div style="padding:10px; background:var(--card); border-radius:10px; margin-bottom:5px;"><small style="color:var(--gold)">${m.n}</small><br>${m.t}</div>`).join('');
-        win.scrollTop = win.scrollHeight;
-    }
+        if (name.trim() === "") { alert("من فضلك اكتب اسم المريض"); return; }
 
-    function logout() { sessionStorage.clear(); location.reload(); }
+        let lastNum = localStorage.getItem('wali_last_num') || 0;
+        let currentNum = parseInt(lastNum) + 1;
+        localStorage.setItem('wali_last_num', currentNum);
+        updateQueueDisplay();
+
+        const message = `*مركز صحي الولي - كرت حجز*%0A` +
+                        `--------------------%0A` +
+                        `🔢 *رقم الدور:* (${currentNum})%0A` +
+                        `👤 *المريض:* ${name}%0A` +
+                        `🩺 *القسم:* ${dept}%0A` +
+                        `--------------------%0A` +
+                        `إلى المسجل: *أحمد*%0A` +
+                        `_نظام سريع للصحة_`;
+        
+        window.open(`https://wa.me/${registrarPhone}?text=${message}`, '_blank');
+    }
 </script>
+
 </body>
 </html>
