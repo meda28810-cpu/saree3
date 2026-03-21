@@ -4,64 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saree3 | المطور BRAZILI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Reem+Kufi:wght@700&display=swap" rel="stylesheet">
     <style>
         body, html { height: 100%; margin: 0; font-family: 'Cairo', sans-serif; background-color: #0f1217; color: white; overflow: hidden; }
         
-        /* 1. واجهة الترحيب (Splash Screen) */
+        /* 1. Splash Screen */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center;
             z-index: 5000; transition: 0.8s;
         }
-        .en-welcome { font-size: 50px; color: #ffc107; font-family: 'Arial Black', sans-serif; opacity: 0; animation: fadeInWelcome 1.2s forwards; }
-        .speed-rocket { font-size: 50px; position: absolute; transform: translateX(120vw); animation: rocketMove 1.5s ease-in-out 1.2s forwards; }
-        .ar-welcome { font-size: 32px; font-weight: 900; color: white; margin-top: 10px; opacity: 0; animation: fadeInArabic 1.2s 2.5s forwards; text-shadow: 0 0 20px rgba(255, 193, 7, 0.7); }
+        .en-welcome { font-size: 50px; color: #ffc107; font-family: 'Arial Black', sans-serif; opacity: 0; animation: fadeIn 1s forwards; }
+        .speed-rocket { font-size: 50px; position: absolute; transform: translateX(150vw); animation: rocketMove 1.2s ease-in-out 1.2s forwards; }
+        .ar-welcome { font-family: 'Reem Kufi', sans-serif; font-size: 35px; color: white; margin-top: 20px; opacity: 0; animation: fadeIn 1s 2.2s forwards; text-shadow: 0 0 20px #ffc107; }
 
-        /* 2. واجهة الدخول والتسجيل */
-        #authPage {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #0f1217; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 4000; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .auth-box { width: 85%; max-width: 380px; padding: 30px; background: rgba(255,255,255,0.02); border-radius: 25px; border: 1px solid #333; text-align: center; }
+        /* 2. Auth Page */
+        #authPage { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f1217; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 4000; transition: 0.6s; }
+        .auth-box { width: 85%; max-width: 380px; padding: 30px; background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid #333; text-align: center; position: relative; z-index: 5; }
         .auth-box input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #444; background: #1a1e25; color: white; font-size: 16px; box-sizing: border-box; }
         .auth-btn { width: 100%; padding: 16px; background: #ffc107; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; color: black; font-size: 18px; margin-top: 10px; }
-        .toggle-link { margin-top: 20px; color: #ffc107; font-size: 14px; cursor: pointer; text-decoration: underline; display: block; }
-        
-        /* 3. القائمة الرئيسية (Main Menu) */
-        .container { display: none; height: 100%; flex-direction: column; align-items: center; padding: 20px; overflow-y: auto; z-index: 10; position: relative; }
-        .header-top { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding: 10px; }
-        .br-logo { border: 2px solid #ffc107; color: #ffc107; padding: 5px 10px; border-radius: 8px; font-weight: bold; }
-        
-        .menu-card { 
-            width: 100%; max-width: 400px; padding: 25px; margin: 12px 0; 
-            background: #1a1e25; border-radius: 20px; display: flex; justify-content: space-between; align-items: center;
-            border-right: 6px solid #ffc107; cursor: pointer; transition: 0.3s;
-        }
-        .card-blue { border-right-color: #2196F3; }
-        .card-yellow { border-right-color: #ffc107; }
-        .card-green { border-right-color: #28a745; }
-        .card-red { border-right-color: #dc3545; }
-        .card-purple { border-right-color: #9c27b0; }
+        .toggle-link { color: #ffc107; font-size: 13px; cursor: pointer; margin-top: 15px; display: block; text-decoration: underline; }
 
-        /* الأقسام الداخلية */
-        .section { display: none; width: 100%; max-width: 400px; }
-        .info-item { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .call-btn { background: #28a745; color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; }
-        .back-icon { background: #333; padding: 5px; border-radius: 5px; cursor: pointer; }
+        /* 3. ✨ شعار BR الخافت في المنتصف تماماً ✨ */
+        .br-watermark { 
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            font-size: 140px; color: rgba(255, 193, 7, 0.03); font-weight: bold; 
+            z-index: 1; pointer-events: none; user-select: none; 
+            border: 15px solid rgba(255, 193, 7, 0.03); border-radius: 40px; padding: 10px 30px;
+            font-family: 'Arial Black', sans-serif;
+        }
+        
+        /* 4. Main Menu Layout */
+        .container { display: none; height: 100%; flex-direction: column; justify-content: center; align-items: center; padding: 20px; z-index: 10; position: relative; overflow-y: auto; }
+        
+        /* ✨ جعل الأزرار في منتصف القائمة تماماً ✨ */
+        #mainMenu { 
+            width: 100%; max-width: 400px; display: flex; flex-direction: column; justify-content: center; align-items: center; 
+        }
+
+        .menu-btn { 
+            width: 100%; padding: 22px; margin: 10px 0; border: none; border-radius: 15px; 
+            font-size: 18px; font-weight: bold; color: white; cursor: pointer; 
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255,255,255,0.05); border-right: 6px solid transparent; 
+            transition: 0.3s;
+        }
+        .border-maint { border-right-color: #ffc107; }
+        .border-trans { border-right-color: #28a745; }
+        .border-health { border-right-color: #dc3545; }
+        .menu-btn:active { transform: scale(0.98); background: rgba(255,255,255,0.1); }
+
+        .section { display: none; width: 100%; max-width: 400px; text-align: right; }
+        .info-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 1px solid #333; }
+        .call-btn { background: #28a745; color: white; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; }
+        .back-btn { background: none; color: #ffc107; border: 1px solid #ffc107; padding: 8px 15px; border-radius: 8px; cursor: pointer; margin-bottom: 20px; font-family: 'Cairo'; }
 
         .hidden { display: none; }
-        .br-watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 150px; color: rgba(255, 193, 7, 0.02); font-weight: bold; z-index: 1; pointer-events: none; }
-
-        @keyframes fadeInWelcome { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInArabic { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes rocketMove { 0% { transform: translateX(120vw); } 100% { transform: translateX(-120vw); } }
     </style>
 </head>
 <body>
 
 <audio id="startSound"><source src="start.mp3" type="audio/mpeg"></audio>
+
+<div class="br-watermark">BR</div>
 
 <div id="splash">
     <div class="en-welcome">WELCOME</div>
@@ -72,86 +79,74 @@
 <div id="authPage">
     <div class="auth-box" id="loginForm">
         <h2 id="loginTitle">🔐 تسجيل الدخول</h2>
-        <input type="text" id="loginUser" placeholder="اسم المستخدم" oninput="checkDev(this.value)">
-        <div id="passField"><input type="password" id="loginPass" placeholder="كلمة المرور"></div>
-        <button class="auth-btn" onclick="doLogin()">دخول للتطبيق</button>
-        <a class="toggle-link" onclick="toggleAuth('signup')">إنشاء حساب جديد</a>
+        <input type="text" id="username" placeholder="اسم المستخدم" oninput="checkDev(this.value)">
+        <div id="passField"><input type="password" id="password" placeholder="كلمة المرور"></div>
+        <button class="auth-btn" id="mainBtn" onclick="doLogin()">دخول للتطبيق</button>
+        <span class="toggle-link" onclick="toggleAuth('signup')">إنشاء حساب جديد</span>
+        <p style="color: #444; font-size: 10px; margin-top: 20px;">DESIGNED BY BRAZILI 👑</p>
     </div>
 
     <div class="auth-box hidden" id="signupForm">
-        <h2>📝 إنشاء حساب جديد</h2>
+        <h2>📝 حساب جديد</h2>
         <input type="text" id="regUser" placeholder="اسم المستخدم">
+        <input type="number" id="regPhone" placeholder="رقم الهاتف">
         <input type="password" id="regPass" placeholder="كلمة المرور (5 خانات فأكثر)">
         <button class="auth-btn" onclick="doRegister()">تأكيد التسجيل</button>
-        <a class="toggle-link" onclick="toggleAuth('login')">لديك حساب؟ دخول</a>
+        <span class="toggle-link" onclick="toggleAuth('login')">لديك حساب؟ سجل دخول</span>
     </div>
 </div>
 
-<div class="br-watermark">BR</div>
-
 <div class="container" id="mainApp">
-    <div class="header-top">
-        <div class="br-logo">BR</div>
-        <div style="color:#ffc107">مرحباً: المطور BRAZILI 👑</div>
-    </div>
-
-    <div id="mainMenu" style="width:100%">
-        <div class="menu-card card-blue"><span>ديوان المنطقة 💬</span></div>
-        <div class="menu-card card-yellow" onclick="showSec('maint')"><span>كهرباء وطاقة شمسية ⚡</span></div>
-        <div class="menu-card card-green" onclick="showSec('trans')"><span>مشوار (المواصلات) 🚕</span></div>
-        <div class="menu-card card-red" onclick="showSec('health')"><span>الخدمات الصحية 🏥</span></div>
-        <div class="menu-card card-purple"><span>دليل الخير 🤝</span></div>
+    
+    <div id="mainMenu">
+        <h2 style="color:#ffc107; margin-bottom: 30px; text-align: center;">سريع | القائمة الرئيسية</h2>
+        <button class="menu-btn border-maint" onclick="showSec('maint')"><span>🛠️ خدمات الصيانة</span> <span>⬅️</span></button>
+        <button class="menu-btn border-trans" onclick="showSec('trans')"><span>🛺 مشوار (المواصلات)</span> <span>⬅️</span></button>
+        <button class="menu-btn border-health" onclick="showSec('health')"><span>🏥 الخدمات الصحية</span> <span>⬅️</span></button>
     </div>
 
     <div id="maint" class="section">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h2 style="color:#ffc107">صيانة الكهرباء والطاقة</h2>
-            <span class="back-icon" onclick="hideSec()">🔙</span>
-        </div>
-        <div class="info-item">
+        <button class="back-btn" onclick="hideSec()">🔙 عودة</button>
+        <h2 style="color:#ffc107">⚡ الكهرباء والطاقة</h2>
+        <div class="info-card">
             <div><strong>أبوبكر عبد الرحمن</strong><br><small>فني كهرباء وطاقة شمسية</small></div>
-            <a href="tel:09" class="call-btn">اتصال</a>
+            <a href="tel:0112002802" class="call-btn">اتصال</a>
         </div>
-        <p style="text-align:center; color:#666; font-size:12px;">يمكنك الاتصال مباشرة بالفني المعتمد للمنطقة</p>
     </div>
 
     <div id="trans" class="section">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h2 style="color:#28a745">دليل المواصلات</h2>
-            <span class="back-icon" onclick="hideSec()">🔙</span>
-        </div>
-        <p style="color:#ffc107">📍 مواصلات داخلية (ركشات)</p>
-        <div class="info-item"><span>عمر عبد الله</span> <a href="tel:0" class="call-btn">اتصال</a></div>
-        <div class="info-item"><span>أنور شنان</span> <a href="tel:0" class="call-btn">اتصال</a></div>
-        <p style="color:#ffc107">🛣️ مواصلات سفرية (خارجي)</p>
-        <div class="info-item"><span>نزار علي</span> <a href="tel:0" class="call-btn">اتصال</a></div>
-        <div class="info-item"><span>محمد خوجلي الطيب</span> <a href="tel:0" class="call-btn">اتصال</a></div>
+        <button class="back-btn" onclick="hideSec()">🔙 عودة</button>
+        <h2 style="color:#28a745">🛺 السائقين المعتمدين</h2>
+        <p style="color:#28a745; border-bottom:1px solid #333;">📍 ركشات</p>
+        <div class="info-card"><span>عمر عبد الله</span><a href="tel:09" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>أنور شنان</span><a href="tel:09" class="call-btn">اتصال</a></div>
+        <p style="color:#28a745; border-bottom:1px solid #333; margin-top:20px;">🛣️ بوكس (سفري)</p>
+        <div class="info-card"><span>نزار علي</span><a href="tel:09" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>محمد خوجلي الطيب</span><a href="tel:09" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>عبد الجليل يوسف</span><a href="tel:09" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>جابر عبد الجليل</span><a href="tel:09" class="call-btn">اتصال</a></div>
     </div>
 
     <div id="health" class="section">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h2 style="color:#dc3545">الخدمات الصحية</h2>
-            <span class="back-icon" onclick="hideSec()">🔙</span>
-        </div>
-        <div style="background:#1a1e25; padding:20px; border-radius:15px; text-align:center;">
-            <p id="qNum" style="font-size:24px; color:#dc3545; font-weight:bold;">رقم الدور القادم: 1</p>
-            <input type="text" id="pName" placeholder="اسم المريض" style="width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #333; background:#000; color:white;">
-            <button class="auth-btn" style="background:#dc3545; color:white;" onclick="book()">تأكيد الحجز ✅</button>
-        </div>
+        <button class="back-btn" onclick="hideSec()">🔙 عودة</button>
+        <h2 style="color:#dc3545">🏥 حجز المركز الصحي</h2>
+        <div id="qDisplay" style="color:#dc3545; font-weight:bold; text-align:center; margin:15px; border:1px dashed #dc3545; padding:15px; border-radius:10px;"></div>
+        <input type="text" id="patientName" placeholder="اسم المريض الثلاثي" style="width:100%; padding:15px; border-radius:12px; background:#1a1e25; color:white; border:1px solid #333;">
+        <button class="auth-btn" style="background:#dc3545; color:white;" onclick="booking()">تأكيد الحجز ✅</button>
     </div>
 </div>
 
 <script>
-    // 1. Splash
+    // Splash logic
     window.onload = function() {
         document.getElementById('startSound').play().catch(() => {});
         setTimeout(() => {
             document.getElementById('splash').style.opacity = '0';
             setTimeout(() => document.getElementById('splash').style.display = 'none', 800);
-        }, 4500);
+        }, 4000);
     };
 
-    // 2. Auth Logic
+    // Auth logic
     function toggleAuth(mode) {
         document.getElementById('loginForm').classList.toggle('hidden', mode === 'signup');
         document.getElementById('signupForm').classList.toggle('hidden', mode === 'login');
@@ -160,51 +155,60 @@
     function checkDev(val) {
         const pf = document.getElementById('passField');
         const lt = document.getElementById('loginTitle');
+        const mb = document.getElementById('mainBtn');
         if(val === "BRAZILI") {
             pf.classList.add('hidden');
-            lt.innerText = "أهلاً بالمطور أحمد 👑";
+            lt.innerText = "أهلاً بالمطور BRAZILI 👑";
+            mb.innerText = "دخول المطور المعتمد";
         } else {
             pf.classList.remove('hidden');
             lt.innerText = "🔐 تسجيل الدخول";
+            mb.innerText = "دخول للتطبيق";
         }
     }
 
     function doRegister() {
         const u = document.getElementById('regUser').value;
         const p = document.getElementById('regPass').value;
-        if(p.length < 5) return alert("كلمة المرور ضعيفة! (أقل من 5 خانات)");
+        if(p.length < 5) return alert("كلمة المرور يجب أن لا تقل عن 5 خانات!");
         localStorage.setItem('u_' + u, p);
-        alert("تم التسجيل! سجل دخولك الآن.");
+        alert("تم إنشاء حسابك! سجل دخولك الآن.");
         toggleAuth('login');
     }
 
     function doLogin() {
-        const u = document.getElementById('loginUser').value;
-        const p = document.getElementById('loginPass').value;
+        const u = document.getElementById('username').value;
+        const p = document.getElementById('password').value;
         if(u === "BRAZILI" || (localStorage.getItem('u_' + u) === p && u !== "")) {
-            document.getElementById('authPage').style.transform = 'translateY(-100%)';
+            document.getElementById('authPage').style.top = '-100%';
             document.getElementById('mainApp').style.display = 'flex';
         } else {
-            alert("بيانات خاطئة");
+            alert("خطأ في بيانات الدخول");
         }
     }
 
-    // 3. Navigation
+    // UI logic
     function showSec(id) {
         document.getElementById('mainMenu').style.display = 'none';
         document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
         document.getElementById(id).style.display = 'block';
+        if(id === 'health') {
+            let n = parseInt(localStorage.getItem('wali_q') || 0) + 1;
+            document.getElementById('qDisplay').innerText = "رقم دورك القادم: " + n;
+        }
     }
 
     function hideSec() {
-        document.getElementById('mainMenu').style.display = 'block';
+        document.getElementById('mainMenu').style.display = 'flex';
         document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
     }
 
-    function book() {
-        const name = document.getElementById('pName').value;
-        if(!name) return alert("ادخل الاسم");
-        alert("تم إرسال طلب الحجز للمسؤول.");
+    function booking() {
+        let name = document.getElementById('patientName').value;
+        if(!name) return alert("يرجى كتابة الاسم");
+        let n = parseInt(localStorage.getItem('wali_q') || 0) + 1;
+        localStorage.setItem('wali_q', n);
+        window.open(`https://wa.me/249112002802?text=حجز جديد%0Aالرقم: ${n}%0Aالاسم: ${name}`, '_blank');
     }
 </script>
 </body>
