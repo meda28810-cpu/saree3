@@ -3,90 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saree3 Application | BRAZILI</title>
+    <title>Saree3 | المطور BRAZILI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        /* التنسيقات العامة */
-        body, html { height: 100%; margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #0f1217; color: white; overflow: hidden; }
+        body, html { height: 100%; margin: 0; font-family: 'Cairo', sans-serif; background-color: #0f1217; color: white; overflow: hidden; }
         
         /* 1. واجهة الترحيب (Splash Screen) */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 3000; transition: 0.8s;
+            z-index: 5000; transition: 0.8s;
         }
-        .en-welcome { 
-            font-size: 45px; color: #ffc107; font-family: 'Arial Black', sans-serif; 
-            opacity: 0; animation: fadeIn 1s forwards; 
-        }
-        .speed-rocket {
-            font-size: 50px; position: absolute;
-            transform: translateX(120vw);
-            animation: rocketMove 1.5s ease-in-out 1.2s forwards;
-        }
-        .ar-welcome { 
-            font-size: 30px; color: white; font-weight: bold; margin-top: 20px;
-            opacity: 0; animation: fadeIn 1s 2.5s forwards;
-            text-shadow: 0 0 15px #ffc107;
-        }
+        .en-welcome { font-size: 50px; color: #ffc107; font-family: 'Arial Black', sans-serif; opacity: 0; animation: fadeInWelcome 1.2s forwards; }
+        .speed-rocket { font-size: 50px; position: absolute; transform: translateX(120vw); animation: rocketMove 1.5s ease-in-out 1.2s forwards; }
+        .ar-welcome { font-size: 32px; font-weight: 900; color: white; margin-top: 10px; opacity: 0; animation: fadeInArabic 1.2s 2.5s forwards; text-shadow: 0 0 20px rgba(255, 193, 7, 0.7); }
 
-        /* 2. واجهة تسجيل الدخول (Login) */
-        #loginPage {
+        /* 2. واجهة الدخول والتسجيل */
+        #authPage {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #0f1217; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 2000; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 4000; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .login-box { 
-            width: 85%; max-width: 380px; padding: 30px; 
-            background: rgba(255,255,255,0.03); border-radius: 20px; 
-            border: 1px solid #333; text-align: center; 
+        .auth-box { width: 85%; max-width: 380px; padding: 30px; background: rgba(255,255,255,0.02); border-radius: 25px; border: 1px solid #333; text-align: center; }
+        .auth-box input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #444; background: #1a1e25; color: white; font-size: 16px; box-sizing: border-box; }
+        .auth-btn { width: 100%; padding: 16px; background: #ffc107; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; color: black; font-size: 18px; margin-top: 10px; }
+        .toggle-link { margin-top: 20px; color: #ffc107; font-size: 14px; cursor: pointer; text-decoration: underline; display: block; }
+        
+        /* 3. القائمة الرئيسية (Main Menu) */
+        .container { display: none; height: 100%; flex-direction: column; align-items: center; padding: 20px; overflow-y: auto; z-index: 10; position: relative; }
+        .header-top { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding: 10px; }
+        .br-logo { border: 2px solid #ffc107; color: #ffc107; padding: 5px 10px; border-radius: 8px; font-weight: bold; }
+        
+        .menu-card { 
+            width: 100%; max-width: 400px; padding: 25px; margin: 12px 0; 
+            background: #1a1e25; border-radius: 20px; display: flex; justify-content: space-between; align-items: center;
+            border-right: 6px solid #ffc107; cursor: pointer; transition: 0.3s;
         }
-        .login-box h2 { color: #ffc107; margin-bottom: 25px; }
-        .login-box input { 
-            width: 100%; padding: 15px; margin: 12px 0; border-radius: 12px; 
-            border: 1px solid #444; background: #1a1e25; color: white; font-size: 16px; box-sizing: border-box;
-        }
-        .login-btn { 
-            width: 100%; padding: 16px; background: #ffc107; border: none; 
-            border-radius: 12px; font-weight: bold; cursor: pointer; color: black; font-size: 18px; margin-top: 10px;
-        }
+        .card-blue { border-right-color: #2196F3; }
+        .card-yellow { border-right-color: #ffc107; }
+        .card-green { border-right-color: #28a745; }
+        .card-red { border-right-color: #dc3545; }
+        .card-purple { border-right-color: #9c27b0; }
 
-        /* 3. الشعار الخلفي (Watermark) */
-        .br-watermark {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 160px; color: rgba(255, 193, 7, 0.03); font-weight: bold;
-            z-index: 1; pointer-events: none; user-select: none; 
-            border: 20px solid rgba(255, 193, 7, 0.03); border-radius: 50px; padding: 20px;
-        }
+        /* الأقسام الداخلية */
+        .section { display: none; width: 100%; max-width: 400px; }
+        .info-item { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .call-btn { background: #28a745; color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; }
+        .back-icon { background: #333; padding: 5px; border-radius: 5px; cursor: pointer; }
 
-        /* 4. محتوى التطبيق الرئيسي (الأزرار الممركزة) */
-        .container { 
-            display: none; height: 100%; flex-direction: column; 
-            justify-content: center; align-items: center; padding: 20px; z-index: 10; position: relative; 
-        }
-        .menu-btn { 
-            width: 100%; max-width: 400px; padding: 22px; margin: 15px 0; 
-            border: none; border-radius: 15px; font-size: 18px; font-weight: bold; 
-            color: white; cursor: pointer; display: flex; justify-content: space-between; 
-            background: rgba(255,255,255,0.05); border-right: 6px solid transparent; 
-            transition: 0.3s;
-        }
-        .menu-btn:hover { transform: scale(1.02); background: rgba(255,255,255,0.1); }
-        .border-maint { border-right-color: #ffc107; }
-        .border-trans { border-right-color: #28a745; }
-        .border-health { border-right-color: #dc3545; }
+        .hidden { display: none; }
+        .br-watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 150px; color: rgba(255, 193, 7, 0.02); font-weight: bold; z-index: 1; pointer-events: none; }
 
-        /* الأقسام */
-        .section { display: none; width: 100%; max-width: 400px; text-align: right; overflow-y: auto; max-height: 85vh; padding-bottom: 30px; }
-        .info-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .call-btn { background: #28a745; color: white; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; }
-        .back-btn { background: none; color: #ffc107; border: 1px solid #ffc107; padding: 8px 15px; border-radius: 8px; cursor: pointer; margin-bottom: 20px; }
-
-        /* الأنميشن */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes rocketMove { 
-            0% { transform: translateX(120vw); opacity: 1; } 
-            100% { transform: translateX(-120vw); opacity: 1; } 
-        }
+        @keyframes fadeInWelcome { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInArabic { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        @keyframes rocketMove { 0% { transform: translateX(120vw); } 100% { transform: translateX(-120vw); } }
     </style>
 </head>
 <body>
@@ -99,108 +69,142 @@
     <div class="ar-welcome">في تطبيق سريع</div>
 </div>
 
-<div id="loginPage">
-    <div class="login-box">
-        <h2>🔐 تسجيل الدخول</h2>
-        <input type="text" id="username" placeholder="اسم المستخدم">
-        <input type="password" id="password" placeholder="كلمة المرور">
-        <button class="login-btn" onclick="checkLogin()">دخول للتطبيق</button>
-        <p style="color: #555; font-size: 12px; margin-top: 15px;">Developed by BRAZILI 👑</p>
+<div id="authPage">
+    <div class="auth-box" id="loginForm">
+        <h2 id="loginTitle">🔐 تسجيل الدخول</h2>
+        <input type="text" id="loginUser" placeholder="اسم المستخدم" oninput="checkDev(this.value)">
+        <div id="passField"><input type="password" id="loginPass" placeholder="كلمة المرور"></div>
+        <button class="auth-btn" onclick="doLogin()">دخول للتطبيق</button>
+        <a class="toggle-link" onclick="toggleAuth('signup')">إنشاء حساب جديد</a>
+    </div>
+
+    <div class="auth-box hidden" id="signupForm">
+        <h2>📝 إنشاء حساب جديد</h2>
+        <input type="text" id="regUser" placeholder="اسم المستخدم">
+        <input type="password" id="regPass" placeholder="كلمة المرور (5 خانات فأكثر)">
+        <button class="auth-btn" onclick="doRegister()">تأكيد التسجيل</button>
+        <a class="toggle-link" onclick="toggleAuth('login')">لديك حساب؟ دخول</a>
     </div>
 </div>
 
 <div class="br-watermark">BR</div>
 
 <div class="container" id="mainApp">
-    <div id="mainMenu" style="width:100%; text-align:center; display: flex; flex-direction: column; align-items: center;">
-        <h2 style="color:#ffc107; margin-bottom: 30px;">👑 المطور BRAZILI</h2>
-        <button class="menu-btn border-maint" onclick="showSec('maint')">🛠️ خدمات القرية (صيانة)</button>
-        <button class="menu-btn border-trans" onclick="showSec('trans')">🛺 مشوار (المواصلات)</button>
-        <button class="menu-btn border-health" onclick="showSec('health')">🏥 الخدمات الصحية</button>
+    <div class="header-top">
+        <div class="br-logo">BR</div>
+        <div style="color:#ffc107">مرحباً: المطور BRAZILI 👑</div>
     </div>
 
-    <div id="health" class="section">
-        <button class="back-btn" onclick="hideSec()">🏠 عودة للرئيسية</button>
-        <h2 style="color:#dc3545">🏥 مركز صحي الولي</h2>
-        <div id="qDisplay" style="color:#dc3545; font-weight:bold; text-align:center; margin:15px; border:2px dashed #dc3545; padding:15px; border-radius:10px;"></div>
-        <input type="text" id="patientName" placeholder="اسم المريض الثلاثي" style="width:100%; padding:15px; border-radius:10px; background:#1a1e25; color:white; border:1px solid #333; margin-bottom:10px;">
-        <button class="login-btn" style="background:#dc3545; color:white;" onclick="booking()">إرسال للمسجل أحمد ✅</button>
-        <p style="text-align:center; font-size:12px; color:#555; margin-top:10px;">المسجل: أحمد | 0112002802</p>
-    </div>
-
-    <div id="trans" class="section">
-        <button class="back-btn" onclick="hideSec()">🏠 عودة للرئيسية</button>
-        <h2 style="color:#28a745">🛺 دليل المواصلات (مشوار)</h2>
-        
-        <p style="color:#28a745; border-bottom:1px solid #28a745; padding-bottom:5px;">📍 ركشات داخلية</p>
-        <div class="info-card"><span>عمر عبد الله</span><a href="tel:09" class="call-btn">اتصال</a></div>
-        <div class="info-card"><span>أنور شنان</span><a href="tel:09" class="call-btn">اتصال</a></div>
-
-        <p style="color:#28a745; border-bottom:1px solid #28a745; padding-bottom:5px; margin-top:20px;">🛣️ مواصلات سفرية</p>
-        <div class="info-card"><span>نزار علي</span><a href="tel:09" class="call-btn">اتصال</a></div>
-        <div class="info-card"><span>محمد خوجلي الطيب</span><a href="tel:09" class="call-btn">اتصال</a></div>
-        <div class="info-card"><span>عبد الجليل يوسف</span><a href="tel:09" class="call-btn">اتصال</a></div>
-        <div class="info-card"><span>جابر عبد الجليل</span><a href="tel:09" class="call-btn">اتصال</a></div>
+    <div id="mainMenu" style="width:100%">
+        <div class="menu-card card-blue"><span>ديوان المنطقة 💬</span></div>
+        <div class="menu-card card-yellow" onclick="showSec('maint')"><span>كهرباء وطاقة شمسية ⚡</span></div>
+        <div class="menu-card card-green" onclick="showSec('trans')"><span>مشوار (المواصلات) 🚕</span></div>
+        <div class="menu-card card-red" onclick="showSec('health')"><span>الخدمات الصحية 🏥</span></div>
+        <div class="menu-card card-purple"><span>دليل الخير 🤝</span></div>
     </div>
 
     <div id="maint" class="section">
-        <button class="back-btn" onclick="hideSec()">🏠 عودة للرئيسية</button>
-        <h2 style="color:#ffc107">🛠️ خدمات القرية</h2>
-        <div class="info-card"><span>أبوبكر عبد الرحمن (كهرباء)</span><a href="tel:09" class="call-btn">اتصال</a></div>
-        <div class="info-card"><span>محمد علي (صيانة عامة)</span><a href="tel:09" class="call-btn">اتصال</a></div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h2 style="color:#ffc107">صيانة الكهرباء والطاقة</h2>
+            <span class="back-icon" onclick="hideSec()">🔙</span>
+        </div>
+        <div class="info-item">
+            <div><strong>أبوبكر عبد الرحمن</strong><br><small>فني كهرباء وطاقة شمسية</small></div>
+            <a href="tel:09" class="call-btn">اتصال</a>
+        </div>
+        <p style="text-align:center; color:#666; font-size:12px;">يمكنك الاتصال مباشرة بالفني المعتمد للمنطقة</p>
+    </div>
+
+    <div id="trans" class="section">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h2 style="color:#28a745">دليل المواصلات</h2>
+            <span class="back-icon" onclick="hideSec()">🔙</span>
+        </div>
+        <p style="color:#ffc107">📍 مواصلات داخلية (ركشات)</p>
+        <div class="info-item"><span>عمر عبد الله</span> <a href="tel:0" class="call-btn">اتصال</a></div>
+        <div class="info-item"><span>أنور شنان</span> <a href="tel:0" class="call-btn">اتصال</a></div>
+        <p style="color:#ffc107">🛣️ مواصلات سفرية (خارجي)</p>
+        <div class="info-item"><span>نزار علي</span> <a href="tel:0" class="call-btn">اتصال</a></div>
+        <div class="info-item"><span>محمد خوجلي الطيب</span> <a href="tel:0" class="call-btn">اتصال</a></div>
+    </div>
+
+    <div id="health" class="section">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h2 style="color:#dc3545">الخدمات الصحية</h2>
+            <span class="back-icon" onclick="hideSec()">🔙</span>
+        </div>
+        <div style="background:#1a1e25; padding:20px; border-radius:15px; text-align:center;">
+            <p id="qNum" style="font-size:24px; color:#dc3545; font-weight:bold;">رقم الدور القادم: 1</p>
+            <input type="text" id="pName" placeholder="اسم المريض" style="width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #333; background:#000; color:white;">
+            <button class="auth-btn" style="background:#dc3545; color:white;" onclick="book()">تأكيد الحجز ✅</button>
+        </div>
     </div>
 </div>
 
 <script>
-    // 1. تشغيل واجهة الترحيب والصوت
+    // 1. Splash
     window.onload = function() {
-        const sound = document.getElementById('startSound');
-        sound.play().catch(() => console.log("Sound waiting for interaction"));
-
+        document.getElementById('startSound').play().catch(() => {});
         setTimeout(() => {
-            const splash = document.getElementById('splash');
-            splash.style.opacity = '0';
-            setTimeout(() => splash.style.display = 'none', 800);
-        }, 4500); 
+            document.getElementById('splash').style.opacity = '0';
+            setTimeout(() => document.getElementById('splash').style.display = 'none', 800);
+        }, 4500);
     };
 
-    // 2. نظام تسجيل الدخول
-    function checkLogin() {
-        const u = document.getElementById('username').value;
-        const p = document.getElementById('password').value;
-        if(u !== "" && p !== "") {
-            document.getElementById('loginPage').style.transform = 'translateY(-100%)';
-            document.getElementById('mainApp').style.display = 'flex';
-            document.body.style.overflow = 'auto';
+    // 2. Auth Logic
+    function toggleAuth(mode) {
+        document.getElementById('loginForm').classList.toggle('hidden', mode === 'signup');
+        document.getElementById('signupForm').classList.toggle('hidden', mode === 'login');
+    }
+
+    function checkDev(val) {
+        const pf = document.getElementById('passField');
+        const lt = document.getElementById('loginTitle');
+        if(val === "BRAZILI") {
+            pf.classList.add('hidden');
+            lt.innerText = "أهلاً بالمطور أحمد 👑";
         } else {
-            alert("يرجى إدخال اسم المستخدم وكلمة المرور");
+            pf.classList.remove('hidden');
+            lt.innerText = "🔐 تسجيل الدخول";
         }
     }
 
-    // 3. التنقل بين الأقسام
+    function doRegister() {
+        const u = document.getElementById('regUser').value;
+        const p = document.getElementById('regPass').value;
+        if(p.length < 5) return alert("كلمة المرور ضعيفة! (أقل من 5 خانات)");
+        localStorage.setItem('u_' + u, p);
+        alert("تم التسجيل! سجل دخولك الآن.");
+        toggleAuth('login');
+    }
+
+    function doLogin() {
+        const u = document.getElementById('loginUser').value;
+        const p = document.getElementById('loginPass').value;
+        if(u === "BRAZILI" || (localStorage.getItem('u_' + u) === p && u !== "")) {
+            document.getElementById('authPage').style.transform = 'translateY(-100%)';
+            document.getElementById('mainApp').style.display = 'flex';
+        } else {
+            alert("بيانات خاطئة");
+        }
+    }
+
+    // 3. Navigation
     function showSec(id) {
         document.getElementById('mainMenu').style.display = 'none';
         document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
         document.getElementById(id).style.display = 'block';
-        if(id === 'health') {
-            let n = parseInt(localStorage.getItem('wali_q') || 0) + 1;
-            document.getElementById('qDisplay').innerText = "رقم دورك القادم سيكون: (" + n + ")";
-        }
     }
 
     function hideSec() {
-        document.getElementById('mainMenu').style.display = 'flex';
+        document.getElementById('mainMenu').style.display = 'block';
         document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
     }
 
-    // 4. نظام حجز الصحة
-    function booking() {
-        let name = document.getElementById('patientName').value;
-        if(!name) return alert("من فضلك أدخل اسم المريض");
-        let n = parseInt(localStorage.getItem('wali_q') || 0) + 1;
-        localStorage.setItem('wali_q', n);
-        window.open(`https://wa.me/249112002802?text=*حجز مركز صحي الولي*%0A🔢 *رقم الدور:* (${n})%0A👤 *الاسم:* ${name}`, '_blank');
-        showSec('health');
+    function book() {
+        const name = document.getElementById('pName').value;
+        if(!name) return alert("ادخل الاسم");
+        alert("تم إرسال طلب الحجز للمسؤول.");
     }
 </script>
 </body>
