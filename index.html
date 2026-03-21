@@ -3,47 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خدمات الولي والحلاوين الرقمية | BRAZILI</title>
+    <title>Saree3 | الخدمات المتكاملة - BRAZILI</title>
     <style>
-        /* التنسيقات العامة */
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #0f1217; color: white; margin: 0; padding: 20px; text-align: center; overflow-x: hidden; }
-        .container { max-width: 420px; margin: auto; position: relative; z-index: 10; } /* لضمان ظهور المحتوى فوق الشعار */
+        /* التنسيقات العامة المطابقة للصور */
+        body, html { height: 100%; margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #0f1217; color: white; overflow-x: hidden; }
         
-        /* الهيدر العلوي */
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; position: relative; z-index: 20; }
-        .br-logo-top { border: 2px solid #ffc107; color: #ffc107; padding: 5px 10px; font-weight: bold; border-radius: 5px; font-size: 14px; }
-        .back-btn { background: none; border: none; color: white; font-size: 12px; cursor: pointer; display: none; } 
-        .welcome { color: #ffc107; font-size: 14px; margin: 0; }
+        /* ✨ واجهة الدخول الديناميكية (Splash Screen) ✨ */
+        .splash-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000; /* خلفية سوداء */
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 1000;
+            animation: fadeOutSplash 0.5s ease-out 3s forwards; /* تختفي بعد 3 ثوانٍ */
+        }
+        .splash-text {
+            color: #ffc107; /* ذهبي */
+            font-size: 28px; font-weight: bold; text-align: center;
+            animation: pulseText 1.5s infinite; /* تأثير نبضي */
+        }
+        @keyframes pulseText { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        @keyframes fadeOutSplash { to { visibility: hidden; opacity: 0; } }
 
-        /* ✨ شعار BR الخلفي الشفاف في نصف الشاشة ✨ */
+        /* الشعار الشفاف الخلفي الشفاف (غير قابل للضغط) */
         .br-watermark {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 150px; /* حجم كبير جداً */
-            color: rgba(255, 193, 7, 0.03); /* لون ذهبي بشفافية خافتة جداً */
-            font-weight: bold;
-            border: 20px solid rgba(255, 193, 7, 0.03); /* إطار بشفافية خافتة */
-            border-radius: 50px;
-            padding: 20px 40px;
-            z-index: 1; /* خلف المحتوى الأساسي */
-            pointer-events: none; /* لمنع الضغط عليه تماماً */
-            user-select: none; /* لمنع تحديد النص */
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 150px; color: rgba(255, 193, 7, 0.03); font-weight: bold;
+            border: 20px solid rgba(255, 193, 7, 0.03); border-radius: 50px;
+            padding: 20px 40px; z-index: 1; pointer-events: none; user-select: none;
         }
 
-        /* تنسيق الأزرار الرئيسية (القائمة) */
-        .menu-btn { width: 100%; padding: 18px; margin: 10px auto; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; color: white; cursor: pointer; text-align: right; display: flex; align-items: center; justify-content: space-between; background-color: rgba(255, 255, 255, 0.05); transition: 0.3s; position: relative; z-index: 20; }
-        .menu-btn:hover { background-color: rgba(255, 255, 255, 0.1); transform: scale(1.02); }
+        /* حاوية المحتوى الرئيسي */
+        .container {
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            min-height: 100%; padding: 20px; box-sizing: border-box; position: relative; z-index: 10;
+        }
+        
+        /* الهيدر العلوي */
+        .header { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 400px; margin-bottom: 30px; }
+        .back-btn { background: none; border: none; color: white; font-size: 12px; cursor: pointer; display: none; margin-left: auto; } /* يظهر في الأقسام */
+        .welcome { color: #ffc107; font-size: 14px; margin: 0; text-align: center; flex-grow: 1; }
+
+        /* ✨ توسيط الأزرار الرئيسية في منتصف الشاشة ✨ */
+        .menu-btn { width: 100%; max-width: 400px; padding: 20px; margin: 15px 0; border: none; border-radius: 12px; font-size: 17px; font-weight: bold; color: white; cursor: pointer; text-align: right; display: flex; align-items: center; justify-content: space-between; background-color: rgba(255, 255, 255, 0.05); transition: 0.3s; position: relative; z-index: 20; }
+        .menu-btn:hover { background-color: rgba(255, 255, 255, 0.1); transform: translateY(-3px); }
         .btn-text { flex-grow: 1; margin-right: 15px; text-align: right; }
         
-        /* الخطوط الملونة الجانبية */
-        .border-maint { border-right: 5px solid #ffc107; } /* خدمات القرية */
-        .border-trans { border-right: 5px solid #28a745; } /* المشوار */
-        .border-health { border-right: 5px solid #dc3545; } /* الصحة */
+        /* الخطوط الملونة الجانبية الأيقونات */
+        .border-maint { border-right: 5px solid #ffc107; } /* خدمات القرية - أصفر */
+        .border-trans { border-right: 5px solid #28a745; } /* المشوار - أخضر */
+        .border-health { border-right: 5px solid #dc3545; } /* الصحة - أحمر */
 
         /* الأقسام المخفية */
-        .section { display: none; text-align: right; animation: fadeIn 0.4s; position: relative; z-index: 20; }
+        .section { display: none; text-align: right; max-width: 400px; width: 100%; animation: fadeIn 0.4s; position: relative; z-index: 20; margin-top: 20px; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .section h2 { color: #ffc107; font-size: 20px; text-align: right; }
 
@@ -56,21 +69,27 @@
         input, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1e25; color: white; box-sizing: border-box; font-size: 16px; margin-bottom: 10px; }
         .submit-btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: bold; font-size: 18px; color: white; cursor: pointer; margin-top: 15px; }
 
-        .footer { margin-top: 50px; font-size: 10px; color: #555; position: relative; z-index: 20; }
+        .footer { margin-top: auto; padding-top: 30px; font-size: 10px; color: #555; position: relative; z-index: 20; text-align: center; width: 100%; }
     </style>
 </head>
 <body>
+
+<div class="splash-screen">
+    <div class="splash-text">
+        Welcome<br>
+        to Saree3 Application
+    </div>
+</div>
 
 <div class="br-watermark">BR</div>
 
 <div class="container">
     <div class="header">
-        <div class="br-logo-top">BR</div>
-        <div class="welcome">👑 مرحباً : المطور BRAZILI</div>
         <button class="back-btn" id="generalBackBtn" onclick="showMainMenu()">🏠 الرئيسية</button>
+        <div class="welcome" id="welcomeText">👑 مرحباً : المطور BRAZILI</div>
     </div>
 
-    <div id="mainMenu">
+    <div id="mainMenu" style="width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; flex-grow: 1;">
         <button class="menu-btn border-maint" onclick="showSection('maintSection')">
             <span class="btn-text">🛠️ خدمات القرية (صيانة)</span>
         </button>
@@ -84,7 +103,7 @@
 
     <div id="healthSection" class="section">
         <h2>🏥 مركز صحي الولي</h2>
-        <div class="queue-box" id="currentQueueDisplay">رقم دورك سيكون: ...</div>
+        <div class="queue-box" id="currentQueueDisplay">رقم دورك القادم سيكون: ...</div>
         <input type="text" id="pName" placeholder="أدخل اسم المريض">
         <select id="pDept"><option>الطب العام</option><option>عيادة الأطفال</option><option>المختبر</option></select>
         <button class="submit-btn" style="background:#dc3545;" onclick="sendToAhmed()">إرسال للمسجل (أحمد) ✅</button>
@@ -141,7 +160,23 @@
             <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
             <div>
                 <div style="font-weight:bold;">نزار علي</div>
-                <div style="font-size:12px; color:#aaa;">بوكس - مواصلات خارجية</div>
+                <div style="font-size:12px; color:#aaa;">بوكس - مواصلات سفرية</div>
+            </div>
+        </div>
+        
+        <div class="info-card">
+            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
+            <div>
+                <div style="font-weight:bold;">محمد خوجلي الطيب</div>
+                <div style="font-size:12px; color:#aaa;">بوكس - مواصلات سفرية</div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
+            <div>
+                <div style="font-weight:bold;">عبد الجليل يوسف</div>
+                <div style="font-size:12px; color:#aaa;">بوكس - مواصلات سفرية</div>
             </div>
         </div>
         
@@ -149,7 +184,7 @@
             <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
             <div>
                 <div style="font-weight:bold;">جابر عبد الجليل</div>
-                <div style="font-size:12px; color:#aaa;">بوكس - مواصلات خارجية</div>
+                <div style="font-size:12px; color:#aaa;">بوكس - مواصلات سفرية</div>
             </div>
         </div>
         
@@ -164,18 +199,20 @@
     function showSection(id) {
         document.getElementById('mainMenu').style.display = 'none';
         document.getElementById('generalBackBtn').style.display = 'block';
+        document.getElementById('welcomeText').style.display = 'none'; // إخفاء نص الترحيب عند فتح قسم
         document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
         document.getElementById(id).style.display = 'block';
         if(id === 'healthSection') updateQueueDisplay(); 
     }
 
     function showMainMenu() {
-        document.getElementById('mainMenu').style.display = 'block';
+        document.getElementById('mainMenu').style.display = 'flex';
         document.getElementById('generalBackBtn').style.display = 'none';
+        document.getElementById('welcomeText').style.display = 'block'; // إظهار نص الترحيب عند العودة للرئيسية
         document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
     }
 
-    // وظائف قسم الصحة 
+    // وظائف قسم الصحة (مركز صحي الولي) 
     function updateQueueDisplay() {
         let lastNum = localStorage.getItem('wali_last_num') || 0;
         let nextNum = parseInt(lastNum) + 1;
