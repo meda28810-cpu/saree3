@@ -3,246 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saree3 | الخدمات المتكاملة - BRAZILI</title>
+    <title>Saree3 Application | BRAZILI</title>
     <style>
-        /* التنسيقات العامة المطابقة للصور */
-        body, html { height: 100%; margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #0f1217; color: white; overflow-x: hidden; }
+        /* التنسيقات العامة */
+        body, html { height: 100%; margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #0f1217; color: white; overflow: hidden; }
         
-        /* ✨ واجهة الدخول الديناميكية (Splash Screen) ✨ */
-        .splash-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #000; /* خلفية سوداء */
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 1000;
-            animation: fadeOutSplash 0.5s ease-out 3s forwards; /* تختفي بعد 3 ثوانٍ */
+        /* 1. واجهة الترحيب (Splash Screen) */
+        #splash {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 3000; transition: 0.8s;
         }
-        .splash-text {
-            color: #ffc107; /* ذهبي */
-            font-size: 28px; font-weight: bold; text-align: center;
-            animation: pulseText 1.5s infinite; /* تأثير نبضي */
+        .en-welcome { 
+            font-size: 45px; color: #ffc107; font-family: 'Arial Black', sans-serif; 
+            opacity: 0; animation: fadeIn 1s forwards; 
         }
-        @keyframes pulseText { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-        @keyframes fadeOutSplash { to { visibility: hidden; opacity: 0; } }
+        .speed-rocket {
+            font-size: 50px; position: absolute;
+            transform: translateX(120vw);
+            animation: rocketMove 1.5s ease-in-out 1.2s forwards;
+        }
+        .ar-welcome { 
+            font-size: 30px; color: white; font-weight: bold; margin-top: 20px;
+            opacity: 0; animation: fadeIn 1s 2.5s forwards;
+            text-shadow: 0 0 15px #ffc107;
+        }
 
-        /* الشعار الشفاف الخلفي الشفاف (غير قابل للضغط) */
+        /* 2. واجهة تسجيل الدخول (Login) */
+        #loginPage {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f1217; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 2000; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .login-box { 
+            width: 85%; max-width: 380px; padding: 30px; 
+            background: rgba(255,255,255,0.03); border-radius: 20px; 
+            border: 1px solid #333; text-align: center; 
+        }
+        .login-box h2 { color: #ffc107; margin-bottom: 25px; }
+        .login-box input { 
+            width: 100%; padding: 15px; margin: 12px 0; border-radius: 12px; 
+            border: 1px solid #444; background: #1a1e25; color: white; font-size: 16px; box-sizing: border-box;
+        }
+        .login-btn { 
+            width: 100%; padding: 16px; background: #ffc107; border: none; 
+            border-radius: 12px; font-weight: bold; cursor: pointer; color: black; font-size: 18px; margin-top: 10px;
+        }
+
+        /* 3. الشعار الخلفي (Watermark) */
         .br-watermark {
-            position: fixed;
-            top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 150px; color: rgba(255, 193, 7, 0.03); font-weight: bold;
-            border: 20px solid rgba(255, 193, 7, 0.03); border-radius: 50px;
-            padding: 20px 40px; z-index: 1; pointer-events: none; user-select: none;
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 160px; color: rgba(255, 193, 7, 0.03); font-weight: bold;
+            z-index: 1; pointer-events: none; user-select: none; 
+            border: 20px solid rgba(255, 193, 7, 0.03); border-radius: 50px; padding: 20px;
         }
 
-        /* حاوية المحتوى الرئيسي */
-        .container {
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            min-height: 100%; padding: 20px; box-sizing: border-box; position: relative; z-index: 10;
+        /* 4. محتوى التطبيق الرئيسي (الأزرار الممركزة) */
+        .container { 
+            display: none; height: 100%; flex-direction: column; 
+            justify-content: center; align-items: center; padding: 20px; z-index: 10; position: relative; 
         }
-        
-        /* الهيدر العلوي */
-        .header { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 400px; margin-bottom: 30px; }
-        .back-btn { background: none; border: none; color: white; font-size: 12px; cursor: pointer; display: none; margin-left: auto; } /* يظهر في الأقسام */
-        .welcome { color: #ffc107; font-size: 14px; margin: 0; text-align: center; flex-grow: 1; }
+        .menu-btn { 
+            width: 100%; max-width: 400px; padding: 22px; margin: 15px 0; 
+            border: none; border-radius: 15px; font-size: 18px; font-weight: bold; 
+            color: white; cursor: pointer; display: flex; justify-content: space-between; 
+            background: rgba(255,255,255,0.05); border-right: 6px solid transparent; 
+            transition: 0.3s;
+        }
+        .menu-btn:hover { transform: scale(1.02); background: rgba(255,255,255,0.1); }
+        .border-maint { border-right-color: #ffc107; }
+        .border-trans { border-right-color: #28a745; }
+        .border-health { border-right-color: #dc3545; }
 
-        /* ✨ توسيط الأزرار الرئيسية في منتصف الشاشة ✨ */
-        .menu-btn { width: 100%; max-width: 400px; padding: 20px; margin: 15px 0; border: none; border-radius: 12px; font-size: 17px; font-weight: bold; color: white; cursor: pointer; text-align: right; display: flex; align-items: center; justify-content: space-between; background-color: rgba(255, 255, 255, 0.05); transition: 0.3s; position: relative; z-index: 20; }
-        .menu-btn:hover { background-color: rgba(255, 255, 255, 0.1); transform: translateY(-3px); }
-        .btn-text { flex-grow: 1; margin-right: 15px; text-align: right; }
-        
-        /* الخطوط الملونة الجانبية الأيقونات */
-        .border-maint { border-right: 5px solid #ffc107; } /* خدمات القرية - أصفر */
-        .border-trans { border-right: 5px solid #28a745; } /* المشوار - أخضر */
-        .border-health { border-right: 5px solid #dc3545; } /* الصحة - أحمر */
+        /* الأقسام */
+        .section { display: none; width: 100%; max-width: 400px; text-align: right; overflow-y: auto; max-height: 85vh; padding-bottom: 30px; }
+        .info-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .call-btn { background: #28a745; color: white; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; }
+        .back-btn { background: none; color: #ffc107; border: 1px solid #ffc107; padding: 8px 15px; border-radius: 8px; cursor: pointer; margin-bottom: 20px; }
 
-        /* الأقسام المخفية */
-        .section { display: none; text-align: right; max-width: 400px; width: 100%; animation: fadeIn 0.4s; position: relative; z-index: 20; margin-top: 20px; }
+        /* الأنميشن */
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .section h2 { color: #ffc107; font-size: 20px; text-align: right; }
-
-        /* تنسيق كروت الاتصال للسائقين وفنيي الصيانة */
-        .info-card { background: rgba(255, 255, 255, 0.04); border-radius: 10px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; text-align: right; }
-        .call-btn { background-color: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; text-decoration: none; font-size: 14px; }
-        
-        /* تنسيق نظام الصحة */
-        .queue-box { border: 2px dashed #dc3545; color: #dc3545; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 15px; font-weight: bold; background: rgba(220, 53, 69, 0.05); }
-        input, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1e25; color: white; box-sizing: border-box; font-size: 16px; margin-bottom: 10px; }
-        .submit-btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: bold; font-size: 18px; color: white; cursor: pointer; margin-top: 15px; }
-
-        .footer { margin-top: auto; padding-top: 30px; font-size: 10px; color: #555; position: relative; z-index: 20; text-align: center; width: 100%; }
+        @keyframes rocketMove { 
+            0% { transform: translateX(120vw); opacity: 1; } 
+            100% { transform: translateX(-120vw); opacity: 1; } 
+        }
     </style>
 </head>
 <body>
 
-<div class="splash-screen">
-    <div class="splash-text">
-        Welcome<br>
-        to Saree3 Application
+<audio id="startSound"><source src="start.mp3" type="audio/mpeg"></audio>
+
+<div id="splash">
+    <div class="en-welcome">WELCOME</div>
+    <div class="speed-rocket">🚀</div>
+    <div class="ar-welcome">في تطبيق سريع</div>
+</div>
+
+<div id="loginPage">
+    <div class="login-box">
+        <h2>🔐 تسجيل الدخول</h2>
+        <input type="text" id="username" placeholder="اسم المستخدم">
+        <input type="password" id="password" placeholder="كلمة المرور">
+        <button class="login-btn" onclick="checkLogin()">دخول للتطبيق</button>
+        <p style="color: #555; font-size: 12px; margin-top: 15px;">Developed by BRAZILI 👑</p>
     </div>
 </div>
 
 <div class="br-watermark">BR</div>
 
-<div class="container">
-    <div class="header">
-        <button class="back-btn" id="generalBackBtn" onclick="showMainMenu()">🏠 الرئيسية</button>
-        <div class="welcome" id="welcomeText">👑 مرحباً : المطور BRAZILI</div>
+<div class="container" id="mainApp">
+    <div id="mainMenu" style="width:100%; text-align:center; display: flex; flex-direction: column; align-items: center;">
+        <h2 style="color:#ffc107; margin-bottom: 30px;">👑 المطور BRAZILI</h2>
+        <button class="menu-btn border-maint" onclick="showSec('maint')">🛠️ خدمات القرية (صيانة)</button>
+        <button class="menu-btn border-trans" onclick="showSec('trans')">🛺 مشوار (المواصلات)</button>
+        <button class="menu-btn border-health" onclick="showSec('health')">🏥 الخدمات الصحية</button>
     </div>
 
-    <div id="mainMenu" style="width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; flex-grow: 1;">
-        <button class="menu-btn border-maint" onclick="showSection('maintSection')">
-            <span class="btn-text">🛠️ خدمات القرية (صيانة)</span>
-        </button>
-        <button class="menu-btn border-trans" onclick="showSection('transSection')">
-            <span class="btn-text">🛺 مشوار (المواصلات)</span>
-        </button>
-        <button class="menu-btn border-health" onclick="showSection('healthSection')">
-            <span class="btn-text">🏥 الخدمات الصحية</span>
-        </button>
+    <div id="health" class="section">
+        <button class="back-btn" onclick="hideSec()">🏠 عودة للرئيسية</button>
+        <h2 style="color:#dc3545">🏥 مركز صحي الولي</h2>
+        <div id="qDisplay" style="color:#dc3545; font-weight:bold; text-align:center; margin:15px; border:2px dashed #dc3545; padding:15px; border-radius:10px;"></div>
+        <input type="text" id="patientName" placeholder="اسم المريض الثلاثي" style="width:100%; padding:15px; border-radius:10px; background:#1a1e25; color:white; border:1px solid #333; margin-bottom:10px;">
+        <button class="login-btn" style="background:#dc3545; color:white;" onclick="booking()">إرسال للمسجل أحمد ✅</button>
+        <p style="text-align:center; font-size:12px; color:#555; margin-top:10px;">المسجل: أحمد | 0112002802</p>
     </div>
 
-    <div id="healthSection" class="section">
-        <h2>🏥 مركز صحي الولي</h2>
-        <div class="queue-box" id="currentQueueDisplay">رقم دورك القادم سيكون: ...</div>
-        <input type="text" id="pName" placeholder="أدخل اسم المريض">
-        <select id="pDept"><option>الطب العام</option><option>عيادة الأطفال</option><option>المختبر</option></select>
-        <button class="submit-btn" style="background:#dc3545;" onclick="sendToAhmed()">إرسال للمسجل (أحمد) ✅</button>
-        <p style="font-size:11px; color:#555; text-align:center;">المسجل أحمد | 0112002802</p>
+    <div id="trans" class="section">
+        <button class="back-btn" onclick="hideSec()">🏠 عودة للرئيسية</button>
+        <h2 style="color:#28a745">🛺 دليل المواصلات (مشوار)</h2>
+        
+        <p style="color:#28a745; border-bottom:1px solid #28a745; padding-bottom:5px;">📍 ركشات داخلية</p>
+        <div class="info-card"><span>عمر عبد الله</span><a href="tel:09" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>أنور شنان</span><a href="tel:09" class="call-btn">اتصال</a></div>
+
+        <p style="color:#28a745; border-bottom:1px solid #28a745; padding-bottom:5px; margin-top:20px;">🛣️ مواصلات سفرية</p>
+        <div class="info-card"><span>نزار علي</span><a href="tel:09" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>محمد خوجلي الطيب</span><a href="tel:09" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>عبد الجليل يوسف</span><a href="tel:09" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>جابر عبد الجليل</span><a href="tel:09" class="call-btn">اتصال</a></div>
     </div>
 
-    <div id="maintSection" class="section">
-        <h2>🛠️ خدمات القرية (صيانة)</h2>
-        <p style="color:#ffc107; font-size:13px; text-align:center;">صيانة الكهرباء والطاقة الشمسية</p>
-        
-        <div class="info-card">
-            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
-            <div>
-                <div style="font-weight:bold;">أبوبكر عبد الرحمن</div>
-                <div style="font-size:12px; color:#aaa;">فني كهرباء وطاقة شمسية</div>
-            </div>
-        </div>
-        
-        <div class="info-card">
-            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
-            <div>
-                <div style="font-weight:bold;">محمد علي</div>
-                <div style="font-size:12px; color:#aaa;">صيانة أجهزة منزلية</div>
-            </div>
-        </div>
-        
-        <p style="font-size:11px; color:#555; text-align:center; margin-top:20px;">يمكنك الاتصال مباشرة بالفني المعتمد للمنطقة</p>
+    <div id="maint" class="section">
+        <button class="back-btn" onclick="hideSec()">🏠 عودة للرئيسية</button>
+        <h2 style="color:#ffc107">🛠️ خدمات القرية</h2>
+        <div class="info-card"><span>أبوبكر عبد الرحمن (كهرباء)</span><a href="tel:09" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>محمد علي (صيانة عامة)</span><a href="tel:09" class="call-btn">اتصال</a></div>
     </div>
-
-    <div id="transSection" class="section">
-        <h2>🛺 دليل المواصلات (مشوار)</h2>
-        
-        <p style="color:#28a745; font-size:13px; border-bottom:1px solid #28a745; padding-bottom:5px;">📍 مواصلات داخلية (ركشات)</p>
-        
-        <div class="info-card">
-            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
-            <div>
-                <div style="font-weight:bold;">عمر عبد الله</div>
-                <div style="font-size:12px; color:#aaa;">ركشة - مواصلات داخلية</div>
-            </div>
-        </div>
-        
-        <div class="info-card">
-            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
-            <div>
-                <div style="font-weight:bold;">أنور شنان</div>
-                <div style="font-size:12px; color:#aaa;">ركشة - مواصلات داخلية</div>
-            </div>
-        </div>
-
-        <p style="color:#28a745; font-size:13px; border-bottom:1px solid #28a745; padding-bottom:5px; margin-top:20px;">🛣️ مواصلات سفرية (خارجي)</p>
-        
-        <div class="info-card">
-            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
-            <div>
-                <div style="font-weight:bold;">نزار علي</div>
-                <div style="font-size:12px; color:#aaa;">بوكس - مواصلات سفرية</div>
-            </div>
-        </div>
-        
-        <div class="info-card">
-            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
-            <div>
-                <div style="font-weight:bold;">محمد خوجلي الطيب</div>
-                <div style="font-size:12px; color:#aaa;">بوكس - مواصلات سفرية</div>
-            </div>
-        </div>
-
-        <div class="info-card">
-            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
-            <div>
-                <div style="font-weight:bold;">عبد الجليل يوسف</div>
-                <div style="font-size:12px; color:#aaa;">بوكس - مواصلات سفرية</div>
-            </div>
-        </div>
-        
-        <div class="info-card">
-            <a href="tel:09XXXXXXXX" class="call-btn">اتصال</a>
-            <div>
-                <div style="font-weight:bold;">جابر عبد الجليل</div>
-                <div style="font-size:12px; color:#aaa;">بوكس - مواصلات سفرية</div>
-            </div>
-        </div>
-        
-        <p style="font-size:11px; color:#555; text-align:center; margin-top:20px;">تطبيق سريع للمواصلات - الولي</p>
-    </div>
-
-    <div class="footer">تطوير بواسطة BRAZILI © 2026 | خدمات الولي المتكاملة</div>
 </div>
 
 <script>
-    // وظائف التنقل بين الأقسام
-    function showSection(id) {
+    // 1. تشغيل واجهة الترحيب والصوت
+    window.onload = function() {
+        const sound = document.getElementById('startSound');
+        sound.play().catch(() => console.log("Sound waiting for interaction"));
+
+        setTimeout(() => {
+            const splash = document.getElementById('splash');
+            splash.style.opacity = '0';
+            setTimeout(() => splash.style.display = 'none', 800);
+        }, 4500); 
+    };
+
+    // 2. نظام تسجيل الدخول
+    function checkLogin() {
+        const u = document.getElementById('username').value;
+        const p = document.getElementById('password').value;
+        if(u !== "" && p !== "") {
+            document.getElementById('loginPage').style.transform = 'translateY(-100%)';
+            document.getElementById('mainApp').style.display = 'flex';
+            document.body.style.overflow = 'auto';
+        } else {
+            alert("يرجى إدخال اسم المستخدم وكلمة المرور");
+        }
+    }
+
+    // 3. التنقل بين الأقسام
+    function showSec(id) {
         document.getElementById('mainMenu').style.display = 'none';
-        document.getElementById('generalBackBtn').style.display = 'block';
-        document.getElementById('welcomeText').style.display = 'none'; // إخفاء نص الترحيب عند فتح قسم
         document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
         document.getElementById(id).style.display = 'block';
-        if(id === 'healthSection') updateQueueDisplay(); 
+        if(id === 'health') {
+            let n = parseInt(localStorage.getItem('wali_q') || 0) + 1;
+            document.getElementById('qDisplay').innerText = "رقم دورك القادم سيكون: (" + n + ")";
+        }
     }
 
-    function showMainMenu() {
+    function hideSec() {
         document.getElementById('mainMenu').style.display = 'flex';
-        document.getElementById('generalBackBtn').style.display = 'none';
-        document.getElementById('welcomeText').style.display = 'block'; // إظهار نص الترحيب عند العودة للرئيسية
         document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
     }
 
-    // وظائف قسم الصحة (مركز صحي الولي) 
-    function updateQueueDisplay() {
-        let lastNum = localStorage.getItem('wali_last_num') || 0;
-        let nextNum = parseInt(lastNum) + 1;
-        document.getElementById('currentQueueDisplay').innerText = `رقم دورك القادم سيكون: (${nextNum})`;
-    }
-
-    function sendToAhmed() {
-        const name = document.getElementById('pName').value;
-        const dept = document.getElementById('pDept').value;
-        const registrarPhone = "249112002802"; 
-
-        if (name.trim() === "") { alert("من فضلك اكتب اسم المريض"); return; }
-
-        let lastNum = localStorage.getItem('wali_last_num') || 0;
-        let currentNum = parseInt(lastNum) + 1;
-        localStorage.setItem('wali_last_num', currentNum);
-        updateQueueDisplay();
-
-        const message = `*مركز صحي الولي - كرت حجز*%0A` +
-                        `--------------------%0A` +
-                        `🔢 *رقم الدور:* (${currentNum})%0A` +
-                        `👤 *المريض:* ${name}%0A` +
-                        `🩺 *القسم:* ${dept}%0A` +
-                        `--------------------%0A` +
-                        `إلى المسجل: *أحمد*%0A` +
-                        `_نظام سريع للصحة_`;
-        
-        window.open(`https://wa.me/${registrarPhone}?text=${message}`, '_blank');
+    // 4. نظام حجز الصحة
+    function booking() {
+        let name = document.getElementById('patientName').value;
+        if(!name) return alert("من فضلك أدخل اسم المريض");
+        let n = parseInt(localStorage.getItem('wali_q') || 0) + 1;
+        localStorage.setItem('wali_q', n);
+        window.open(`https://wa.me/249112002802?text=*حجز مركز صحي الولي*%0A🔢 *رقم الدور:* (${n})%0A👤 *الاسم:* ${name}`, '_blank');
+        showSec('health');
     }
 </script>
-
 </body>
 </html>
