@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saree3 | المطور BRAZILI</title>
+    <title>Saree3 | BRAZILI</title>
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0f1217">
+
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Reem+Kufi:wght@700&display=swap" rel="stylesheet">
+    
     <style>
         body, html { height: 100%; margin: 0; font-family: 'Cairo', sans-serif; background-color: #0f1217; color: white; overflow: hidden; }
         
-        /* Watermark BR */
+        /* شعار BR الخافت في الخلفية */
         .br-watermark { 
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
             font-size: 140px; color: rgba(255, 193, 7, 0.03); font-weight: bold; 
@@ -16,25 +22,35 @@
             border: 15px solid rgba(255, 193, 7, 0.03); border-radius: 40px; padding: 10px 30px;
         }
 
-        /* Splash Screen */
+        /* ✨ شاشة الترحيب النظيفة (بدون الصاروخ) ✨ */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center;
             z-index: 5000; transition: 0.8s;
         }
+        .en-welcome { 
+            font-size: 50px; color: #ffc107; font-family: 'Arial Black', sans-serif; 
+            opacity: 0; animation: fadeIn 1.2s forwards; 
+        }
+        .ar-welcome { 
+            font-family: 'Reem Kufi', sans-serif; font-size: 35px; color: white; 
+            margin-top: 20px; opacity: 0; animation: fadeIn 1.2s 1.5s forwards; /* تظهر بعد الـ WELCOME مباشرة */
+            text-shadow: 0 0 20px #ffc107;
+        }
 
-        /* Auth Page */
+        /* واجهة الدخول */
         #authPage { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f1217; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 4000; transition: 0.6s; }
         .auth-box { width: 85%; max-width: 380px; padding: 30px; background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid #333; text-align: center; position: relative; z-index: 5; }
         .auth-box input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #444; background: #1a1e25; color: white; font-size: 16px; box-sizing: border-box; outline: none; }
         .auth-btn { width: 100%; padding: 16px; background: #ffc107; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; color: black; font-size: 18px; margin-top: 10px; }
         .toggle-link { color: #ffc107; font-size: 14px; cursor: pointer; margin-top: 15px; display: block; text-decoration: underline; }
 
-        /* Main App Container */
+        /* حاوية التطبيق الرئيسية */
         .container { display: none; height: 100%; flex-direction: column; justify-content: center; align-items: center; padding: 20px; z-index: 10; position: relative; overflow-y: auto; }
         
         .community-text { font-family: 'Reem Kufi', sans-serif; color: #ffc107; font-size: 18px; text-align: center; margin-bottom: 25px; line-height: 1.6; }
 
+        /* الأزرار الرئيسية */
         .menu-btn { 
             width: 100%; max-width: 400px; padding: 22px; margin: 10px 0; border: none; border-radius: 15px; 
             font-size: 18px; font-weight: bold; color: white; cursor: pointer; text-align: center;
@@ -42,18 +58,24 @@
         }
         .border-maint { border-right-color: #ffc107; }
         .border-trans { border-right-color: #28a745; }
-        .border-health { border-right-color: #00bcd4; } /* لون أزرق طبي جديد */
+        .border-health { border-right-color: #00bcd4; } /* الأزرق الطبي */
 
-        .dev-signature { margin-top: 30px; font-family: 'Arial Black', sans-serif; font-size: 24px; color: #ffc107; text-shadow: 0 0 15px #ffc107; animation: glow 2s infinite alternate; }
+        /* توقيع المطور الفتاك */
+        .dev-signature { 
+            margin-top: 30px; font-family: 'Arial Black', sans-serif; font-size: 26px; 
+            color: #ffc107; text-shadow: 0 0 15px #ffc107; 
+            animation: glow 2s infinite alternate; letter-spacing: 3px;
+        }
 
-        /* Sections */
+        /* الصفحات الداخلية */
         .section { display: none; width: 100%; max-width: 400px; text-align: right; }
-        .info-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .info-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 2px solid #333; }
         .call-btn { background: #28a745; color: white; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: bold; }
         .back-btn { width: 100%; background: none; color: #ffc107; border: 1px solid #ffc107; padding: 12px; border-radius: 12px; cursor: pointer; margin-bottom: 25px; font-family: 'Cairo'; font-weight: bold; }
 
         .hidden { display: none; }
-        @keyframes glow { from { opacity: 0.6; } to { opacity: 1; text-shadow: 0 0 25px #ffc107; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes glow { from { opacity: 0.7; transform: scale(0.95); } to { opacity: 1; transform: scale(1.05); text-shadow: 0 0 25px #ffc107; } }
     </style>
 </head>
 <body>
@@ -61,8 +83,8 @@
 <div class="br-watermark">BR</div>
 
 <div id="splash">
-    <h1 style="color:#ffc107; font-size:45px;">WELCOME</h1>
-    <p style="font-family:'Reem Kufi'; font-size:25px;">في تطبيق سريع</p>
+    <h1 class="en-welcome">WELCOME</h1>
+    <p class="ar-welcome">في تطبيق سريع</p>
 </div>
 
 <div id="authPage">
@@ -87,14 +109,16 @@
 <div class="container" id="mainApp">
     <div id="mainMenu" style="width:100%; display:flex; flex-direction:column; align-items:center;">
         <div class="community-text">من أجل تطوير القرية بالتعاون مع<br>قروب القومة للولي</div>
+        
         <button class="menu-btn border-maint" onclick="showSec('maint')">🛠️ خدمات الصيانة</button>
         <button class="menu-btn border-trans" onclick="showSec('trans')">🛺 مشوار (المواصلات)</button>
         <button class="menu-btn border-health" onclick="showSec('health')">🏥 الخدمات الصحية</button>
+        
         <div class="dev-signature">BRAZILI</div>
     </div>
 
     <div id="maint" class="section">
-        <button class="back-btn" onclick="hideSec()">🔙 العودة للرئيسية</button>
+        <button class="back-btn" onclick="hideSec()">🔙 العودة للقائمة الرئيسية</button>
         <h2 style="color:#ffc107">⚡ الكهرباء والطاقة</h2>
         <div class="info-card">
             <div><strong>أبوبكر عبد الرحمن</strong><br><small>فني كهرباء وطاقة شمسية</small></div>
@@ -103,40 +127,39 @@
     </div>
 
     <div id="trans" class="section">
-        <button class="back-btn" onclick="hideSec()">🔙 العودة للرئيسية</button>
+        <button class="back-btn" onclick="hideSec()">🔙 العودة للقائمة الرئيسية</button>
         <h2 style="color:#28a745">🛺 السائقين المعتمدين</h2>
-        <div class="info-card"><span>عمر عبد الله</span><a href="tel:09" class="call-btn">اتصال</a></div>
-        <div class="info-card"><span>أنور شنان</span><a href="tel:09" class="call-btn">اتصال</a></div>
-        <div class="info-card"><span>نزار علي</span><a href="tel:09" class="call-btn">اتصال</a></div>
-        <div class="info-card"><span>محمد خوجلي</span><a href="tel:09" class="call-btn">اتصال</a></div>
-        <div class="info-card"><span>عبد الجليل يوسف</span><a href="tel:09" class="call-btn">اتصال</a></div>
-        <div class="info-card"><span>جابر عبد الجليل</span><a href="tel:09" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>عمر عبد الله</span><a href="tel:012" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>أنور شنان</span><a href="tel:011" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>نزار علي</span><a href="tel:091" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>محمد خوجلي</span><a href="tel:092" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>عبد الجليل يوسف</span><a href="tel:096" class="call-btn">اتصال</a></div>
+        <div class="info-card"><span>جابر عبد الجليل</span><a href="tel:011" class="call-btn">اتصال</a></div>
     </div>
 
     <div id="health" class="section">
-        <button class="back-btn" onclick="hideSec()" style="color:#00bcd4; border-color:#00bcd4;">🔙 العودة للرئيسية</button>
+        <button class="back-btn" onclick="hideSec()" style="color:#00bcd4; border-color:#00bcd4;">🔙 العودة للقائمة الرئيسية</button>
         <h2 style="color:#00bcd4">🏥 حجز المركز الصحي</h2>
-        <div id="qDisplay" style="color:#00bcd4; font-weight:bold; text-align:center; margin-bottom:15px;"></div>
+        <div id="qDisplay" style="color:#00bcd4; font-weight:bold; text-align:center; margin-bottom:15px; font-size:20px;"></div>
         <input type="text" id="patientName" placeholder="اسم المريض الثلاثي" style="width:100%; padding:15px; border-radius:12px; background:#1a1e25; color:white; border:1px solid #333;">
         <button class="auth-btn" style="background:#00bcd4; color:black;" onclick="booking()">تأكيد الحجز ✅</button>
     </div>
 </div>
 
 <script>
+    // شاشة Splash
     window.onload = () => {
+        // الصوت اختياري، يمكنك إضافة ملف start.mp3
         setTimeout(() => {
-            document.getElementById('splash').style.display = 'none';
-        }, 3000);
+            document.getElementById('splash').style.opacity = '0';
+            setTimeout(() => document.getElementById('splash').style.display = 'none', 800);
+        }, 4000); // إظهار الشاشة لـ 4 ثوانٍ لإكمال الأنميشن
     };
 
+    // إدارة الدخول
     function toggleAuth(mode) {
-        if(mode === 'signup') {
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('signupForm').classList.remove('hidden');
-        } else {
-            document.getElementById('signupForm').classList.add('hidden');
-            document.getElementById('loginForm').classList.remove('hidden');
-        }
+        document.getElementById('loginForm').classList.toggle('hidden', mode === 'signup');
+        document.getElementById('signupForm').classList.toggle('hidden', mode === 'login');
     }
 
     function checkDev(val) {
@@ -152,28 +175,29 @@
     function doRegister() {
         const u = document.getElementById('regUser').value;
         const p = document.getElementById('regPass').value;
-        if(p.length < 5) return alert("كلمة المرور ضعيفة!");
-        localStorage.setItem('user_' + u, p);
-        alert("تم إنشاء الحساب!");
+        if(p.length < 5) return alert("كلمة المرور يجب أن تكون 5 خانات فأكثر");
+        localStorage.setItem('u_' + u, p);
+        alert("تم إنشاء حسابك بنجاح!");
         toggleAuth('login');
     }
 
     function doLogin() {
         const u = document.getElementById('username').value;
         const p = document.getElementById('password').value;
-        if(u === "BRAZILI" || localStorage.getItem('user_' + u) === p) {
+        if(u === "BRAZILI" || (localStorage.getItem('u_' + u) === p && u !== "")) {
             document.getElementById('authPage').style.display = 'none';
             document.getElementById('mainApp').style.display = 'flex';
         } else {
-            alert("البيانات غير صحيحة");
+            alert("البيانات خاطئة، حاول مرة أخرى");
         }
     }
 
+    // التنقل بين الصفحات
     function showSec(id) {
         document.getElementById('mainMenu').style.display = 'none';
         document.getElementById(id).style.display = 'block';
         if(id === 'health') {
-            let n = (parseInt(localStorage.getItem('q_num')) || 0) + 1;
+            let n = (parseInt(localStorage.getItem('wali_q_num')) || 0) + 1;
             document.getElementById('qDisplay').innerText = "رقم دورك القادم: " + n;
         }
     }
@@ -185,10 +209,10 @@
 
     function booking() {
         let name = document.getElementById('patientName').value;
-        if(!name) return alert("يرجى كتابة الاسم");
-        let n = (parseInt(localStorage.getItem('q_num')) || 0) + 1;
-        localStorage.setItem('q_num', n);
-        window.open(`https://wa.me/249112002802?text=حجز جديد: ${name} - رقم: ${n}`);
+        if(!name) return alert("الرجاء كتابة اسم المريض");
+        let n = (parseInt(localStorage.getItem('wali_q_num')) || 0) + 1;
+        localStorage.setItem('wali_q_num', n);
+        window.open(`https://wa.me/249112002802?text=حجز جديد من تطبيق سريع%0Aالاسم: ${name}%0Aالرقم: ${n}`);
     }
 </script>
 </body>
