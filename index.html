@@ -9,12 +9,16 @@
         :root { --gold: #ffc107; --bg: #0f1217; --card: rgba(255,255,255,0.05); --green: #28a745; --blue: #00bcd4; --purple: #9c27b0; }
         body, html { height: 100%; margin: 0; font-family: 'Tajawal', sans-serif; background-color: var(--bg); color: white; overflow-x: hidden; }
         
-        /* شاشة Splash ونظام حجز الدخول */
+        /* شاشة Splash المعدلة مع الشعار */
         #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 5000; transition: 0.8s; }
         .main-logo { font-size: 85px; color: var(--gold); font-weight: 900; transform: scale(0.8); opacity: 0; animation: logoAnim 1.2s forwards; text-shadow: 0 0 30px rgba(255,193,7,0.3); }
+        
+        /* شعار القرية (الذي تم إعادته) */
+        .village-tag { font-size: 20px; color: white; margin-top: -10px; font-weight: 700; opacity: 0; animation: fadeIn 1s 1.2s forwards; text-align: center; }
+        
         #netStatus { margin-top: 20px; font-size: 14px; color: #ff4444; display: none; font-weight: bold; }
         
-        /* نافذة التحديث البيضاء */
+        /* باقي التنسيقات (دون تغيير) */
         #updatePopup {
             display: none; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             width: 90%; max-width: 350px; background: white; color: #000; padding: 25px;
@@ -24,31 +28,38 @@
         @keyframes slideUp { from { bottom: -100px; opacity: 0; } to { bottom: 30px; opacity: 1; } }
         .update-btn { background: #000; color: #fff; border: none; padding: 15px; border-radius: 15px; font-weight: 900; cursor: pointer; margin-top: 15px; width: 100%; font-family: 'Tajawal'; }
 
-        /* التنسيقات العامة */
         .container { display: none; min-height: 100%; flex-direction: column; align-items: center; padding: 20px; }
         .menu-btn { width: 100%; max-width: 400px; padding: 22px; margin: 12px 0; border: none; border-radius: 20px; font-size: 19px; font-weight: 700; color: white; cursor: pointer; background: var(--card); border-right: 8px solid var(--gold); }
         .section { display: none; width: 100%; max-width: 400px; text-align: right; }
         .item-card { background: var(--card); padding: 18px; border-radius: 20px; margin-bottom: 15px; border: 1px solid #333; }
+        .badge { font-size: 11px; background: rgba(255,193,7,0.1); color: var(--gold); padding: 4px 10px; border-radius: 8px; font-weight: 700; }
         .doc-table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.3); border-radius: 15px; overflow: hidden; font-size: 12px; margin-bottom: 20px; }
         .doc-table th { background: var(--blue); color: black; padding: 10px; }
         .doc-table td { border-bottom: 1px solid #222; padding: 10px; text-align: center; }
-        input, select { width: 100%; padding: 16px; margin: 10px 0; border-radius: 15px; border: 1px solid #444; background: #1a1e25; color: white; outline: none; box-sizing: border-box; }
-        .action-link { flex: 1; padding: 15px; border-radius: 15px; text-decoration: none; text-align: center; font-weight: 700; color: white; display: flex; align-items: center; justify-content: center; border:none; cursor:pointer; }
+        input, select { width: 100%; padding: 16px; margin: 10px 0; border-radius: 15px; border: 1px solid #444; background: #1a1e25; color: white; outline: none; box-sizing: border-box; font-family: 'Tajawal'; font-weight: 700; }
         
-        /* الكاميرا والتأمين */
+        /* تعديل الزر للتأمين الصحي والكاميرا */
+        .action-link { flex: 1; padding: 15px; border-radius: 15px; text-decoration: none; text-align: center; font-weight: 700; color: white; display: flex; align-items: center; justify-content: center; border:none; cursor:pointer; font-family: 'Tajawal'; }
         #insuranceArea { display: none; margin-top: 20px; text-align: center; background: rgba(156,39,176,0.05); padding: 15px; border-radius: 20px; border: 1px dashed var(--purple); }
-        .cam-frame { width: 100%; height: 210px; border: 2px solid #555; border-radius: 15px; margin: 15px 0; display: flex; justify-content: center; align-items: center; background: #000; overflow: hidden; }
-        #previewImg { width: 100%; height: 100%; object-fit: cover; display: none; }
+        
+        /* تحسين زر الكاميرا */
+        .cam-frame { width: 100%; height: 210px; border: 2px solid #555; border-radius: 15px; margin: 15px 0; display: flex; justify-content: center; align-items: center; background: #000; overflow: hidden; cursor: pointer; transition: 0.3s; }
+        .cam-frame:hover { border-color: var(--gold); background: #111; }
+        .cam-icon { font-size: 45px; color: #444; }
+        
+        #previewImg { width: 100%; height: 100%; object-fit: cover; display: none; border-radius: 10px; }
 
         @keyframes logoAnim { to { transform: scale(1); opacity: 1; } }
+        @keyframes fadeIn { to { opacity: 1; } }
     </style>
 </head>
 <body>
 
 <div id="splash">
     <div class="main-logo">سَرِيع</div>
+    <div class="village-tag">لتطوير قرية الولي</div>
     <div id="netStatus">⚠️ يرجى الاتصال بالإنترنت للمتابعة...</div>
-    <div style="margin-top: 40px; color: #333; font-family: 'Orbitron'; letter-spacing: 4px;">BRAZILI</div>
+    <div style="margin-top: 40px; color: #333; font-family: 'Orbitron'; letter-spacing: 4px; font-weight: 900;">BRAZILI</div>
 </div>
 
 <div id="updatePopup">
@@ -60,7 +71,7 @@
 
 <div class="container" id="mainApp">
     <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color:var(--gold); font-size:45px; margin:0;">سَرِيع⚡</h1>
+        <h1 style="color:var(--gold); font-size:45px; margin:0; font-weight: 900;">سَرِيع⚡</h1>
         <p style="color:#888;">خدمة قرية الولي</p>
     </div>
 
@@ -71,7 +82,7 @@
     </div>
 
     <div id="health" class="section">
-        <button onclick="hideSec()" style="width:100%; background:none; color:var(--gold); border:2px solid var(--gold); padding:10px; border-radius:15px; margin-bottom:20px;">🔙 العودة</button>
+        <button onclick="hideSec()" style="width:100%; background:none; color:var(--gold); border:2px solid var(--gold); padding:10px; border-radius:15px; margin-bottom:20px; font-weight: 900; font-family: 'Tajawal'; cursor:pointer;">🔙 العودة للرئيسية</button>
         <table class="doc-table">
             <tr><th>اليوم</th><th>الصباح</th><th>المساء</th></tr>
             <tr><td>السبت</td><td>د. الطيب</td><td>د. الطيب</td></tr>
@@ -81,7 +92,7 @@
             <tr><td>الأربعاء</td><td>د. الطيب</td><td>د. رزان</td></tr>
             <tr><td>الخميس</td><td>د. الطيب</td><td>د. الطيب</td></tr>
         </table>
-        <div id="nextRoleDisplay" style="text-align:center; color:var(--gold); font-size:24px; font-weight:900; margin-bottom:20px; background:rgba(255,193,7,0.1); padding:15px; border-radius:20px;">...</div>
+        <div id="nextRoleDisplay" style="text-align:center; color:var(--gold); font-size:24px; font-weight:900; margin-bottom:20px; background:rgba(255,193,7,0.15); padding:15px; border-radius:20px; border: 1px solid var(--gold);">جاري التحميل...</div>
         <div id="bookingForm">
             <input type="text" id="pName" placeholder="اسم المريض الثلاثي">
             <select id="pDept">
@@ -89,30 +100,35 @@
                 <option value="المعمل">المعمل</option>
             </select>
             <div style="display:flex; gap:10px;">
-                <button onclick="booking('morning')" class="action-link" style="background:var(--gold); color:black;">🌅 صباح</button>
-                <button onclick="booking('evening')" class="action-link" style="background:var(--blue); color:black;">🌃 مساء</button>
+                <button onclick="booking('morning')" class="action-link" style="background:var(--gold); color:black;">🌅 حجز صباحي</button>
+                <button onclick="booking('evening')" class="action-link" style="background:var(--blue); color:black;">🌃 حجز مسائي</button>
             </div>
             <button onclick="toggleInsurance()" class="action-link" style="width:100%; margin-top:15px; background:var(--purple)">📑 تصوير بطاقة التأمين</button>
         </div>
 
         <div id="insuranceArea">
-            <div class="cam-frame" onclick="triggerCamera()"><span id="camIcon">📸</span><img id="previewImg"></div>
+            <h3 style="color:var(--purple); margin:0;">قسم التأمين الصحي</h3>
+            <p style="font-size:12px; color:#aaa; margin-top: 5px;">المس وجه الكاميرا أدناه للتصوير</p>
+            <div class="cam-frame" onclick="triggerCamera()">
+                <span id="camIcon" class="cam-icon">📸</span>
+                <img id="previewImg" src="">
+            </div>
             <input type="file" id="camInput" accept="image/*" capture="camera" style="display:none;" onchange="previewFile()">
             <div id="sendButtons" style="display:none; flex-direction:row; gap:10px;">
-                <button onclick="sendInsurance('morning')" class="action-link" style="background:var(--gold); color:black;">أنوار</button>
-                <button onclick="sendInsurance('evening')" class="action-link" style="background:var(--blue); color:black;">زينب</button>
+                <button onclick="sendInsurance('morning')" class="action-link" style="background:var(--gold); color:black;">أنوار (صباح)</button>
+                <button onclick="sendInsurance('evening')" class="action-link" style="background:var(--blue); color:black;">زينب (مساء)</button>
             </div>
-            <button onclick="toggleInsurance()" style="background:none; color:white; border:none; margin-top:10px;">إلغاء</button>
+            <button onclick="toggleInsurance()" style="background:none; color:white; border:none; margin-top:10px; cursor:pointer; font-family: 'Tajawal';">إلغاء والعودة للنموذج</button>
         </div>
     </div>
 
     <div id="maint" class="section">
-        <button onclick="hideSec()" style="width:100%; background:none; color:var(--gold); border:2px solid var(--gold); padding:10px; border-radius:15px; margin-bottom:20px;">🔙 العودة</button>
-        <div class="item-card"><b>أبوبكر عبد الرحمن</b> <span class="badge">صيانة</span><br><a href="tel:+249114239983" class="action-link" style="background:var(--green); margin-top:10px;">📞 اتصل الآن</a></div>
+        <button onclick="hideSec()" style="width:100%; background:none; color:var(--gold); border:2px solid var(--gold); padding:10px; border-radius:15px; margin-bottom:20px; font-weight: 900; font-family: 'Tajawal'; cursor:pointer;">🔙 العودة للرئيسية</button>
+        <div class="item-card"><div style="display:flex; justify-content:space-between; align-items:center;"><b>أبوبكر عبد الرحمن</b> <span class="badge">فني كهرباء</span></div><a href="tel:+249114239983" class="action-link" style="background:var(--green); margin-top:10px;">📞 اتصال مباشر</a></div>
     </div>
 
     <div id="trans" class="section">
-        <button onclick="hideSec()" style="width:100%; background:none; color:var(--gold); border:2px solid var(--gold); padding:10px; border-radius:15px; margin-bottom:20px;">🔙 العودة</button>
+        <button onclick="hideSec()" style="width:100%; background:none; color:var(--gold); border:2px solid var(--gold); padding:10px; border-radius:15px; margin-bottom:20px; font-weight: 900; font-family: 'Tajawal'; cursor:pointer;">🔙 العودة للرئيسية</button>
         <div id="driversList"></div>
     </div>
 </div>
@@ -121,13 +137,112 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script>
-    const currentAppVersion = "1.0"; // رقم إصدارك الحالي
+    const currentAppVersion = "1.0"; // رقم الإصدار
     const firebaseConfig = {
         apiKey: "AIzaSyDx-MBQ4sZg7PEtjkWotwi64f92mF58V9E",
         authDomain: "saree3-9ec29.firebaseapp.com",
         databaseURL: "https://saree3-9ec29-default-rtdb.firebaseio.com",
         projectId: "saree3-9ec29",
         storageBucket: "saree3-9ec29.appspot.com",
+        messagingSenderId: "149082675194",
+        appId: "1:149082675194:web:853dfd5b46e3e1f0e2133a"
+    };
+    
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // فحص الإنترنت عند التشغيل (لا تغيير)
+    function checkConnectivity() {
+        if (navigator.onLine) {
+            document.getElementById('netStatus').style.display = 'none';
+            setTimeout(() => {
+                document.getElementById('splash').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('splash').style.display = 'none';
+                    document.getElementById('mainApp').style.display = 'flex';
+                }, 800);
+            }, 3000);
+        } else {
+            document.getElementById('netStatus').style.display = 'block';
+        }
+    }
+
+    window.addEventListener('online', checkConnectivity);
+    window.addEventListener('offline', checkConnectivity);
+    window.onload = checkConnectivity;
+
+    // مراقبة التحديثات
+    db.ref('app_version').on('value', (s) => {
+        if (s.val() && s.val() !== currentAppVersion) document.getElementById('updatePopup').style.display = 'block';
+    });
+
+    // مراقبة رقم الدور
+    db.ref('queue').on('value', (s) => {
+        const data = s.val();
+        const today = new Date().toLocaleDateString('en-GB');
+        if (!data || data.lastDate !== today) {
+            db.ref('queue').set({ currentNumber: 0, lastDate: today });
+        } else {
+            document.getElementById('nextRoleDisplay').innerText = "رقم دورك القادم: " + (data.currentNumber + 1);
+        }
+    });
+
+    // قائمة السائقين
+    const drivers = [
+        { name: "عمر عبد الله", vehicle: "ركشة", phone: "0121606445" },
+        { name: "أنور شنان", vehicle: "ركشة", phone: "0113461046" },
+        { name: "جابر عبد الجليل", vehicle: "حافلة", phone: "0127879864" },
+        { name: "عبد الجليل يوسف", vehicle: "أكسنت", phone: "0117655646" },
+        { name: "فهمي عبد الله", vehicle: "اكسنت", phone: "01149244250" }
+    ];
+
+    function showSec(id) { document.getElementById('mainMenu').style.display='none'; document.getElementById(id).style.display='block'; }
+    function hideSec() { document.querySelectorAll('.section').forEach(s=>s.style.display='none'); document.getElementById('mainMenu').style.display='flex'; }
+
+    async function booking(period) {
+        let name = document.getElementById('pName').value;
+        if(!name) return alert("الرجاء كتابة اسم المريض");
+        const snapshot = await db.ref('queue').once('value');
+        let nextNumber = (snapshot.val() ? snapshot.val().currentNumber : 0) + 1;
+        await db.ref('queue/currentNumber').set(nextNumber);
+        let phone = (period === 'morning') ? "249119298352" : "249116031931";
+        window.location.assign(`https://wa.me/${phone}?text=${encodeURIComponent('*حجز مركز صحي الولي*\n🔢 *الدور:* ('+nextNumber+')\n👤 *المريض:* '+name+'\n⏰ *الفترة:* '+(period === 'morning' ? 'صباحية' : 'مسائية'))}`);
+    }
+
+    function toggleInsurance() {
+        const f = document.getElementById('bookingForm'), i = document.getElementById('insuranceArea');
+        if(f.style.display==='none') { f.style.display='block'; i.style.display='none'; } else { f.style.display='none'; i.style.display='block'; }
+    }
+
+    /* إصلاح فتح الكاميرا وتصوير التأمين */
+    function triggerCamera() { 
+        document.getElementById('camInput').click(); // تحفيز حقل الإدخال الخفي لفتح الكاميرا
+    }
+    
+    function previewFile() {
+        const p = document.getElementById('previewImg'), c = document.getElementById('camIcon'), f = document.getElementById('camInput').files[0], r = new FileReader();
+        r.onloadend = () => { 
+            p.src = r.result; 
+            p.style.display='block'; // إظهار الصورة الملتقطة
+            c.style.display='none'; // إخفاء أيقونة الكاميرا
+            document.getElementById('sendButtons').style.display='flex'; // إظهار أزرار الإرسال
+        }
+        if (f) r.readAsDataURL(f);
+    }
+
+    function sendInsurance(period) {
+        let phone = (period === 'morning') ? "249119298352" : "249116031931";
+        window.location.assign(`https://wa.me/${phone}?text=${encodeURIComponent('السلام عليكم، مرفق صورة بطاقة التأمين الصحي الخاصة بي لتأكيد الحجز.')}`);
+    }
+
+    // تعبئة قائمة السائقين (دون تغيير)
+    const list = document.getElementById('driversList');
+    drivers.forEach(d => {
+        list.innerHTML += `<div class="item-card"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;"><span style="font-weight:900; font-size:18px;">${d.name}</span><span class="badge">${d.vehicle}</span></div><div style="display:flex; gap:10px; margin-top:10px;"><a href="tel:${d.phone}" class="action-link" style="background:#333">📞 اتصال</a><a href="https://wa.me/${d.phone}" class="action-link" style="background:var(--green)">📍 موقع</a></div></div>`;
+    });
+</script>
+</body>
+</html>
         messagingSenderId: "149082675194",
         appId: "1:149082675194:web:853dfd5b46e3e1f0e2133a"
     };
