@@ -2,62 +2,67 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>سريع | BRAZILI</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #ffc107; --bg: #0f1217; --card: rgba(255,255,255,0.06); --green: #28a745; --blue: #00bcd4; --purple: #9c27b0; }
-        body { margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; background: var(--bg); color: white; text-align: center; }
-        .container { display: flex; flex-direction: column; align-items: center; padding: 20px; min-height: 100vh; }
-        
-        .header h1 { font-size: 45px; color: var(--gold); margin: 0; font-weight: 900; }
-        .header p { color: #888; margin-bottom: 30px; font-size: 14px; }
+        :root { --gold: #ffc107; --bg: #000000; --card: #1a1e25; --green: #28a745; --blue: #00bcd4; --purple: #9c27b0; }
+        body, html { margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; background: var(--bg); color: white; overflow-x: hidden; }
 
-        .menu-btn { 
-            width: 100%; max-width: 380px; padding: 22px; margin: 10px 0; border: none; border-radius: 20px; 
-            font-size: 19px; font-weight: 700; color: white; background: var(--card); border-right: 8px solid var(--gold);
-            cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+        /* 1. واجهة التحميل (Splash) مع Fade Out */
+        #splashScreen { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: #000; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; z-index: 99999; 
+            animation: fadeOutSplash 1s ease 2.5s forwards; 
         }
+        .splash-logo { font-size: 70px; color: var(--gold); font-weight: 900; text-shadow: 0 0 30px rgba(255,193,7,0.5); margin: 0; }
+        .splash-text { color: #888; margin-top: 5px; font-size: 16px; }
+        .splash-dev { position: absolute; bottom: 40px; color: #333; font-weight: 900; letter-spacing: 3px; }
 
-        .section { display: none; width: 100%; max-width: 400px; animation: fadeIn 0.4s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOutSplash { to { opacity: 0; visibility: hidden; } }
 
-        .back-btn { width: 100%; background: none; color: var(--gold); border: 2px solid var(--gold); padding: 12px; border-radius: 15px; margin-bottom: 20px; font-weight: 700; cursor: pointer; }
+        /* 2. واجهة التطبيق الرئيسية */
+        .container { display: none; padding: 20px; text-align: center; animation: fadeInApp 1s ease 3s forwards; }
+        @keyframes fadeInApp { from { opacity: 0; } to { opacity: 1; } }
 
-        .doc-table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.3); border-radius: 15px; overflow: hidden; font-size: 13px; margin-bottom: 20px; }
+        .header h1 { color: var(--gold); font-size: 35px; margin-bottom: 30px; font-weight: 900; }
+        .menu-btn { width: 100%; max-width: 380px; padding: 22px; margin: 12px 0; border: none; border-radius: 20px; font-size: 19px; font-weight: 700; color: white; background: var(--card); border-right: 8px solid var(--gold); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+
+        /* الأقسام والجداول */
+        .section { display: none; width: 100%; max-width: 400px; margin: 0 auto; animation: fadeInUp 0.4s; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .back-btn { width: 100%; background: none; color: var(--gold); border: 1px solid var(--gold); padding: 12px; border-radius: 15px; margin-bottom: 20px; cursor: pointer; font-weight: bold; }
+        
+        .doc-table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.05); border-radius: 15px; overflow: hidden; font-size: 13px; margin-bottom: 20px; }
         .doc-table th { background: var(--blue); color: black; padding: 12px; }
-        .doc-table td { border-bottom: 1px solid #222; padding: 12px; }
-
-        #roleBox { font-size: 26px; color: var(--gold); padding: 20px; background: rgba(255,193,7,0.1); border-radius: 20px; margin: 20px 0; border: 1px solid var(--gold); font-weight: 900; }
-
-        input, select { width: 100%; padding: 18px; margin: 10px 0; border-radius: 15px; border: 1px solid #444; background: #1a1e25; color: white; font-family: 'Tajawal'; box-sizing: border-box; }
-        .btn-confirm { width: 100%; padding: 18px; border-radius: 15px; background: var(--gold); color: black; font-weight: 900; border: none; font-size: 18px; cursor: pointer; }
+        .doc-table td { border-bottom: 1px solid #333; padding: 12px; }
 
         .item-card { background: var(--card); padding: 20px; border-radius: 20px; margin-bottom: 15px; border-right: 8px solid var(--green); text-align: right; }
-        .action-link { text-decoration: none; padding: 12px; border-radius: 12px; display: inline-block; font-weight: 700; color: white; text-align: center; flex: 1; }
+        .action-btn { text-decoration: none; padding: 10px 20px; border-radius: 10px; color: white; font-weight: bold; display: inline-block; margin-top: 10px; }
 
-        /* شاشة التأمين */
-        #insuranceArea { display: none; margin-top: 20px; text-align: center; padding: 15px; border-radius: 20px; border: 2px dashed var(--purple); }
-        .cam-frame { width: 100%; height: 200px; border: 2px solid #444; border-radius: 15px; margin: 15px 0; display: flex; justify-content: center; align-items: center; background: #000; overflow: hidden; cursor: pointer; }
-        #previewImg { width: 100%; height: 100%; object-fit: cover; display: none; }
+        #roleBox { font-size: 24px; color: var(--gold); padding: 20px; background: rgba(255,193,7,0.1); border-radius: 15px; margin-bottom: 15px; border: 1px solid var(--gold); }
+        input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #444; background: #111; color: white; box-sizing: border-box; }
 
-        .footer-dev { margin-top: auto; padding: 40px 0; font-weight: 900; letter-spacing: 2px; color: rgba(255,255,255,0.2); font-size: 14px; }
-        .footer-dev span { color: var(--gold); }
+        #offlineMsg { display: none; background: #ff4444; color: white; padding: 10px; position: fixed; top: 0; width: 100%; z-index: 100000; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <h1>سَرِيع⚡</h1>
-        <p>خدمة قرية الولي</p>
-    </div>
+<div id="offlineMsg">⚠️ لا يوجد اتصال بالإنترنت - البيانات قد لا تكون محدثة</div>
 
-    <div id="mainMenu" style="width: 100%; max-width: 380px;">
+<div id="splashScreen">
+    <h1 class="splash-logo">سريع</h1>
+    <p class="splash-text">لخدمة قرية الولي</p>
+    <div class="splash-dev">BRAZILI</div>
+</div>
+
+<div class="container" id="mainApp">
+    <div class="header"><h1>سَرِيع⚡</h1></div>
+
+    <div id="mainMenu">
         <button class="menu-btn" onclick="showSec('maint')">🛠️ خدمات الصيانة <span>←</span></button>
         <button class="menu-btn" style="border-right-color: var(--green);" onclick="showSec('trans')">🛺 مشوار (المواصلات) <span>←</span></button>
         <button class="menu-btn" style="border-right-color: var(--blue);" onclick="showSec('health')">🏥 الخدمات الصحية <span>←</span></button>
@@ -74,29 +79,19 @@
             <tr><td>الأربعاء</td><td>د. الطيب</td><td>د. رزان</td></tr>
             <tr><td>الخميس</td><td>د. الطيب</td><td>د. الطيب</td></tr>
         </table>
-        
         <div id="roleBox">جاري تحميل الدور...</div>
-
-        <div id="bookingForm">
-            <input type="text" id="pName" placeholder="اسم المريض الثلاثي">
-            <button onclick="booking()" class="btn-confirm">تأكيد الحجز (واتساب)</button>
-            <button onclick="toggleInsurance()" style="width:100%; margin-top:15px; background:var(--purple); color:white; border:none; padding:15px; border-radius:12px; font-weight:bold; cursor:pointer;">📑 تصوير بطاقة التأمين</button>
-        </div>
-
-        <div id="insuranceArea">
-            <div class="cam-frame" onclick="document.getElementById('camInput').click()">📸 اضغط لتصوير البطاقة<img id="previewImg"></div>
-            <input type="file" id="camInput" accept="image/*" capture="camera" style="display:none;" onchange="previewFile()">
-            <button onclick="sendInsurance()" class="btn-confirm" style="background:var(--green); color:white;">إرسال عبر الواتساب</button>
-            <button onclick="toggleInsurance()" style="background:none; color:white; border:none; margin-top:15px; cursor:pointer;">❌ إلغاء</button>
-        </div>
+        <input type="text" id="pName" placeholder="اسم المريض">
+        <button onclick="booking()" class="action-btn" style="background:var(--gold); color:black; width:100%;">تأكيد الحجز (واتساب)</button>
+        <button onclick="document.getElementById('camInput').click()" style="width:100%; margin-top:10px; background:var(--purple); border:none; color:white; padding:12px; border-radius:10px; font-weight:bold;">📸 تصوير بطاقة التأمين</button>
+        <input type="file" id="camInput" accept="image/*" capture="camera" style="display:none;" onchange="alert('تم التقاط الصورة بنجاح!')">
     </div>
 
     <div id="maint" class="section">
         <button onclick="hideSec()" class="back-btn">🔙 عودة</button>
         <div class="item-card" style="border-right-color: var(--gold);">
             <h3 style="margin:0">أبوبكر عبد الرحمن</h3>
-            <p style="color:#aaa">مسؤول خدمات الصيانة</p>
-            <a href="tel:+249114239983" class="action-link" style="background:var(--green); width:100%; box-sizing:border-box;">📞 اتصال مباشر</a>
+            <p style="color:#888">مسؤول الصيانة</p>
+            <a href="tel:+249114239983" class="action-btn" style="background:var(--green); width:90%; text-align:center;">📞 اتصال مباشر</a>
         </div>
     </div>
 
@@ -105,13 +100,20 @@
         <div id="driversList"></div>
     </div>
 
-    <div class="footer-dev">DEVELOPED BY <span>BRAZILI</span></div>
+    <div style="margin-top:50px; color:#333; font-weight:900; letter-spacing:2px;">DEVELOPED BY BRAZILI</div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script>
+    // إظهار التطبيق بعد الـ Splash
+    setTimeout(() => { document.getElementById('mainApp').style.display = 'block'; }, 2800);
+
+    // فحص الإنترنت
+    window.addEventListener('offline', () => { document.getElementById('offlineMsg').style.display = 'block'; });
+    window.addEventListener('online', () => { document.getElementById('offlineMsg').style.display = 'none'; });
+
     const firebaseConfig = {
         apiKey: "AIzaSyDx-MBQ4sZg7PEtjkWotwi64f92mF58V9E",
         authDomain: "saree3-9ec29.firebaseapp.com",
@@ -124,10 +126,9 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // عداد الدور المباشر
     db.ref('queue').on('value', (s) => {
         const val = s.val() ? s.val().currentNumber : 0;
-        document.getElementById('roleBox').innerText = "رقم دورك القادم: " + (val + 1);
+        document.getElementById('roleBox').innerText = "رقم الدور: " + (val + 1);
     });
 
     function showSec(id) { document.getElementById('mainMenu').style.display='none'; document.getElementById(id).style.display='block'; window.scrollTo(0,0); }
@@ -135,27 +136,14 @@
 
     async function booking() {
         let name = document.getElementById('pName').value;
-        if(!name) return alert("يرجى كتابة اسم المريض");
+        if(!name) return alert("اكتب الاسم");
         const snapshot = await db.ref('queue').once('value');
         let num = (snapshot.val() ? snapshot.val().currentNumber : 0) + 1;
         await db.ref('queue/currentNumber').set(num);
-        window.location.href = `https://wa.me/249119298352?text=${encodeURIComponent('حجز مريض: ' + name + '\nرقم الدور: ' + num)}`;
+        window.location.href = `https://wa.me/249119298352?text=حجز: ${name} - رقم: ${num}`;
     }
 
-    // إدارة التأمين
-    function toggleInsurance() {
-        const f = document.getElementById('bookingForm'), i = document.getElementById('insuranceArea');
-        f.style.display = (f.style.display==='none'?'block':'none');
-        i.style.display = (i.style.display==='block'?'none':'block');
-    }
-    function previewFile() {
-        const p = document.getElementById('previewImg'), f = document.getElementById('camInput').files[0], r = new FileReader();
-        r.onloadend = () => { p.src = r.result; p.style.display='block'; }
-        if (f) r.readAsDataURL(f);
-    }
-    function sendInsurance() { window.location.href = `https://wa.me/249119298352?text=مرفق صورة بطاقة التأمين الصحي للمريض`; }
-
-    // قائمة السائقين كاملة بما في ذلك فهمي
+    // قائمة السائقين (بما فيهم فهمي)
     const drivers = [
         {n:"عمر عبد الله", v:"ركشة", p:"0121606445"},
         {n:"أنور شنان", v:"ركشة", p:"0113461046"},
@@ -163,15 +151,12 @@
         {n:"عبد الجليل يوسف", v:"أكسنت", p:"0117655646"},
         {n:"فهمي عبد الله", v:"أكسنت", p:"0114924425"}
     ];
-
     drivers.forEach(d => {
         document.getElementById('driversList').innerHTML += `
             <div class="item-card">
-                <b>${d.n}</b> <span style="font-size:12px; color:#aaa;">(${d.v})</span> <br><br>
-                <div style="display:flex; gap:10px;">
-                    <a href="tel:${d.p}" class="action-link" style="background:#333;">📞 اتصال</a>
-                    <a href="https://wa.me/249${d.p.substring(1)}" class="action-link" style="background:var(--green);">💬 واتساب</a>
-                </div>
+                <b>${d.n}</b> <span style="font-size:12px; color:#888;">(${d.v})</span><br>
+                <a href="tel:${d.p}" class="action-btn" style="background:#333; width:45%; text-align:center;">📞 اتصال</a>
+                <a href="https://wa.me/249${d.p.substring(1)}" class="action-btn" style="background:var(--green); width:45%; text-align:center;">💬</a>
             </div>`;
     });
 </script>
