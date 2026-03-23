@@ -3,74 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سريع - خدمات الولي</title>
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#000000">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <title>سريع | BRAZILI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #D4AF37; --black: #0a0a0a; }
-        body { font-family: 'Tajawal', sans-serif; background: var(--black); color: white; margin: 0; padding: 20px; }
-        .card { background: #1a1a1a; border: 1px solid var(--gold); padding: 15px; border-radius: 12px; margin-bottom: 15px; }
-        .btn { background: var(--gold); color: black; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; }
-        h2 { color: var(--gold); text-align: center; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
-        .section-title { font-size: 1.2rem; color: #fff; background: #333; padding: 5px 10px; border-radius: 5px; margin: 20px 0 10px; }
-        input, select { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid var(--gold); background: #222; color: white; box-sizing: border-box; }
+        :root { --gold: #ffc107; --bg: #0f1217; --card: rgba(255,255,255,0.05); --green: #28a745; --blue: #00bcd4; --purple: #9c27b0; }
+        body, html { height: 100%; margin: 0; font-family: 'Tajawal', sans-serif; background-color: var(--bg); color: white; overflow-x: hidden; }
+        
+        /* شاشة Splash ونظام حجز الدخول */
+        #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 5000; transition: 0.8s; }
+        .main-logo { font-size: 85px; color: var(--gold); font-weight: 900; transform: scale(0.8); opacity: 0; animation: logoAnim 1.2s forwards; text-shadow: 0 0 30px rgba(255,193,7,0.3); }
+        #netStatus { margin-top: 20px; font-size: 14px; color: #ff4444; display: none; font-weight: bold; }
+        
+        /* نافذة التحديث البيضاء */
+        #updatePopup {
+            display: none; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 350px; background: white; color: #000; padding: 25px;
+            border-radius: 25px; z-index: 6000; text-align: center; box-shadow: 0 10px 50px rgba(0,0,0,0.8);
+            animation: slideUp 0.5s ease-out;
+        }
+        @keyframes slideUp { from { bottom: -100px; opacity: 0; } to { bottom: 30px; opacity: 1; } }
+        .update-btn { background: #000; color: #fff; border: none; padding: 15px; border-radius: 15px; font-weight: 900; cursor: pointer; margin-top: 15px; width: 100%; font-family: 'Tajawal'; }
+
+        /* التنسيقات العامة */
+        .container { display: none; min-height: 100%; flex-direction: column; align-items: center; padding: 20px; }
+        .menu-btn { width: 100%; max-width: 400px; padding: 22px; margin: 12px 0; border: none; border-radius: 20px; font-size: 19px; font-weight: 700; color: white; cursor: pointer; background: var(--card); border-right: 8px solid var(--gold); }
+        .section { display: none; width: 100%; max-width: 400px; text-align: right; }
+        .item-card { background: var(--card); padding: 18px; border-radius: 20px; margin-bottom: 15px; border: 1px solid #333; }
+        .doc-table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.3); border-radius: 15px; overflow: hidden; font-size: 12px; margin-bottom: 20px; }
+        .doc-table th { background: var(--blue); color: black; padding: 10px; }
+        .doc-table td { border-bottom: 1px solid #222; padding: 10px; text-align: center; }
+        input, select { width: 100%; padding: 16px; margin: 10px 0; border-radius: 15px; border: 1px solid #444; background: #1a1e25; color: white; outline: none; box-sizing: border-box; }
+        .action-link { flex: 1; padding: 15px; border-radius: 15px; text-decoration: none; text-align: center; font-weight: 700; color: white; display: flex; align-items: center; justify-content: center; border:none; cursor:pointer; }
+        
+        /* الكاميرا والتأمين */
+        #insuranceArea { display: none; margin-top: 20px; text-align: center; background: rgba(156,39,176,0.05); padding: 15px; border-radius: 20px; border: 1px dashed var(--purple); }
+        .cam-frame { width: 100%; height: 210px; border: 2px solid #555; border-radius: 15px; margin: 15px 0; display: flex; justify-content: center; align-items: center; background: #000; overflow: hidden; }
+        #previewImg { width: 100%; height: 100%; object-fit: cover; display: none; }
+
+        @keyframes logoAnim { to { transform: scale(1); opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <h2>نظام سريع - المطور BRAZILI</h2>
+<div id="splash">
+    <div class="main-logo">سَرِيع</div>
+    <div id="netStatus">⚠️ يرجى الاتصال بالإنترنت للمتابعة...</div>
+    <div style="margin-top: 40px; color: #333; font-family: 'Orbitron'; letter-spacing: 4px;">BRAZILI</div>
+</div>
 
-    <div class="card">
-        <h3>🚗 قسم المواصلات</h3>
-        
-        <div class="section-title">🚌 مواصلات السفر (خارج الولي)</div>
-        <div class="card">
-            <strong>سائق: محمد أحمد (دفار)</strong><br>
-            📞 0912345678 <br>
-            <button class="btn" onclick="window.location.href='tel:0912345678'">اتصال الآن</button>
+<div id="updatePopup">
+    <div style="font-size: 40px;">🚀</div>
+    <h3 style="margin: 10px 0;">تحديث جديد متاح!</h3>
+    <p style="font-size: 14px; color: #555;">يرجى التحديث لضمان عمل "رقم الدور" والميزات الجديدة بشكل صحيح.</p>
+    <button class="update-btn" onclick="location.reload(true)">التحديث لآخر إصدار</button>
+</div>
+
+<div class="container" id="mainApp">
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h1 style="color:var(--gold); font-size:45px; margin:0;">سَرِيع⚡</h1>
+        <p style="color:#888;">خدمة قرية الولي</p>
+    </div>
+
+    <div id="mainMenu" style="width:100%; display:flex; flex-direction:column; align-items:center;">
+        <button class="menu-btn" style="border-right-color: var(--gold);" onclick="showSec('maint')">🛠️ خدمات الصيانة</button>
+        <button class="menu-btn" style="border-right-color: var(--green);" onclick="showSec('trans')">🛺 مشوار (المواصلات)</button>
+        <button class="menu-btn" style="border-right-color: var(--blue);" onclick="showSec('health')">🏥 الخدمات الصحية</button>
+    </div>
+
+    <div id="health" class="section">
+        <button onclick="hideSec()" style="width:100%; background:none; color:var(--gold); border:2px solid var(--gold); padding:10px; border-radius:15px; margin-bottom:20px;">🔙 العودة</button>
+        <table class="doc-table">
+            <tr><th>اليوم</th><th>الصباح</th><th>المساء</th></tr>
+            <tr><td>السبت</td><td>د. الطيب</td><td>د. الطيب</td></tr>
+            <tr><td>الأحد</td><td>د. رزان</td><td>---</td></tr>
+            <tr><td>الاثنين</td><td>د. الطيب</td><td>د. سلمى</td></tr>
+            <tr><td>الثلاثاء</td><td>د. سلمى</td><td>د. الطيب</td></tr>
+            <tr><td>الأربعاء</td><td>د. الطيب</td><td>د. رزان</td></tr>
+            <tr><td>الخميس</td><td>د. الطيب</td><td>د. الطيب</td></tr>
+        </table>
+        <div id="nextRoleDisplay" style="text-align:center; color:var(--gold); font-size:24px; font-weight:900; margin-bottom:20px; background:rgba(255,193,7,0.1); padding:15px; border-radius:20px;">...</div>
+        <div id="bookingForm">
+            <input type="text" id="pName" placeholder="اسم المريض الثلاثي">
+            <select id="pDept">
+                <option value="الطب العام">عيادة الطبيب</option>
+                <option value="المعمل">المعمل</option>
+            </select>
+            <div style="display:flex; gap:10px;">
+                <button onclick="booking('morning')" class="action-link" style="background:var(--gold); color:black;">🌅 صباح</button>
+                <button onclick="booking('evening')" class="action-link" style="background:var(--blue); color:black;">🌃 مساء</button>
+            </div>
+            <button onclick="toggleInsurance()" class="action-link" style="width:100%; margin-top:15px; background:var(--purple)">📑 تصوير بطاقة التأمين</button>
         </div>
 
-        <div class="section-title">🛺 مواصلات داخلية (داخل الولي)</div>
-        <div class="card">
-            <strong>سائق: علي عثمان (ركشة)</strong><br>
-            📞 0123456789 <br>
-            <button class="btn" onclick="window.location.href='tel:0123456789'">اتصال الآن</button>
+        <div id="insuranceArea">
+            <div class="cam-frame" onclick="triggerCamera()"><span id="camIcon">📸</span><img id="previewImg"></div>
+            <input type="file" id="camInput" accept="image/*" capture="camera" style="display:none;" onchange="previewFile()">
+            <div id="sendButtons" style="display:none; flex-direction:row; gap:10px;">
+                <button onclick="sendInsurance('morning')" class="action-link" style="background:var(--gold); color:black;">أنوار</button>
+                <button onclick="sendInsurance('evening')" class="action-link" style="background:var(--blue); color:black;">زينب</button>
+            </div>
+            <button onclick="toggleInsurance()" style="background:none; color:white; border:none; margin-top:10px;">إلغاء</button>
         </div>
     </div>
 
-    <div class="card">
-        <h3>🏥 حجز المركز الصحي</h3>
-        <input type="text" id="patientName" placeholder="اسم المريض">
-        <select id="clinicDept">
-            <option value="الطب العام">الطب العام</option>
-            <option value="المختبر">المختبر</option>
-            <option value="التطعيم">التطعيم</option>
-        </select>
-        <button class="btn" onclick="sendHealthBooking()">إرسال كرت الحجز عبر الواتساب</button>
+    <div id="maint" class="section">
+        <button onclick="hideSec()" style="width:100%; background:none; color:var(--gold); border:2px solid var(--gold); padding:10px; border-radius:15px; margin-bottom:20px;">🔙 العودة</button>
+        <div class="item-card"><b>أبوبكر عبد الرحمن</b> <span class="badge">صيانة</span><br><a href="tel:+249114239983" class="action-link" style="background:var(--green); margin-top:10px;">📞 اتصل الآن</a></div>
     </div>
 
-    <script>
-        function sendHealthBooking() {
-            const name = document.getElementById('patientName').value;
-            const dept = document.getElementById('clinicDept').value;
-            const roleNum = Math.floor(Math.random() * 50) + 1; // رقم دور عشوائي للتجربة
-            
-            if(!name) { alert("الرجاء كتابة اسم المريض"); return; }
+    <div id="trans" class="section">
+        <button onclick="hideSec()" style="width:100%; background:none; color:var(--gold); border:2px solid var(--gold); padding:10px; border-radius:15px; margin-bottom:20px;">🔙 العودة</button>
+        <div id="driversList"></div>
+    </div>
+</div>
 
-            const message = `*مركز صحي الولي - كرت حجز*%0A` +
-                            `--------------------%0A` +
-                            `🔢 *رقم الدور:* (${roleNum})%0A` +
-                            `👤 *المريض:* ${name}%0A` +
-                            `🩺 *القسم:* ${dept}%0A` +
-                            `--------------------%0A` +
-                            `إلى المسجل: *أحمد*%0A` +
-                            `_نظام سريع للصحة_`;
-            
-            // رقم واتساب المركز (يمكنك تغييره لرقمك للتجربة)
-            const whatsappUrl = `https://wa.me/249912345678?text=${message}`;
-            window.location.href = whatsappUrl;
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+    const currentAppVersion = "1.0"; // رقم إصدارك الحالي
+    const firebaseConfig = {
+        apiKey: "AIzaSyDx-MBQ4sZg7PEtjkWotwi64f92mF58V9E",
+        authDomain: "saree3-9ec29.firebaseapp.com",
+        databaseURL: "https://saree3-9ec29-default-rtdb.firebaseio.com",
+        projectId: "saree3-9ec29",
+        storageBucket: "saree3-9ec29.appspot.com",
+        messagingSenderId: "149082675194",
+        appId: "1:149082675194:web:853dfd5b46e3e1f0e2133a"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // فحص الإنترنت عند التشغيل
+    function checkConnectivity() {
+        if (navigator.onLine) {
+            document.getElementById('netStatus').style.display = 'none';
+            // إذا توفر الإنترنت، ننتظر قليلاً ثم نخفي الـ Splash
+            setTimeout(() => {
+                document.getElementById('splash').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('splash').style.display = 'none';
+                    document.getElementById('mainApp').style.display = 'flex';
+                }, 800);
+            }, 3000);
+        } else {
+            document.getElementById('netStatus').style.display = 'block';
         }
-    </script>
+    }
+
+    window.addEventListener('online', checkConnectivity);
+    window.addEventListener('offline', checkConnectivity);
+    window.onload = checkConnectivity;
+
+    // مراقبة التحديثات
+    db.ref('app_version').on('value', (s) => {
+        if (s.val() && s.val() !== currentAppVersion) document.getElementById('updatePopup').style.display = 'block';
+    });
+
+    // مراقبة رقم الدور
+    db.ref('queue').on('value', (s) => {
+        const data = s.val();
+        const today = new Date().toLocaleDateString('en-GB');
+        if (!data || data.lastDate !== today) {
+            db.ref('queue').set({ currentNumber: 0, lastDate: today });
+        } else {
+            document.getElementById('nextRoleDisplay').innerText = "رقم دورك القادم: " + (data.currentNumber + 1);
+        }
+    });
+
+    const drivers = [
+        { name: "عمر عبد الله", vehicle: "ركشة", phone: "0121606445" },
+        { name: "أنور شنان", vehicle: "ركشة", phone: "0113461046" },
+        { name: "جابر عبد الجليل", vehicle: "حافلة", phone: "0127879864" },
+        { name: "عبد الجليل يوسف", vehicle: "أكسنت", phone: "0117655646" },
+        { name: "فهمي عبد الله", vehicle: "اكسنت", phone: "01149244250" }
+    ];
+
+    function showSec(id) { document.getElementById('mainMenu').style.display='none'; document.getElementById(id).style.display='block'; }
+    function hideSec() { document.querySelectorAll('.section').forEach(s=>s.style.display='none'); document.getElementById('mainMenu').style.display='flex'; }
+
+    async function booking(period) {
+        let name = document.getElementById('pName').value;
+        if(!name) return alert("الرجاء كتابة اسم المريض");
+        const snapshot = await db.ref('queue').once('value');
+        let nextNumber = (snapshot.val() ? snapshot.val().currentNumber : 0) + 1;
+        await db.ref('queue/currentNumber').set(nextNumber);
+        let phone = (period === 'morning') ? "249119298352" : "249116031931";
+        window.location.assign(`https://wa.me/${phone}?text=${encodeURIComponent('*حجز مركز صحي الولي*\n🔢 *الدور:* ('+nextNumber+')\n👤 *المريض:* '+name)}`);
+    }
+
+    function toggleInsurance() {
+        const f = document.getElementById('bookingForm'), i = document.getElementById('insuranceArea');
+        f.style.display = f.style.display==='none'?'block':'none';
+        i.style.display = i.style.display==='block'?'none':'block';
+    }
+
+    function triggerCamera() { document.getElementById('camInput').click(); }
+    function previewFile() {
+        const p = document.getElementById('previewImg'), f = document.getElementById('camInput').files[0], r = new FileReader();
+        r.onloadend = () => { p.src = r.result; p.style.display='block'; document.getElementById('camIcon').style.display='none'; document.getElementById('sendButtons').style.display='flex'; }
+        if (f) r.readAsDataURL(f);
+    }
+
+    function sendInsurance(period) {
+        let phone = (period === 'morning') ? "249119298352" : "249116031931";
+        window.location.assign(`https://wa.me/${phone}?text=${encodeURIComponent('السلام عليكم، مرفق صورة بطاقة التأمين الصحي الخاصة بي.')}`);
+    }
+
+    // تعبئة قائمة السائقين
+    const list = document.getElementById('driversList');
+    drivers.forEach(d => {
+        list.innerHTML += `<div class="item-card"><b>${d.name}</b> <span class="badge">${d.vehicle}</span><div style="display:flex; gap:10px; margin-top:10px;"><a href="tel:${d.phone}" class="action-link" style="background:#333">📞</a><a href="https://wa.me/${d.phone}" class="action-link" style="background:var(--green)">📍</a></div></div>`;
+    });
+</script>
 </body>
 </html>
