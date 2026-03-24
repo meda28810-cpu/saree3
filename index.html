@@ -7,53 +7,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --primary-blue: #1e3a8a;
-            --bg-light: #f4f7f6;
-            --gold-dark: #b8860b; 
-            --text-main: #1f2937;
-            --accent-green: #10b981;
-        }
+        :root { --primary-blue: #1e3a8a; --bg-light: #f4f7f6; --gold-dark: #b8860b; --text-main: #1f2937; --accent-green: #10b981; }
+        body, html { margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; background: var(--bg-light); color: var(--text-main); height: 100%; width: 100%; overflow-x: hidden; }
 
-        body, html { 
-            margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; 
-            background: var(--bg-light); color: var(--text-main); height: 100%; width: 100%; 
-            overflow-x: hidden;
-        }
-
-        /* --- Splash Screen --- */
-        #splashScreen { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: white; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; z-index: 99999; 
-            transition: opacity 0.8s ease;
-        }
-        .splash-logo-text { font-size: 70px; color: var(--gold-dark); font-weight: 900; margin: 0; }
-        .splash-dev { position: absolute; bottom: 40px; color: #aaa; letter-spacing: 5px; font-weight: bold; font-size: 12px; }
-
-        /* --- Toast Notification --- */
-        #customToast {
-            position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
-            background: rgba(31, 41, 55, 0.9); color: white; padding: 12px 30px;
-            border-radius: 50px; font-size: 14px; font-weight: bold; z-index: 10000;
-            display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
+        /* --- Splash & Toast --- */
+        #splashScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.8s ease; }
+        #customToast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: rgba(31, 41, 55, 0.9); color: white; padding: 12px 30px; border-radius: 50px; font-size: 14px; font-weight: bold; z-index: 10000; display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .show-toast { display: block !important; animation: fadeInOut 2s ease-in-out forwards; }
-        @keyframes fadeInOut {
-            0% { opacity: 0; bottom: 80px; }
-            20% { opacity: 1; bottom: 100px; }
-            80% { opacity: 1; bottom: 100px; }
-            100% { opacity: 0; bottom: 80px; }
-        }
+        @keyframes fadeInOut { 0% { opacity: 0; bottom: 80px; } 20% { opacity: 1; bottom: 100px; } 80% { opacity: 1; bottom: 100px; } 100% { opacity: 0; bottom: 80px; } }
 
         /* --- UI Elements --- */
-        .header { 
-            padding: 20px; display: flex; justify-content: space-between; align-items: center; background: white;
-            border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-        }
+        .header { padding: 20px; display: flex; justify-content: space-between; align-items: center; background: white; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
         .app-container { display: none; padding-bottom: 100px; }
-        .banner { height: 130px; margin: 15px; border-radius: 20px; background: var(--primary-blue); color: white; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-        
         .grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 15px; }
         .grid-item { background: white; padding: 22px; border-radius: 22px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 10px rgba(0,0,0,0.03); cursor: pointer; transition: transform 0.2s; }
         .grid-item i { color: var(--gold-dark); background: #fffbeb; padding: 10px; border-radius: 12px; font-size: 22px; }
@@ -62,48 +27,340 @@
         .section-view { display: none; padding: 15px; animation: slideUp 0.4s ease; }
         @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .back-btn { background: #1f2937; color: white; border: none; padding: 14px; border-radius: 15px; width: 100%; margin-bottom: 20px; font-family: 'Tajawal'; font-weight: bold; cursor: pointer; }
+        input.text-input, select.text-input { width: 100%; padding: 16px; border-radius: 15px; border: 1px solid #eee; margin-bottom: 12px; box-sizing: border-box; font-family: 'Tajawal'; outline: none; appearance: none; }
 
-        /* --- Driver & Maintenance Cards --- */
-        .driver-card { background: white; margin-bottom: 15px; border-radius: 20px; padding: 15px; display: flex; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid #edf2f7; }
-        .driver-icon-box { width: 55px; height: 55px; background: #f0f4ff; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--primary-blue); margin-left: 15px; }
-        .driver-details { flex-grow: 1; }
-        .driver-details h4 { margin: 0; font-size: 17px; font-weight: 800; }
-        .driver-details span { font-size: 12px; color: #718096; background: #f7fafc; padding: 3px 8px; border-radius: 6px; }
-        .driver-actions { display: flex; gap: 10px; }
-        .btn-call { width: 42px; height: 42px; border-radius: 50%; background: #ebf8ff; color: #3182ce; display: flex; align-items: center; justify-content: center; text-decoration: none; }
-        .btn-whatsapp { width: 42px; height: 42px; border-radius: 50%; background: #e6fffa; color: #38a169; display: flex; align-items: center; justify-content: center; text-decoration: none; }
-
-        /* --- Health Table --- */
-        .doc-table { width: 100%; border-collapse: collapse; background: white; border-radius: 20px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
-        .doc-table th { background: var(--primary-blue); color: white; padding: 15px; font-size: 14px; }
-        .doc-table td { padding: 12px; border-bottom: 1px solid #f4f7f6; text-align: center; font-size: 13px; }
-        #roleBox { background: #fffbeb; color: var(--gold-dark); padding: 18px; border-radius: 15px; text-align: center; font-weight: 900; margin-bottom: 15px; border: 1px dashed var(--gold-dark); }
-        input.text-input { width: 100%; padding: 16px; border-radius: 15px; border: 1px solid #eee; margin-bottom: 12px; box-sizing: border-box; font-family: 'Tajawal'; }
-
-        /* --- Market Grid --- */
+        /* --- Market --- */
         .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .product-card { background: white; border-radius: 15px; padding: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.02); overflow: hidden; }
-        .product-img-box { width: 100%; height: 110px; background: #f8f9fa; border-radius: 10px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .product-card { background: white; border-radius: 15px; padding: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.02); }
+        .product-img-box { width: 100%; height: 110px; background: #f8f9fa; border-radius: 10px; margin-bottom: 8px; overflow: hidden; }
         .product-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .order-btn { background: var(--primary-blue); color: white; border: none; width: 100%; padding: 8px; border-radius: 10px; font-size: 12px; font-weight: bold; cursor: pointer; margin-top: 5px; }
 
-        /* --- Nav --- */
+        /* --- Driver Card --- */
+        .driver-card { background: white; margin-bottom: 12px; border-radius: 18px; padding: 15px; display: flex; align-items: center; border: 1px solid #edf2f7; }
+        .driver-icon-box { width: 50px; height: 50px; background: #f0f4ff; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: var(--primary-blue); margin-left: 12px; }
+
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; z-index: 1000; }
         .nav-item { color: #cbd5e0; font-size: 11px; text-align: center; cursor: pointer; flex: 1; }
         .nav-item.active { color: var(--primary-blue); font-weight: bold; }
-        .nav-item i { font-size: 20px; margin-bottom: 5px; }
     </style>
 </head>
 <body>
 
 <div id="splashScreen">
-    <h1 class="splash-logo-text">سَرِيع</h1>
+    <h1 style="font-size: 70px; color: var(--gold-dark); font-weight: 900; margin: 0;">سَرِيع</h1>
     <p style="font-weight: bold; color: #444;">لخدمة قرية الولي</p>
-    <div class="splash-dev">BRAZILI DEVELOPMENT</div>
+    <div style="position: absolute; bottom: 40px; color: #aaa; letter-spacing: 5px; font-weight: bold; font-size: 12px;">BRAZILI DEVELOPMENT</div>
 </div>
 
 <div id="customToast">جاري المعالجة...</div>
 
 <div class="app-container" id="mainApp">
+    <div class="header" id="mainHeader">
+        <div class="user-info">
+            <h2 style="font-size: 12px; margin: 0; color: #9ca3af;">مرحباً بك في قرية الولي</h2>
+            <p id="topUserName" style="font-size: 18px; margin: 0; font-weight: 900; color: var(--primary-blue);">ضيف</p>
+        </div>
+        <div onclick="openSection('account')" style="width: 42px; height: 42px; border-radius: 50%; background: #f0f4ff; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary-blue); color: var(--primary-blue); cursor: pointer;"><i class="fas fa-user"></i></div>
+    </div>
+
+    <div id="homeView">
+        <div style="height: 120px; margin: 15px; border-radius: 20px; background: var(--primary-blue); color: white; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+            <h2 style="font-size: 22px; font-weight: 900;">خدمات سريعة وشاملة</h2>
+            <i class="fas fa-bolt" style="position: absolute; right: -10px; font-size: 100px; opacity: 0.1;"></i>
+        </div>
+        <div class="grid-menu">
+            <div class="grid-item" onclick="openSection('health')"><span>الخدمات الصحية</span><i class="fas fa-heartbeat"></i></div>
+            <div class="grid-item" onclick="openSection('trans')"><span>المشاوير</span><i class="fas fa-car"></i></div>
+            <div class="grid-item" onclick="openSection('maint')"><span>دليل المهن</span><i class="fas fa-tools"></i></div>
+            <div class="grid-item" onclick="checkMarketAccess()"><span>سوق الولي</span><i class="fas fa-store"></i></div>
+        </div>
+    </div>
+
+    <div id="account" class="section-view">
+        <button onclick="closeSection()" class="back-btn">🔙 عودة</button>
+        <div id="authContainer">
+            <div id="loginBox" style="background: white; padding: 20px; border-radius: 20px;">
+                <h3 style="text-align: center; color: var(--primary-blue);">تسجيل الدخول</h3>
+                <input type="number" id="lPhone" class="text-input" placeholder="رقم الهاتف">
+                <input type="password" id="lPass" class="text-input" placeholder="كلمة السر">
+                <button onclick="login()" class="back-btn" style="background: var(--primary-blue);">دخول</button>
+                <p style="text-align:center; font-size:12px;">ليس لديك حساب؟ <a href="#" onclick="toggleAuth(true)">إنشاء حساب</a></p>
+            </div>
+            <div id="regBox" style="background: white; padding: 20px; border-radius: 20px; display: none;">
+                <h3 style="text-align: center; color: var(--gold-dark);">إنشاء حساب جديد</h3>
+                <input type="text" id="rName" class="text-input" placeholder="الاسم الكامل">
+                <input type="number" id="rPhone" class="text-input" placeholder="رقم الهاتف">
+                <input type="password" id="rPass" class="text-input" placeholder="كلمة السر (6 أرقام)">
+                <button onclick="register()" class="back-btn" style="background: var(--accent-green);">تأكيد</button>
+                <p style="text-align:center; font-size:12px;">لديك حساب؟ <a href="#" onclick="toggleAuth(false)">دخول</a></p>
+            </div>
+        </div>
+        <div id="profileBox" style="display: none; text-align: center; background: white; padding: 30px; border-radius: 20px;">
+            <div style="width:70px; height:70px; background:#f0f4ff; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 10px; font-size:25px; color:var(--primary-blue); border:2px solid var(--primary-blue);"><i class="fas fa-user"></i></div>
+            <h2 id="uNameLabel">اسم المستخدم</h2>
+            <p id="uPhoneLabel" style="color:#888;">0123456789</p>
+            <button onclick="logout()" class="back-btn" style="background:#ef4444; width:auto; padding:10px 40px;">خروج</button>
+        </div>
+    </div>
+
+    <div id="market" class="section-view">
+        <button onclick="closeSection()" class="back-btn">🔙 عودة</button>
+        <div style="background: white; padding: 15px; border-radius: 20px; margin-bottom: 20px;">
+            <h4 style="margin:0 0 10px 0;">أضف منتجك</h4>
+            <input type="text" id="pName" class="text-input" placeholder="اسم المنتج">
+            <input type="number" id="pPrice" class="text-input" placeholder="السعر">
+            <input type="file" id="pFile" accept="image/*" capture="camera" style="margin-bottom:10px; width:100%;">
+            <button onclick="uploadProduct()" id="upBtn" style="background:var(--accent-green); color:white; border:none; width:100%; padding:15px; border-radius:15px; font-weight:bold;">نشر الآن</button>
+        </div>
+        <div class="market-grid" id="marketGrid"></div>
+    </div>
+
+    <div id="health" class="section-view">
+        <button onclick="closeSection()" class="back-btn">🔙 عودة</button>
+        <div id="roleBox" style="background:#fffbeb; padding:15px; border-radius:15px; text-align:center; border:1px dashed var(--gold-dark); margin-bottom:15px; font-weight: bold; color: var(--gold-dark);">جاري التحميل...</div>
+        
+        <div style="background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+            <label style="display:block; margin-bottom:8px; font-weight:bold;">اسم المريض:</label>
+            <input type="text" id="patientName" class="text-input" placeholder="اسم المريض الرباعي">
+            
+            <label style="display:block; margin-bottom:8px; font-weight:bold;">اختر اليوم:</label>
+            <select id="day-select" class="text-input" onchange="updateDoctorInfo()">
+                <option value="">-- اختر اليوم --</option>
+                <option value="السبت">السبت</option>
+                <option value="الأحد">الأحد</option>
+                <option value="الاثنين">الاثنين</option>
+                <option value="الثلاثاء">الثلاثاء</option>
+                <option value="الأربعاء">الأربعاء</option>
+                <option value="الخميس">الخميس</option>
+            </select>
+
+            <div id="doc-info-display" style="display:none; background:#f0f4ff; padding:12px; border-radius:12px; margin-bottom:15px; font-size:13px; color: var(--primary-blue);">
+                <p style="margin:5px 0;">🏥 <b>الصباح:</b> <span id="m-doc-name"></span></p>
+                <p style="margin:5px 0;">🌙 <b>المساء:</b> <span id="e-doc-name"></span></p>
+            </div>
+
+            <label style="display:block; margin-bottom:8px; font-weight:bold;">فترة الحجز:</label>
+            <select id="shift-select" class="text-input">
+                <option value="الصباحية">الفترة الصباحية (مع أنوار)</option>
+                <option value="المسائية">الفترة المسائية (مع زينب)</option>
+            </select>
+
+            <button onclick="bookingWithSchedule()" style="background:var(--primary-blue); color:white; width:100%; padding:16px; border-radius:15px; border:none; font-weight:900; cursor:pointer;">
+                <i class="fab fa-whatsapp"></i> تأكيد الحجز والارسال
+            </button>
+        </div>
+    </div>
+
+    <div id="trans" class="section-view">
+        <button onclick="closeSection()" class="back-btn">🔙 عودة</button>
+        <div id="driversList"></div>
+    </div>
+
+    <div id="maint" class="section-view">
+        <button onclick="closeSection()" class="back-btn">🔙 عودة</button>
+        <div class="driver-card">
+            <div class="driver-icon-box"><i class="fas fa-wrench"></i></div>
+            <div class="driver-details"><h4>أبوبكر عبد الرحمن</h4><span>فني أعطال كهربائية</span></div>
+            <div class="driver-actions"><a href="tel:+249114239983" class="btn-call" style="background:#ebf8ff; color:#3182ce; padding:10px; border-radius:50%;"><i class="fas fa-phone"></i></a></div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="closeSection()"><i class="fas fa-home"></i><br>الرئيسية</div>
+        <div class="nav-item" onclick="checkMarketAccess()"><i class="fas fa-store"></i><br>السوق</div>
+        <div class="nav-item" onclick="openSection('account')"><i class="fas fa-user-circle"></i><br>حسابي</div>
+    </nav>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyDx-MBQ4sZg7PEtjkWotwi64f92mF58V9E",
+        databaseURL: "https://saree3-9ec29-default-rtdb.firebaseio.com/",
+        projectId: "saree3-9ec29"
+    };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    let currentUser = JSON.parse(localStorage.getItem('user_saree3')) || null;
+
+    const doctorSchedule = {
+        "السبت": { morning: "د. الطيب", evening: "د. الطيب" },
+        "الأحد": { morning: "د. رزان", evening: "لا يوجد عيادة" },
+        "الاثنين": { morning: "د. الطيب", evening: "د. سلمى" },
+        "الثلاثاء": { morning: "د. سلمى", evening: "د. الطيب" },
+        "الأربعاء": { morning: "د. الطيب", evening: "د. رزان" },
+        "الخميس": { morning: "د. الطيب", evening: "د. الطيب" }
+    };
+
+    function showSoon(m) {
+        const t = document.getElementById('customToast'); t.innerText = m;
+        t.classList.add('show-toast'); setTimeout(() => t.classList.remove('show-toast'), 2500);
+    }
+
+    // --- نظام الحساب ---
+    function toggleAuth(isReg) {
+        document.getElementById('loginBox').style.display = isReg ? 'none' : 'block';
+        document.getElementById('regBox').style.display = isReg ? 'block' : 'none';
+    }
+
+    async function register() {
+        const n = document.getElementById('rName').value, p = document.getElementById('rPhone').value, ps = document.getElementById('rPass').value;
+        if(!n || !p || ps.length < 6) { showSoon("أكمل البيانات بدقة"); return; }
+        const check = await db.ref('users/' + p).once('value');
+        if(check.exists()) { showSoon("هذا الرقم مسجل مسبقاً"); return; }
+        const data = {name:n, phone:p, pass:ps};
+        await db.ref('users/' + p).set(data);
+        saveSession(data);
+        showSoon("تم إنشاء الحساب ✅");
+    }
+
+    async function login() {
+        const p = document.getElementById('lPhone').value, ps = document.getElementById('lPass').value;
+        const snap = await db.ref('users/' + p).once('value');
+        if(snap.exists() && snap.val().pass === ps) {
+            saveSession(snap.val());
+            showSoon("أهلاً بك يا " + snap.val().name);
+            checkMarketAccess();
+        } else { showSoon("بيانات الدخول غير صحيحة ❌"); }
+    }
+
+    function saveSession(data) {
+        localStorage.setItem('user_saree3', JSON.stringify(data));
+        currentUser = data;
+        updateUI();
+    }
+
+    function logout() {
+        localStorage.removeItem('user_saree3'); currentUser = null;
+        updateUI(); closeSection(); showSoon("تم الخروج");
+    }
+
+    function updateUI() {
+        if(currentUser) {
+            document.getElementById('topUserName').innerText = currentUser.name;
+            document.getElementById('authContainer').style.display = 'none';
+            document.getElementById('profileBox').style.display = 'block';
+            document.getElementById('uNameLabel').innerText = currentUser.name;
+            document.getElementById('uPhoneLabel').innerText = currentUser.phone;
+        } else {
+            document.getElementById('topUserName').innerText = "ضيف";
+            document.getElementById('authContainer').style.display = 'block';
+            document.getElementById('profileBox').style.display = 'none';
+        }
+    }
+
+    function checkMarketAccess() {
+        if(!currentUser) { showSoon("يرجى تسجيل الدخول أولاً لدخول السوق"); openSection('account'); } 
+        else { openSection('market'); }
+    }
+
+    // --- سوق الولي ---
+    async function uploadProduct() {
+        const n = document.getElementById('pName').value, pr = document.getElementById('pPrice').value, f = document.getElementById('pFile').files[0], b = document.getElementById('upBtn');
+        if(!n || !pr || !f) { showSoon("أكمل بيانات المنتج"); return; }
+        b.disabled = true; b.innerText = "جاري النشر...";
+        const reader = new FileReader(); reader.readAsDataURL(f);
+        reader.onload = async () => {
+            await db.ref('market_products').push({ name:n, price:pr, image:reader.result, owner:currentUser.name, phone:currentUser.phone });
+            showSoon("تم النشر في السوق!");
+            document.getElementById('pName').value = ""; document.getElementById('pPrice').value = ""; document.getElementById('pFile').value = "";
+            b.disabled = false; b.innerText = "نشر الآن";
+        };
+    }
+
+    db.ref('market_products').limitToLast(15).on('value', s => {
+        const g = document.getElementById('marketGrid'); g.innerHTML = "";
+        s.forEach(c => {
+            const p = c.val();
+            g.innerHTML = `<div class="product-card">
+                <div class="product-img-box"><img src="${p.image}"></div>
+                <h4 style="margin:5px 0; font-size:13px;">${p.name}</h4>
+                <p style="color:var(--gold-dark); font-weight:bold; margin:0; font-size:12px;">${p.price} ج.س</p>
+                <button class="order-btn" onclick="orderProduct('${p.name}', '${p.price}', '${p.phone}')">طلب المنتج</button>
+            </div>` + g.innerHTML;
+        });
+    });
+
+    function orderProduct(pName, pPrice, sellerPhone) {
+        if(!currentUser) { showSoon("سجل دخولك لتطلب المنتج"); return; }
+        const msg = `أهلاً، أنا ${currentUser.name}، أرغب في شراء منتجك (${pName}) من سوق الولي.`;
+        window.location.href = `https://wa.me/249${sellerPhone.substring(1)}?text=${encodeURIComponent(msg)}`;
+    }
+
+    // --- الخدمات الصحية والجدول ---
+    db.ref('queue').on('value', s => {
+        const v = s.val() ? s.val().currentNumber : 0;
+        document.getElementById('roleBox').innerText = "رقم دورك القادم: " + (v + 1);
+    });
+
+    function updateDoctorInfo() {
+        const day = document.getElementById('day-select').value;
+        const infoDiv = document.getElementById('doc-info-display');
+        if(day && doctorSchedule[day]) {
+            document.getElementById('m-doc-name').innerText = doctorSchedule[day].morning;
+            document.getElementById('e-doc-name').innerText = doctorSchedule[day].evening;
+            infoDiv.style.display = 'block';
+        } else { infoDiv.style.display = 'none'; }
+    }
+
+    async function bookingWithSchedule() {
+        const name = document.getElementById('patientName').value;
+        const day = document.getElementById('day-select').value;
+        const shift = document.getElementById('shift-select').value;
+        if(!name || !day) { showSoon("أكمل بيانات الحجز"); return; }
+        const docName = (shift === "الصباحية") ? doctorSchedule[day].morning : doctorSchedule[day].evening;
+        if(docName === "لا يوجد عيادة") { showSoon("لا توجد عيادة في هذه الفترة"); return; }
+        const snap = await db.ref('queue').once('value');
+        let num = (snap.val() ? snap.val().currentNumber : 0) + 1;
+        await db.ref('queue/currentNumber').set(num);
+        let phone = (shift === "الصباحية") ? "249119298358" : "249116031000";
+        const msg = `طلب حجز طبي من سريع:%0Aالمريض: ${name}%0Aاليوم: ${day}%0Aالفترة: ${shift}%0Aالطبيب: ${docName}%0Aرقم الدور: ${num}`;
+        window.location.href = `https://wa.me/${phone}?text=${msg}`;
+    }
+
+    // --- المشاوير ---
+    const drivers = [
+        {n:"عمر عبد الله", v:"ركشة", p:"0121606445", t:"motorcycle"},
+        {n:"أنور شنان", v:"ركشة", p:"0113461046", t:"motorcycle"},
+        {n:"جابر عبد الجليل", v:"حافلة", p:"0127879864", t:"bus"},
+        {n:"عبد الجليل يوسف", v:"أكسنت", p:"0117655646", t:"car"},
+        {n:"فهمي عبد الله", v:"أكسنت", p:"0114924425", t:"car"}
+    ];
+
+    function initDrivers() {
+        const l = document.getElementById('driversList');
+        drivers.forEach(d => {
+            let i = d.t === 'car' ? 'fa-car' : (d.t === 'bus' ? 'fa-bus' : 'fa-motorcycle');
+            l.innerHTML += `<div class="driver-card"><div class="driver-icon-box"><i class="fas ${i}"></i></div><div class="driver-details"><h4>${d.n}</h4><span>${d.v}</span></div><div class="driver-actions"><a href="tel:${d.p}" style="color:#3182ce; margin-left:10px;"><i class="fas fa-phone fa-lg"></i></a><a href="https://wa.me/249${d.p.substring(1)}" style="color:#38a169;"><i class="fab fa-whatsapp fa-lg"></i></a></div></div>`;
+        });
+    }
+
+    window.onload = () => {
+        initDrivers(); updateUI();
+        setTimeout(() => {
+            document.getElementById('splashScreen').style.opacity = '0';
+            setTimeout(() => { document.getElementById('splashScreen').style.display = 'none'; document.getElementById('mainApp').style.display = 'block'; }, 800);
+        }, 3000);
+    };
+
+    function openSection(id) {
+        document.querySelectorAll('.section-view, #homeView').forEach(s => s.style.display = 'none');
+        document.getElementById('mainHeader').style.display = 'none';
+        if(id === 'homeView') document.getElementById('mainHeader').style.display = 'flex';
+        document.getElementById(id).style.display = 'block';
+    }
+    function closeSection() {
+        document.querySelectorAll('.section-view').forEach(s => s.style.display = 'none');
+        document.getElementById('homeView').style.display = 'block';
+        document.getElementById('mainHeader').style.display = 'flex';
+    }
+</script>
+</body>
+</html>
     <div class="header" id="mainHeader">
         <div class="user-info">
             <h2 style="font-size: 13px; margin: 0; color: #9ca3af;">مرحباً بك في قرية الولي</h2>
