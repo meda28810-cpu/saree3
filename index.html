@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <link rel="manifest" href="manifest.json">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#001f3f">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>سَرِيع | BRAZILI DEVELOPMENT</title>
@@ -351,7 +347,6 @@
         }, 3000);
     };
 
-     } 
     function openSection(id) {
         document.querySelectorAll('.section-view, #homeView').forEach(s => s.style.display = 'none');
         document.getElementById('mainHeader').style.display = 'none';
@@ -362,14 +357,8 @@
         document.querySelectorAll('.section-view').forEach(s => s.style.display = 'none');
         document.getElementById('homeView').style.display = 'block';
         document.getElementById('mainHeader').style.display = 'flex';
-        
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('Service Worker Registered!'))
-            .catch(err => console.log('Service Worker Error', err));
-        });
-      }
+    }
 </script>
 </body>
 </html>
+
