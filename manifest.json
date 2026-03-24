@@ -1,21 +1,16 @@
 {
-  "name": "Saree3 Service",
+  "name": "Saree3 App",
   "short_name": "سريع",
-  "description": "تطبيق خدمات الصيانة والنقل في قرية الوالي",
-  "start_url": "/index.html",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#001f3f",
   "theme_color": "#FFD700",
   "icons": [
     {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
+      "src": "logo.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
