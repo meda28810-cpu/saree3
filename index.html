@@ -12,7 +12,7 @@
             --bg-light: #f4f7f6;
             --gold-dark: #b8860b; 
             --text-main: #1f2937;
-            --update-green: #10b981;
+            --accent-green: #10b981;
         }
 
         body, html { 
@@ -31,21 +31,12 @@
         .splash-logo-text { font-size: 70px; color: var(--gold-dark); font-weight: 900; margin: 0; }
         .splash-dev { position: absolute; bottom: 40px; color: #aaa; letter-spacing: 5px; font-weight: bold; font-size: 12px; }
 
-        /* --- Toast Notification (قريباً..) --- */
+        /* --- Toast Notification --- */
         #customToast {
-            position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(31, 41, 55, 0.9);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: bold;
-            z-index: 10000;
-            display: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+            background: rgba(31, 41, 55, 0.9); color: white; padding: 12px 30px;
+            border-radius: 50px; font-size: 14px; font-weight: bold; z-index: 10000;
+            display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .show-toast { display: block !important; animation: fadeInOut 2s ease-in-out forwards; }
         @keyframes fadeInOut {
@@ -55,42 +46,16 @@
             100% { opacity: 0; bottom: 80px; }
         }
 
-        /* --- Update Bar --- */
-        .update-banner {
-            background: var(--update-green);
-            color: white;
-            padding: 8px 15px;
-            text-align: center;
-            font-size: 13px;
-            font-weight: bold;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            animation: slideDown 0.5s ease;
-        }
-        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
-
-        /* --- Header --- */
+        /* --- UI Elements --- */
         .header { 
             padding: 20px; display: flex; justify-content: space-between; align-items: center; background: white;
             border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
-        .user-info h2 { font-size: 12px; margin: 0; color: #9ca3af; }
-        .user-info p { font-size: 20px; margin: 0; font-weight: 900; color: var(--primary-blue); }
-
-        /* --- UI Elements --- */
         .app-container { display: none; padding-bottom: 100px; }
         .banner { height: 130px; margin: 15px; border-radius: 20px; background: var(--primary-blue); color: white; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-        .banner h2 { z-index: 2; font-size: 24px; font-weight: 900; }
         
-        .search-box { margin: 0 15px 25px; position: relative; }
-        .search-box input { width: 100%; padding: 16px 45px 16px 15px; border-radius: 15px; border: 1px solid #eee; background: white; font-family: 'Tajawal'; outline: none; box-sizing: border-box; font-size: 14px; }
-        .search-box i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #9ca3af; }
-
         .grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 15px; }
         .grid-item { background: white; padding: 22px; border-radius: 22px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 10px rgba(0,0,0,0.03); cursor: pointer; transition: transform 0.2s; }
-        .grid-item:active { transform: scale(0.95); }
         .grid-item i { color: var(--gold-dark); background: #fffbeb; padding: 10px; border-radius: 12px; font-size: 22px; }
 
         /* --- Sections --- */
@@ -98,7 +63,7 @@
         @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .back-btn { background: #1f2937; color: white; border: none; padding: 14px; border-radius: 15px; width: 100%; margin-bottom: 20px; font-family: 'Tajawal'; font-weight: bold; cursor: pointer; }
 
-        /* --- Driver Cards --- */
+        /* --- Driver & Maintenance Cards --- */
         .driver-card { background: white; margin-bottom: 15px; border-radius: 20px; padding: 15px; display: flex; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid #edf2f7; }
         .driver-icon-box { width: 55px; height: 55px; background: #f0f4ff; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--primary-blue); margin-left: 15px; }
         .driver-details { flex-grow: 1; }
@@ -108,14 +73,20 @@
         .btn-call { width: 42px; height: 42px; border-radius: 50%; background: #ebf8ff; color: #3182ce; display: flex; align-items: center; justify-content: center; text-decoration: none; }
         .btn-whatsapp { width: 42px; height: 42px; border-radius: 50%; background: #e6fffa; color: #38a169; display: flex; align-items: center; justify-content: center; text-decoration: none; }
 
-        /* --- Health Queue --- */
+        /* --- Health Table --- */
         .doc-table { width: 100%; border-collapse: collapse; background: white; border-radius: 20px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
-        .doc-table th { background: var(--primary-blue); color: white; padding: 15px; font-size: 15px; }
-        .doc-table td { padding: 12px; border-bottom: 1px solid #f4f7f6; text-align: center; font-size: 14px; }
-        #roleBox { background: #fffbeb; color: var(--gold-dark); padding: 18px; border-radius: 15px; text-align: center; font-weight: 900; margin-bottom: 15px; border: 1px dashed var(--gold-dark); font-size: 18px; }
+        .doc-table th { background: var(--primary-blue); color: white; padding: 15px; font-size: 14px; }
+        .doc-table td { padding: 12px; border-bottom: 1px solid #f4f7f6; text-align: center; font-size: 13px; }
+        #roleBox { background: #fffbeb; color: var(--gold-dark); padding: 18px; border-radius: 15px; text-align: center; font-weight: 900; margin-bottom: 15px; border: 1px dashed var(--gold-dark); }
         input.text-input { width: 100%; padding: 16px; border-radius: 15px; border: 1px solid #eee; margin-bottom: 12px; box-sizing: border-box; font-family: 'Tajawal'; }
 
-        /* --- Bottom Navigation --- */
+        /* --- Market Grid --- */
+        .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .product-card { background: white; border-radius: 15px; padding: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.02); overflow: hidden; }
+        .product-img-box { width: 100%; height: 110px; background: #f8f9fa; border-radius: 10px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .product-img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- Nav --- */
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; z-index: 1000; }
         .nav-item { color: #cbd5e0; font-size: 11px; text-align: center; cursor: pointer; flex: 1; }
         .nav-item.active { color: var(--primary-blue); font-weight: bold; }
@@ -130,31 +101,21 @@
     <div class="splash-dev">BRAZILI DEVELOPMENT</div>
 </div>
 
-<div id="customToast">قريباً..</div>
+<div id="customToast">جاري المعالجة...</div>
 
 <div class="app-container" id="mainApp">
-    <div class="update-banner">
-        <i class="fas fa-arrow-alt-circle-up"></i>
-        <span>يتوفر تحديث جديد للنسخة 1.2 - استمتع بالمميزات الجديدة!</span>
-    </div>
-
     <div class="header" id="mainHeader">
         <div class="user-info">
-            <h2>مرحباً بك في قرية الولي</h2>
-            <p>BRAZILI</p>
+            <h2 style="font-size: 13px; margin: 0; color: #9ca3af;">مرحباً بك في قرية الولي</h2>
+            <p style="font-size: 20px; margin: 0; font-weight: 900; color: var(--primary-blue);">AHMED</p>
         </div>
         <div style="width: 48px; height: 48px; border-radius: 50%; background: #f0f4ff; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary-blue); color: var(--primary-blue); font-weight: 900; font-size: 18px;">B</div>
     </div>
 
     <div id="homeView">
         <div class="banner">
-            <h2>سوق الولي الرقمي</h2>
+            <h2 style="z-index: 2; font-size: 24px; font-weight: 900;">سوق الولي الرقمي</h2>
             <i class="fas fa-shopping-bag" style="position: absolute; right: -10px; font-size: 110px; opacity: 0.1;"></i>
-        </div>
-
-        <div class="search-box">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="ابحث عن كابتن، طبيب، أو منتج...">
         </div>
 
         <div class="grid-menu">
@@ -170,7 +131,7 @@
                 <span>دليل المهن</span>
                 <i class="fas fa-tools"></i>
             </div>
-            <div class="grid-item" onclick="showSoon()">
+            <div class="grid-item" onclick="openSection('market')">
                 <span>سوق الولي</span>
                 <i class="fas fa-store"></i>
             </div>
@@ -191,7 +152,7 @@
                 <tr><td>الخميس</td><td>د. الطيب</td><td>د. الطيب</td></tr>
             </tbody>
         </table>
-        <div id="roleBox">جاري الاتصال بقاعدة البيانات...</div>
+        <div id="roleBox">جاري التحميل...</div>
         <input type="text" id="pName" class="text-input" placeholder="اسم المريض الثلاثي">
         <div style="display:flex; gap:12px;">
             <button onclick="booking('أنوار')" style="background:var(--gold-dark); color:white; border:none; flex:1; padding:16px; border-radius:15px; font-weight:bold; cursor:pointer;">🌅 حجز (أنوار)</button>
@@ -201,7 +162,7 @@
 
     <div id="trans" class="section-view">
         <button onclick="closeSection()" class="back-btn">🔙 عودة للرئيسية</button>
-        <h3 style="margin: 0 0 20px 0; border-right: 5px solid var(--primary-blue); padding-right: 12px; font-size: 18px;">كباتن المشاوير بالولي</h3>
+        <h3 style="margin-bottom: 15px; border-right: 5px solid var(--primary-blue); padding-right: 12px;">كباتن المشاوير بالولي</h3>
         <div id="driversList"></div>
     </div>
 
@@ -219,11 +180,23 @@
         </div>
     </div>
 
+    <div id="market" class="section-view">
+        <button onclick="closeSection()" class="back-btn">🔙 عودة للرئيسية</button>
+        <div style="background: white; padding: 15px; border-radius: 20px; margin-bottom: 25px; border: 1px solid #edf2f7;">
+            <h4 style="margin-top: 0; color: var(--primary-blue);">عرض منتج للبيع</h4>
+            <input type="text" id="pNameInput" class="text-input" placeholder="اسم المنتج">
+            <input type="number" id="pPriceInput" class="text-input" placeholder="السعر (ج.س)">
+            <input type="file" id="pFile" accept="image/*" capture="camera" style="margin-bottom: 15px; width: 100%;">
+            <button onclick="uploadProduct()" id="upBtn" style="background: var(--accent-green); color: white; border: none; width:100%; padding:15px; border-radius:15px; font-weight:bold; cursor:pointer;">نشر المنتج الآن</button>
+        </div>
+        <div class="market-grid" id="marketGrid"></div>
+    </div>
+
     <nav class="bottom-nav">
-        <div class="nav-item active"><i class="fas fa-home"></i><br>الرئيسية</div>
-        <div class="nav-item" onclick="showSoon()"><i class="fas fa-store"></i><br>سوق الولي</div>
+        <div class="nav-item active" onclick="closeSection()"><i class="fas fa-home"></i><br>الرئيسية</div>
+        <div class="nav-item" onclick="openSection('market')"><i class="fas fa-store"></i><br>سوق الولي</div>
         <div class="nav-item" onclick="showSoon()"><i class="fas fa-envelope"></i><br>الرسائل</div>
-        <div class="nav-item" onclick="showSoon()"><i class="fas fa-user"></i><br>حسابي</div>
+        <div class="nav-item" onclick="showSoon()"><i class="fas fa-user-circle"></i><br>حسابي</div>
     </nav>
 </div>
 
@@ -231,16 +204,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script>
-    // بيانات الكباتن
-    const drivers = [
-        {n:"عمر عبد الله", v:"ركشة", p:"0121606445", t:"motorcycle"},
-        {n:"أنوار شنان", v:"ركشة", p:"0113461046", t:"motorcycle"},
-        {n:"جابر عبد الجليل", v:"حافلة", p:"0127879864", t:"bus"},
-        {n:"عبد الجليل يوسف", v:"أكسنت", p:"0117655646", t:"car"},
-        {n:"فهمي عبد الله", v:"أكسنت", p:"0114924425", t:"car"}
-    ];
-
-    // Firebase Configuration
     const firebaseConfig = {
         apiKey: "AIzaSyDx-MBQ4sZg7PEtjkWotwi64f92mF58V9E",
         databaseURL: "https://saree3-9ec29-default-rtdb.firebaseio.com/",
@@ -249,74 +212,80 @@
     if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
     const db = firebase.database();
 
-    // دالة التنبيه الاحترافي
-    function showSoon() {
-        const toast = document.getElementById('customToast');
-        toast.classList.remove('show-toast');
-        void toast.offsetWidth; 
-        toast.classList.add('show-toast');
-        setTimeout(() => toast.classList.remove('show-toast'), 2000);
+    const drivers = [
+        {n:"عمر عبد الله", v:"ركشة", p:"0121606445", t:"motorcycle"},
+        {n:"أنوار شنان", v:"ركشة", p:"0113461046", t:"motorcycle"},
+        {n:"جابر عبد الجليل", v:"حافلة", p:"0127879864", t:"bus"},
+        {n:"عبد الجليل يوسف", v:"أكسنت", p:"0117655646", t:"car"},
+        {n:"فهمي عبد الله", v:"أكسنت", p:"0114924425", t:"car"}
+    ];
+
+    function showSoon(m = "قريباً..") {
+        const t = document.getElementById('customToast'); t.innerText = m;
+        t.classList.add('show-toast'); setTimeout(() => t.classList.remove('show-toast'), 2000);
     }
 
-    // إدارة الطابور
-    db.ref('queue').on('value', (s) => {
-        const val = s.val() ? s.val().currentNumber : 0;
-        document.getElementById('roleBox').innerText = "رقم دورك القادم: " + (val + 1);
+    // رفع المنتج بنظام Base64 المجاني
+    async function uploadProduct() {
+        const n = document.getElementById('pNameInput').value, pr = document.getElementById('pPriceInput').value, f = document.getElementById('pFile').files[0], b = document.getElementById('upBtn');
+        if(!n || !pr || !f) { alert("أكمل البيانات"); return; }
+        b.disabled = true; b.innerText = "جاري الحفظ...";
+        const reader = new FileReader(); reader.readAsDataURL(f);
+        reader.onload = async () => {
+            try {
+                await db.ref('market_products').push({ name: n, price: pr, image: reader.result, time: Date.now() });
+                showSoon("تم النشر!");
+                document.getElementById('pNameInput').value = ""; document.getElementById('pPriceInput').value = ""; document.getElementById('pFile').value = "";
+            } catch (e) { alert("خطأ!"); } finally { b.disabled = false; b.innerText = "نشر المنتج الآن"; }
+        };
+    }
+
+    // عرض المنتجات
+    db.ref('market_products').limitToLast(10).on('value', (s) => {
+        const g = document.getElementById('marketGrid'); g.innerHTML = "";
+        s.forEach((c) => {
+            const p = c.val();
+            g.innerHTML = `<div class="product-card"><div class="product-img-box"><img src="${p.image}"></div><h4>${p.name}</h4><p style="color:var(--gold-dark); font-weight:bold;">${p.price} ج.س</p></div>` + g.innerHTML;
+        });
     });
 
-    async function booking(responsible) {
-        let name = document.getElementById('pName').value;
-        if(!name) {
-            showSoon(); // أو تنبيه مخصص لإدخال الاسم
-            return;
-        }
-        try {
-            const snapshot = await db.ref('queue').once('value');
-            let num = (snapshot.val() ? snapshot.val().currentNumber : 0) + 1;
-            await db.ref('queue/currentNumber').set(num);
-            let phone = (responsible === 'أنوار') ? "249119298358" : "249116031000";
-            let msg = `حجز مركز صحي الولي\nالدور: ${num}\nالمريض: ${name}\nالمسؤول: ${responsible}`;
-            window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-        } catch (e) {
-            showSoon();
-        }
+    // المشاوير
+    function initDrivers() {
+        const l = document.getElementById('driversList');
+        drivers.forEach(d => {
+            let i = d.t === 'car' ? 'fa-car' : (d.t === 'bus' ? 'fa-bus' : 'fa-motorcycle');
+            l.innerHTML += `<div class="driver-card"><div class="driver-icon-box"><i class="fas ${i}"></i></div><div class="driver-details"><h4>${d.n}</h4><span>${d.v}</span></div><div class="driver-actions"><a href="tel:${d.p}" class="btn-call"><i class="fas fa-phone"></i></a><a href="https://wa.me/249${d.p.substring(1)}" class="btn-whatsapp"><i class="fab fa-whatsapp"></i></a></div></div>`;
+        });
     }
 
-    function initDrivers() {
-        const list = document.getElementById('driversList');
-        drivers.forEach(d => {
-            let icon = d.t === 'car' ? 'fa-car' : (d.t === 'bus' ? 'fa-bus' : 'fa-motorcycle');
-            list.innerHTML += `
-                <div class="driver-card">
-                    <div class="driver-icon-box"><i class="fas ${icon}"></i></div>
-                    <div class="driver-details">
-                        <h4>${d.n}</h4>
-                        <span>${d.v}</span>
-                    </div>
-                    <div class="driver-actions">
-                        <a href="tel:${d.p}" class="btn-call"><i class="fas fa-phone"></i></a>
-                        <a href="https://wa.me/249${d.p.substring(1)}" class="btn-whatsapp"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>`;
-        });
+    // الصحة والحجز
+    db.ref('queue').on('value', (s) => {
+        const v = s.val() ? s.val().currentNumber : 0;
+        document.getElementById('roleBox').innerText = "رقم دورك القادم: " + (v + 1);
+    });
+
+    async function booking(res) {
+        let name = document.getElementById('pName').value;
+        if(!name) { alert("ادخل اسم المريض"); return; }
+        const snap = await db.ref('queue').once('value');
+        let num = (snap.val() ? snap.val().currentNumber : 0) + 1;
+        await db.ref('queue/currentNumber').set(num);
+        let ph = (res === 'أنوار') ? "249119298358" : "249116031000";
+        window.location.href = `https://wa.me/${ph}?text=${encodeURIComponent('حجز: ' + name + ' الدور: ' + num)}`;
     }
 
     window.onload = () => {
         initDrivers();
         setTimeout(() => {
             document.getElementById('splashScreen').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('splashScreen').style.display = 'none';
-                document.getElementById('mainApp').style.display = 'block';
-            }, 800);
+            setTimeout(() => { document.getElementById('splashScreen').style.display = 'none'; document.getElementById('mainApp').style.display = 'block'; }, 800);
         }, 3000);
     };
 
     function openSection(id) {
-        document.getElementById('homeView').style.display = 'none';
+        document.querySelectorAll('.section-view, #homeView').forEach(s => s.style.display = 'none');
         document.getElementById('mainHeader').style.display = 'none';
         document.getElementById(id).style.display = 'block';
-        window.scrollTo(0,0);
     }
     function closeSection() {
         document.querySelectorAll('.section-view').forEach(s => s.style.display = 'none');
