@@ -1,20 +1,21 @@
-name: Build Android APK
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+name: Build APK
+on: [push, workflow_dispatch]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - name: Build APK
-        uses: pmaru/build-android-apk@-v1.0
+      - name: Setup Java
+        uses: actions/setup-java@v3
         with:
-          # إذا كان موقعك يحتاج لرابط معين أو إعدادات خاصة
-          app_name: "Saree3"
-          app_id: "com.brazili.saree3"
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Build with Bubblewrap
+        run: |
+          npm install -g @bubblewrap/cli
+          # هذا الأمر يقوم بتحويل موقعك لـ APK بشكل سريع
+          bubblewrap build --skip-pwa-check
