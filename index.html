@@ -1,111 +1,135 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>سَرِيع | BRAZILI DEVELOPMENT</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --gold: #ffc107; --bg: #000000; --card: #111111; --green: #28a745; --blue: #00bcd4; --purple: #9c27b0; --red: #ff4444; }
-        body, html { margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; background: var(--bg); color: white; overflow-x: hidden; height: 100%; width: 100%; }
+        :root {
+            --primary-blue: #1e3a8a;
+            --bg-light: #f4f7f6;
+            --gold-dark: #b8860b; 
+            --text-main: #1f2937;
+        }
 
-        /* --- واجهة الـ Splash (6 ثواني مع Fade) --- */
+        body, html { 
+            margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; 
+            background: var(--bg-light); color: var(--text-main); height: 100%; width: 100%; 
+            overflow-x: hidden;
+        }
+
+        /* --- Splash Screen --- */
         #splashScreen { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: #000; display: flex; flex-direction: column; 
+            background: white; display: flex; flex-direction: column; 
             justify-content: center; align-items: center; z-index: 99999; 
-            animation: fadeIn 1.5s ease;
+            transition: opacity 0.8s ease;
         }
-        
-        .splash-header {
-            position: absolute; top: 0; width: 100%; height: 50px;
-            background: #0a0a0a; display: flex; justify-content: space-between;
-            align-items: center; padding: 0 20px; box-sizing: border-box;
+        .splash-logo-text { font-size: 70px; color: var(--gold-dark); font-weight: 900; margin: 0; }
+        .splash-dev { position: absolute; bottom: 40px; color: #aaa; letter-spacing: 5px; font-weight: bold; font-size: 12px; }
+
+        /* --- Header --- */
+        .header { 
+            padding: 20px; display: flex; justify-content: space-between; align-items: center; background: white;
+            border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
-        .splash-header span { font-weight: 900; font-size: 18px; letter-spacing: 1px; }
+        .user-info h2 { font-size: 13px; margin: 0; color: #9ca3af; }
+        .user-info p { font-size: 20px; margin: 0; font-weight: 900; color: var(--primary-blue); }
 
-        .splash-content { text-align: center; }
-        .splash-logo-text { 
-            font-size: 80px; color: var(--gold); font-weight: 900; margin: 0; 
-            line-height: 1; text-shadow: 0 0 15px rgba(255,193,7,0.4); 
-        }
-        .splash-subtext { color: #ffffff; font-size: 18px; margin-top: 5px; font-weight: 700; }
-        .splash-dev { position: absolute; bottom: 60px; color: #444; font-weight: 900; letter-spacing: 6px; font-size: 12px; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
-
-        /* --- واجهة التطبيق الرئيسية --- */
-        .container { display: none; padding: 20px; text-align: center; animation: fadeIn 1s ease; position: relative; }
+        /* --- UI Elements --- */
+        .banner { height: 120px; margin: 15px; border-radius: 20px; background: var(--primary-blue); color: white; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .banner h2 { z-index: 2; font-size: 22px; font-weight: 900; }
         
-        /* زر الخروج العصري (أعلى اليسار) */
-        .top-exit-btn {
-            position: absolute; top: 15px; left: 15px;
-            background: linear-gradient(145deg, #222, #000);
-            color: var(--red); border: 2px solid var(--red);
-            width: 45px; height: 45px; border-radius: 50%;
-            font-size: 18px; cursor: pointer; display: flex;
-            align-items: center; justify-content: center;
-            z-index: 100; box-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
-            transition: 0.3s;
-        }
-        .top-exit-btn:active { transform: scale(0.85); background: var(--red); color: white; }
+        .search-box { margin: 0 15px 25px; position: relative; }
+        .search-box input { width: 100%; padding: 15px 45px 15px 15px; border-radius: 15px; border: 1px solid #eee; background: white; font-family: 'Tajawal'; outline: none; box-sizing: border-box; }
+        .search-box i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #9ca3af; }
 
-        .header h1 { color: var(--gold); font-size: 35px; margin-bottom: 30px; margin-top: 40px; font-weight: 900; }
-        
-        .menu-btn { width: 100%; max-width: 380px; padding: 22px; margin: 12px 0; border: none; border-radius: 20px; font-size: 19px; font-weight: 700; color: white; background: var(--card); border-right: 8px solid var(--gold); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
-        .menu-btn:active { transform: scale(0.97); }
+        .grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 15px; }
+        .grid-item { background: white; padding: 20px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.04); cursor: pointer; transition: transform 0.2s; }
+        .grid-item:active { transform: scale(0.95); }
+        .grid-item i { color: var(--gold-dark); background: #fffbeb; padding: 10px; border-radius: 12px; font-size: 20px; }
 
-        /* الأقسام */
-        .section { display: none; width: 100%; max-width: 400px; margin: 0 auto; animation: fadeInUp 0.4s; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .back-btn { width: 100%; background: none; color: var(--gold); border: 2px solid var(--gold); padding: 12px; border-radius: 15px; margin-bottom: 25px; cursor: pointer; font-weight: bold; }
-        .doc-table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.03); border-radius: 18px; overflow: hidden; font-size: 14px; margin-bottom: 25px; }
-        .doc-table th { background: var(--blue); color: black; padding: 12px; font-weight: 900; }
-        .doc-table td { border-bottom: 1px solid #222; padding: 12px; }
-        .item-card { background: var(--card); padding: 22px; border-radius: 20px; margin-bottom: 18px; border-right: 8px solid var(--green); text-align: right; }
-        .action-link { text-decoration: none; padding: 15px; border-radius: 12px; color: white; font-weight: bold; display: inline-block; margin-top: 10px; text-align: center; cursor: pointer; border: none; font-family: 'Tajawal'; flex: 1; }
-        
-        /* قسم التأمين الصحي المرجع */
-        .insurance-box { background: rgba(156, 39, 176, 0.1); border: 2px solid var(--purple); border-radius: 20px; padding: 20px; margin-top: 20px; }
-        .cam-btn { width: 100%; background: var(--purple); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: bold; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px; }
+        /* --- Sections --- */
+        .section-view { display: none; padding: 15px; animation: slideUp 0.4s ease; }
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .back-btn { background: #333; color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; margin-bottom: 20px; font-family: 'Tajawal'; font-weight: bold; cursor: pointer; }
 
-        #roleBox { font-size: 32px; color: var(--gold); padding: 25px; background: rgba(255,193,7,0.08); border-radius: 20px; margin-bottom: 20px; border: 2px dashed var(--gold); font-weight: 900; }
-        input { width: 100%; padding: 20px; margin: 10px 0; border-radius: 15px; border: 1px solid #333; background: #080808; color: white; box-sizing: border-box; font-size: 16px; font-family: 'Tajawal'; }
-        #offlineMsg { display: none; background: #ff4444; color: white; padding: 15px; position: fixed; top: 0; width: 100%; z-index: 100001; font-weight: 900; text-align: center; }
+        /* --- Drivers --- */
+        .driver-card { background: white; margin-bottom: 15px; border-radius: 20px; padding: 15px; display: flex; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid #edf2f7; }
+        .driver-icon-box { width: 50px; height: 50px; background: #f0f4ff; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--primary-blue); margin-left: 15px; }
+        .driver-details { flex-grow: 1; }
+        .driver-details h4 { margin: 0; font-size: 16px; }
+        .driver-details span { font-size: 12px; color: #718096; background: #f7fafc; padding: 2px 6px; border-radius: 4px; }
+        .driver-actions { display: flex; gap: 8px; }
+        .btn-call { width: 38px; height: 38px; border-radius: 50%; background: #ebf8ff; color: #3182ce; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        .btn-whatsapp { width: 38px; height: 38px; border-radius: 50%; background: #e6fffa; color: #38a169; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+
+        /* --- Health --- */
+        .doc-table { width: 100%; border-collapse: collapse; background: white; border-radius: 15px; overflow: hidden; margin-bottom: 20px; }
+        .doc-table th { background: var(--primary-blue); color: white; padding: 12px; }
+        .doc-table td { padding: 10px; border-bottom: 1px solid #f4f7f6; text-align: center; font-size: 14px; }
+        #roleBox { background: #fffbeb; color: var(--gold-dark); padding: 15px; border-radius: 15px; text-align: center; font-weight: 900; margin-bottom: 15px; border: 1px dashed var(--gold-dark); font-size: 18px; }
+        input.text-input { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 10px; box-sizing: border-box; font-family: 'Tajawal'; }
+
+        /* --- Bottom Navigation --- */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; z-index: 100; }
+        .nav-item { color: #cbd5e0; font-size: 11px; text-align: center; cursor: pointer; transition: 0.3s; }
+        .nav-item.active { color: var(--primary-blue); font-weight: bold; }
+        .nav-item i { font-size: 18px; margin-bottom: 4px; }
     </style>
 </head>
 <body>
 
-<div id="offlineMsg">📡 عذراً، لا يوجد اتصال بالإنترنت.</div>
-
 <div id="splashScreen">
-    <div class="splash-header">
-        <span>SAREE3</span>
-        <div style="width: 25px; height: 25px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-size: 12px;">⚡</div>
-    </div>
-    <div class="splash-content">
-        <h1 class="splash-logo-text">سَرِيع</h1>
-        <p class="splash-subtext">لخدمة قرية الولي</p>
-    </div>
-    <div class="splash-dev">BRAZILI</div>
+    <h1 class="splash-logo-text">سَرِيع</h1>
+    <p style="font-weight: bold; color: #444;">لخدمة قرية الولي</p>
+    <div class="splash-dev">BRAZILI DEVELOPMENT</div>
 </div>
 
-<div class="container" id="mainApp">
-    <button class="top-exit-btn" onclick="exitApp()">✕</button>
-
-    <div class="header"><h1>سَرِيع⚡</h1></div>
-
-    <div id="mainMenu" style="width: 100%; max-width: 380px; margin: 0 auto;">
-        <button class="menu-btn" onclick="showSec('maint')">🛠️ خدمات الصيانة <span>←</span></button>
-        <button class="menu-btn" style="border-right-color: var(--green);" onclick="showSec('trans')">🛺 مشوار (المواصلات) <span>←</span></button>
-        <button class="menu-btn" style="border-right-color: var(--blue);" onclick="showSec('health')">🏥 الخدمات الصحية <span>←</span></button>
+<div class="app-container" id="mainApp">
+    <div class="header" id="mainHeader">
+        <div class="user-info">
+            <h2>مرحباً بك في قرية الولي</h2>
+            <p>BRAZILI</p>
+        </div>
+        <div style="width: 45px; height: 45px; border-radius: 50%; background: #f0f4ff; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary-blue); color: var(--primary-blue); font-weight: 900;">B</div>
     </div>
 
-    <div id="health" class="section">
-        <button onclick="hideSec()" class="back-btn">🔙 عودة</button>
+    <div id="homeView">
+        <div class="banner">
+            <h2>سوق الولي الرقمي</h2>
+            <i class="fas fa-shopping-bag" style="position: absolute; right: -10px; font-size: 100px; opacity: 0.1;"></i>
+        </div>
+
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="ابحث عن منتج أو خدمة...">
+        </div>
+
+        <div class="grid-menu">
+            <div class="grid-item" onclick="openSection('health')">
+                <span>الخدمات الصحية</span>
+                <i class="fas fa-heartbeat"></i>
+            </div>
+            <div class="grid-item" onclick="openSection('trans')">
+                <span>المشاوير</span>
+                <i class="fas fa-car"></i>
+            </div>
+            <div class="grid-item" onclick="openSection('maint')">
+                <span>دليل المهن</span>
+                <i class="fas fa-tools"></i>
+            </div>
+            <div class="grid-item" onclick="alert('سوق الولي قريباً...')">
+                <span>سوق الولي</span>
+                <i class="fas fa-store"></i>
+            </div>
+        </div>
+    </div>
+
+    <div id="health" class="section-view">
+        <button onclick="closeSection()" class="back-btn">🔙 عودة</button>
         <table class="doc-table">
             <tr><th>اليوم</th><th>الصباح</th><th>المساء</th></tr>
             <tr><td>السبت</td><td>د. الطيب</td><td>د. الطيب</td></tr>
@@ -114,83 +138,59 @@
             <tr><td>الأربعاء</td><td>د. الطيب</td><td>د. رزان</td></tr>
             <tr><td>الخميس</td><td>د. الطيب</td><td>د. الطيب</td></tr>
         </table>
-        
         <div id="roleBox">جاري التحميل...</div>
-        
-        <input type="text" id="pName" placeholder="اسم المريض الثلاثي">
-        <div style="display:flex; gap:10px; margin-bottom: 10px;">
-            <button onclick="booking('أنوار')" class="action-link" style="background:var(--gold); color:black;">🌅 حجز (أنوار)</button>
-            <button onclick="booking('زينب')" class="action-link" style="background:var(--blue); color:black;">🌃 حجز (زينب)</button>
-        </div>
-
-        <div class="insurance-box">
-            <h4 style="margin:0; color:var(--purple);">🛡️ خدمات التأمين الصحي</h4>
-            <p style="font-size:12px; color:#aaa; margin: 5px 0;">قم بتصوير بطاقة التأمين لتسهيل الإجراءات</p>
-            <button class="cam-btn" onclick="document.getElementById('camInput').click()">
-                📷 تصوير بطاقة التأمين
-            </button>
-            <input type="file" id="camInput" accept="image/*" capture="camera" style="display:none;">
+        <input type="text" id="pName" class="text-input" placeholder="اسم المريض الثلاثي">
+        <div style="display:flex; gap:10px;">
+            <button onclick="booking('أنوار')" style="background:var(--gold-dark); color:white; border:none; flex:1; padding:15px; border-radius:12px; font-weight:bold;">🌅 حجز (أنوار)</button>
+            <button onclick="booking('زينب')" style="background:var(--primary-blue); color:white; border:none; flex:1; padding:15px; border-radius:12px; font-weight:bold;">🌃 حجز (زينب)</button>
         </div>
     </div>
 
-    <div id="maint" class="section">
-        <button onclick="hideSec()" class="back-btn">🔙 عودة</button>
-        <div class="item-card">
-            <h3 style="margin:0;">أبوبكر عبد الرحمن</h3>
-            <p style="color:#888;">مسؤول الصيانة</p>
-            <a href="tel:+249114239983" class="action-link" style="background:var(--green); width:90%;">📞 اتصال مباشر</a>
-        </div>
-    </div>
-
-    <div id="trans" class="section">
-        <button onclick="hideSec()" class="back-btn">🔙 عودة</button>
+    <div id="trans" class="section-view">
+        <button onclick="closeSection()" class="back-btn">🔙 عودة</button>
         <div id="driversList"></div>
     </div>
 
-    <div style="margin-top:60px; padding-bottom:30px; color:#333; font-weight:900; letter-spacing:3px;">DEVELOPED BY BRAZILI</div>
+    <div id="maint" class="section-view">
+        <button onclick="closeSection()" class="back-btn">🔙 عودة</button>
+        <div class="driver-card">
+            <div class="driver-icon-box"><i class="fas fa-wrench"></i></div>
+            <div class="driver-details">
+                <h4>أبوبكر عبد الرحمن</h4>
+                <span>فني صيانة أعطال</span>
+            </div>
+            <div class="driver-actions">
+                <a href="tel:+249114239983" class="btn-call"><i class="fas fa-phone"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active"><i class="fas fa-home"></i><br>الرئيسية</div>
+        <div class="nav-item" onclick="alert('سوق الولي سيفتح أبوابه قريباً!')"><i class="fas fa-store"></i><br>سوق الولي</div>
+        <div class="nav-item" onclick="alert('قريباً')"><i class="fas fa-envelope"></i><br>الرسائل</div>
+        <div class="nav-item" onclick="alert('قريباً')"><i class="fas fa-user"></i><br>حسابي</div>
+    </nav>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script>
-    function initApp() {
-        if (navigator.onLine) {
-            document.getElementById('offlineMsg').style.display = 'none';
-            setTimeout(() => {
-                document.getElementById('splashScreen').style.animation = 'fadeOut 1s forwards';
-                setTimeout(() => {
-                    document.getElementById('mainApp').style.display = 'block';
-                }, 800);
-            }, 6000); 
-        } else {
-            document.getElementById('offlineMsg').style.display = 'block';
-        }
-    }
+    const drivers = [
+        {n:"عمر عبد الله", v:"ركشة", p:"0121606445", t:"motorcycle"},
+        {n:"أنور شنان", v:"ركشة", p:"0113461046", t:"motorcycle"},
+        {n:"جابر عبد الجليل", v:"حافلة", p:"0127879864", t:"bus"},
+        {n:"عبد الجليل يوسف", v:"أكسنت", p:"0117655646", t:"car"},
+        {n:"فهمي عبد الله", v:"أكسنت", p:"0114924425", t:"car"}
+    ];
 
-    function exitApp() {
-        if (confirm("هل تريد إغلاق التطبيق؟")) {
-            window.close();
-            if (navigator.app) { navigator.app.exitApp(); }
-            else if (navigator.device) { navigator.device.exitApp(); }
-        }
-    }
-
-    window.addEventListener('load', initApp);
-    window.addEventListener('online', initApp);
-    window.addEventListener('offline', () => { document.getElementById('offlineMsg').style.display = 'block'; });
-
-    // Firebase Config
     const firebaseConfig = {
         apiKey: "AIzaSyDx-MBQ4sZg7PEtjkWotwi64f92mF58V9E",
-        authDomain: "saree3-9ec29.firebaseapp.com",
-        databaseURL: "https://saree3-9ec29-default-rtdb.firebaseio.com",
-        projectId: "saree3-9ec29",
-        storageBucket: "saree3-9ec29.appspot.com",
-        messagingSenderId: "149082675194",
-        appId: "1:149082675194:web:853dfd5b46e3e1f0e2133a"
+        databaseURL: "https://saree3-9ec29-default-rtdb.firebaseio.com/",
+        projectId: "saree3-9ec29"
     };
-    firebase.initializeApp(firebaseConfig);
+    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
     const db = firebase.database();
 
     db.ref('queue').on('value', (s) => {
@@ -198,37 +198,57 @@
         document.getElementById('roleBox').innerText = "رقم دورك القادم: " + (val + 1);
     });
 
-    function showSec(id) { document.getElementById('mainMenu').style.display='none'; document.getElementById(id).style.display='block'; window.scrollTo(0,0); }
-    function hideSec() { document.querySelectorAll('.section').forEach(s=>s.style.display='none'); document.getElementById('mainMenu').style.display='block'; }
-
     async function booking(responsible) {
         let name = document.getElementById('pName').value;
-        if(!name) return alert("يرجى كتابة اسم المريض الثلاثي");
+        if(!name) return alert("يرجى كتابة اسم المريض");
         const snapshot = await db.ref('queue').once('value');
         let num = (snapshot.val() ? snapshot.val().currentNumber : 0) + 1;
         await db.ref('queue/currentNumber').set(num);
-        let phone = (responsible === 'أنوار') ? "249119298358" : "931249116031";
-        let message = `حجز مركز صحي الولي\nالدور: ${num}\nالمريض: ${name}\nالمسؤول: ${responsible}`;
-        window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+        let phone = (responsible === 'أنوار') ? "249119298358" : "249116031000";
+        let msg = `حجز مركز صحي الولي\nالدور: ${num}\nالمريض: ${name}`;
+        window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
     }
 
-    const drivers = [
-        {n:"عمر عبد الله", v:"ركشة", p:"0121606445"},
-        {n:"أنور شنان", v:"ركشة", p:"0113461046"},
-        {n:"جابر عبد الجليل", v:"حافلة", p:"0127879864"},
-        {n:"عبد الجليل يوسف", v:"أكسنت", p:"0117655646"},
-        {n:"فهمي عبد الله", v:"أكسنت", p:"0114924425"}
-    ];
-    drivers.forEach(d => {
-        document.getElementById('driversList').innerHTML += `
-            <div class="item-card">
-                <b>${d.n}</b> <span style="font-size:12px; color:#666;">(${d.v})</span><br>
-                <div style="display:flex; gap:10px;">
-                    <a href="tel:${d.p}" class="action-link" style="background:#333; flex:1;">📞 اتصال</a>
-                    <a href="https://wa.me/249${d.p.substring(1)}" class="action-link" style="background:var(--green); flex:1;">💬</a>
-                </div>
-            </div>`;
-    });
+    function initDrivers() {
+        const list = document.getElementById('driversList');
+        drivers.forEach(d => {
+            let icon = d.t === 'car' ? 'fa-car' : (d.t === 'bus' ? 'fa-bus' : 'fa-motorcycle');
+            list.innerHTML += `
+                <div class="driver-card">
+                    <div class="driver-icon-box"><i class="fas ${icon}"></i></div>
+                    <div class="driver-details">
+                        <h4>${d.n}</h4>
+                        <span>${d.v}</span>
+                    </div>
+                    <div class="driver-actions">
+                        <a href="tel:${d.p}" class="btn-call"><i class="fas fa-phone"></i></a>
+                        <a href="https://wa.me/249${d.p.substring(1)}" class="btn-whatsapp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>`;
+        });
+    }
+
+    window.onload = () => {
+        initDrivers();
+        setTimeout(() => {
+            document.getElementById('splashScreen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('splashScreen').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'block';
+            }, 800);
+        }, 3000);
+    };
+
+    function openSection(id) {
+        document.getElementById('homeView').style.display = 'none';
+        document.getElementById('mainHeader').style.display = 'none';
+        document.getElementById(id).style.display = 'block';
+    }
+    function closeSection() {
+        document.querySelectorAll('.section-view').forEach(s => s.style.display = 'none');
+        document.getElementById('homeView').style.display = 'block';
+        document.getElementById('mainHeader').style.display = 'flex';
+    }
 </script>
 </body>
 </html>
