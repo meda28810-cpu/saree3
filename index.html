@@ -7,14 +7,15 @@
     <title>سَرِيع | BRAZILI DEVELOPMENT</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #ffc107; --bg: #000000; --card: #111111; --green: #28a745; --blue: #00bcd4; --purple: #9c27b0; }
+        :root { --gold: #ffc107; --bg: #000000; --card: #111111; --green: #28a745; --blue: #00bcd4; --purple: #9c27b0; --red: #ff4444; }
         body, html { margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; background: var(--bg); color: white; overflow-x: hidden; height: 100%; width: 100%; }
 
-        /* --- واجهة الـ Splash (مطابقة للصورة تماماً) --- */
+        /* --- واجهة الـ Splash (6 ثواني مع Fade) --- */
         #splashScreen { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: #000; display: flex; flex-direction: column; 
             justify-content: center; align-items: center; z-index: 99999; 
+            animation: fadeIn 1.5s ease;
         }
         
         .splash-header {
@@ -32,18 +33,31 @@
         .splash-subtext { color: #ffffff; font-size: 18px; margin-top: 5px; font-weight: 700; }
         .splash-dev { position: absolute; bottom: 60px; color: #444; font-weight: 900; letter-spacing: 6px; font-size: 12px; }
 
-        /* --- رسالة انقطاع الإنترنت التوضيحية --- */
-        #offlineMsg { 
-            display: none; background: #ff4444; color: white; padding: 15px; 
-            position: fixed; top: 60px; width: 90%; left: 5%; z-index: 100001; 
-            border-radius: 10px; font-weight: 900; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
 
         /* --- واجهة التطبيق الرئيسية --- */
-        .container { display: none; padding: 20px; text-align: center; }
-        .header h1 { color: var(--gold); font-size: 35px; margin-bottom: 30px; font-weight: 900; }
-        .menu-btn { width: 100%; max-width: 380px; padding: 22px; margin: 12px 0; border: none; border-radius: 20px; font-size: 19px; font-weight: 700; color: white; background: var(--card); border-right: 8px solid var(--gold); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; }
+        .container { display: none; padding: 20px; text-align: center; animation: fadeIn 1s ease; position: relative; }
         
+        /* زر الخروج العصري (أعلى اليسار) */
+        .top-exit-btn {
+            position: absolute; top: 15px; left: 15px;
+            background: linear-gradient(145deg, #222, #000);
+            color: var(--red); border: 2px solid var(--red);
+            width: 45px; height: 45px; border-radius: 50%;
+            font-size: 18px; cursor: pointer; display: flex;
+            align-items: center; justify-content: center;
+            z-index: 100; box-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
+            transition: 0.3s;
+        }
+        .top-exit-btn:active { transform: scale(0.85); background: var(--red); color: white; }
+
+        .header h1 { color: var(--gold); font-size: 35px; margin-bottom: 30px; margin-top: 40px; font-weight: 900; }
+        
+        .menu-btn { width: 100%; max-width: 380px; padding: 22px; margin: 12px 0; border: none; border-radius: 20px; font-size: 19px; font-weight: 700; color: white; background: var(--card); border-right: 8px solid var(--gold); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+        .menu-btn:active { transform: scale(0.97); }
+
+        /* الأقسام */
         .section { display: none; width: 100%; max-width: 400px; margin: 0 auto; animation: fadeInUp 0.4s; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
@@ -53,15 +67,19 @@
         .doc-table td { border-bottom: 1px solid #222; padding: 12px; }
         .item-card { background: var(--card); padding: 22px; border-radius: 20px; margin-bottom: 18px; border-right: 8px solid var(--green); text-align: right; }
         .action-link { text-decoration: none; padding: 15px; border-radius: 12px; color: white; font-weight: bold; display: inline-block; margin-top: 10px; text-align: center; cursor: pointer; border: none; font-family: 'Tajawal'; flex: 1; }
-        #roleBox { font-size: 32px; color: var(--gold); padding: 25px; background: rgba(255,193,7,0.08); border-radius: 20px; margin-bottom: 20px; border: 2px dashed var(--gold); font-weight: 900; }
-        input { width: 100%; padding: 20px; margin: 10px 0; border-radius: 15px; border: 1px solid #333; background: #080808; color: white; box-sizing: border-box; font-size: 16px; }
+        
+        /* قسم التأمين الصحي المرجع */
+        .insurance-box { background: rgba(156, 39, 176, 0.1); border: 2px solid var(--purple); border-radius: 20px; padding: 20px; margin-top: 20px; }
+        .cam-btn { width: 100%; background: var(--purple); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: bold; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px; }
 
-        @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+        #roleBox { font-size: 32px; color: var(--gold); padding: 25px; background: rgba(255,193,7,0.08); border-radius: 20px; margin-bottom: 20px; border: 2px dashed var(--gold); font-weight: 900; }
+        input { width: 100%; padding: 20px; margin: 10px 0; border-radius: 15px; border: 1px solid #333; background: #080808; color: white; box-sizing: border-box; font-size: 16px; font-family: 'Tajawal'; }
+        #offlineMsg { display: none; background: #ff4444; color: white; padding: 15px; position: fixed; top: 0; width: 100%; z-index: 100001; font-weight: 900; text-align: center; }
     </style>
 </head>
 <body>
 
-<div id="offlineMsg">📡 عذراً، أنت غير متصل بالإنترنت حالياً. يرجى التحقق من الشبكة.</div>
+<div id="offlineMsg">📡 عذراً، لا يوجد اتصال بالإنترنت.</div>
 
 <div id="splashScreen">
     <div class="splash-header">
@@ -76,10 +94,12 @@
 </div>
 
 <div class="container" id="mainApp">
+    <button class="top-exit-btn" onclick="exitApp()">✕</button>
+
     <div class="header"><h1>سَرِيع⚡</h1></div>
 
     <div id="mainMenu" style="width: 100%; max-width: 380px; margin: 0 auto;">
-        <button class="menu-btn" onclick="showSec('maint')" style="border-right-color: var(--gold);">🛠️ خدمات الصيانة <span>←</span></button>
+        <button class="menu-btn" onclick="showSec('maint')">🛠️ خدمات الصيانة <span>←</span></button>
         <button class="menu-btn" style="border-right-color: var(--green);" onclick="showSec('trans')">🛺 مشوار (المواصلات) <span>←</span></button>
         <button class="menu-btn" style="border-right-color: var(--blue);" onclick="showSec('health')">🏥 الخدمات الصحية <span>←</span></button>
     </div>
@@ -89,27 +109,35 @@
         <table class="doc-table">
             <tr><th>اليوم</th><th>الصباح</th><th>المساء</th></tr>
             <tr><td>السبت</td><td>د. الطيب</td><td>د. الطيب</td></tr>
-            <tr><td>الأحد</td><td>د. رزان</td><td>---</td></tr>
             <tr><td>الاثنين</td><td>د. الطيب</td><td>د. سلمى</td></tr>
             <tr><td>الثلاثاء</td><td>د. سلمى</td><td>د. الطيب</td></tr>
             <tr><td>الأربعاء</td><td>د. الطيب</td><td>د. رزان</td></tr>
             <tr><td>الخميس</td><td>د. الطيب</td><td>د. الطيب</td></tr>
         </table>
+        
         <div id="roleBox">جاري التحميل...</div>
+        
         <input type="text" id="pName" placeholder="اسم المريض الثلاثي">
         <div style="display:flex; gap:10px; margin-bottom: 10px;">
             <button onclick="booking('أنوار')" class="action-link" style="background:var(--gold); color:black;">🌅 حجز (أنوار)</button>
             <button onclick="booking('زينب')" class="action-link" style="background:var(--blue); color:black;">🌃 حجز (زينب)</button>
         </div>
-        <button onclick="document.getElementById('camInput').click()" style="width:100%; background:var(--purple); border:none; color:white; padding:18px; border-radius:15px; font-weight:bold; cursor:pointer;">📸 تصوير بطاقة التأمين</button>
-        <input type="file" id="camInput" accept="image/*" capture="camera" style="display:none;">
+
+        <div class="insurance-box">
+            <h4 style="margin:0; color:var(--purple);">🛡️ خدمات التأمين الصحي</h4>
+            <p style="font-size:12px; color:#aaa; margin: 5px 0;">قم بتصوير بطاقة التأمين لتسهيل الإجراءات</p>
+            <button class="cam-btn" onclick="document.getElementById('camInput').click()">
+                📷 تصوير بطاقة التأمين
+            </button>
+            <input type="file" id="camInput" accept="image/*" capture="camera" style="display:none;">
+        </div>
     </div>
 
     <div id="maint" class="section">
         <button onclick="hideSec()" class="back-btn">🔙 عودة</button>
-        <div class="item-card" style="border-right-color: var(--gold);">
-            <h3 style="margin:0; font-size:22px;">أبوبكر عبد الرحمن</h3>
-            <p style="color:#888; margin-top:5px;">مسؤول الصيانة</p>
+        <div class="item-card">
+            <h3 style="margin:0;">أبوبكر عبد الرحمن</h3>
+            <p style="color:#888;">مسؤول الصيانة</p>
             <a href="tel:+249114239983" class="action-link" style="background:var(--green); width:90%;">📞 اتصال مباشر</a>
         </div>
     </div>
@@ -126,18 +154,25 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script>
-    // --- منطق الإنترنت والـ Splash ---
     function initApp() {
         if (navigator.onLine) {
             document.getElementById('offlineMsg').style.display = 'none';
-            // إخفاء الـ Splash بعد 3 ثواني وإظهار التطبيق
             setTimeout(() => {
-                document.getElementById('splashScreen').style.animation = 'fadeOut 0.8s forwards';
-                document.getElementById('mainApp').style.display = 'block';
-            }, 3000);
+                document.getElementById('splashScreen').style.animation = 'fadeOut 1s forwards';
+                setTimeout(() => {
+                    document.getElementById('mainApp').style.display = 'block';
+                }, 800);
+            }, 6000); 
         } else {
-            // إذا لم يوجد إنترنت، تظل الـ Splash ظاهرة مع رسالة التوضيح
             document.getElementById('offlineMsg').style.display = 'block';
+        }
+    }
+
+    function exitApp() {
+        if (confirm("هل تريد إغلاق التطبيق؟")) {
+            window.close();
+            if (navigator.app) { navigator.app.exitApp(); }
+            else if (navigator.device) { navigator.device.exitApp(); }
         }
     }
 
@@ -172,7 +207,7 @@
         const snapshot = await db.ref('queue').once('value');
         let num = (snapshot.val() ? snapshot.val().currentNumber : 0) + 1;
         await db.ref('queue/currentNumber').set(num);
-        let phone = (responsible === 'أنوار') ? "249119298352" : "249116031931";
+        let phone = (responsible === 'أنوار') ? "249119298358" : "931249116031";
         let message = `حجز مركز صحي الولي\nالدور: ${num}\nالمريض: ${name}\nالمسؤول: ${responsible}`;
         window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     }
